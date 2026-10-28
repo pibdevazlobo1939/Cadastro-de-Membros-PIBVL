@@ -395,7 +395,7 @@
 
     function interpretarData(texto) {
       const partes = texto.trim().split("/");
-      if (partes.length !== 3 || partes.some(p => !/^\\d+$/.test(p))) return null;
+      if (partes.length !== 3 || partes.some(p => !/^\d+$/.test(p))) return null;
       const [dia, mes, ano] = partes.map(Number);
       const data = new Date(ano, mes - 1, dia, 12);
       if (ano < 1900 || data.getFullYear() !== ano || data.getMonth() !== mes - 1 || data.getDate() !== dia) return null;
@@ -434,13 +434,13 @@
     nascimento.addEventListener("input", atualizarIdade);
     nascimento.addEventListener("blur", () => {
       const v = nascimento.value.trim();
-      if (/^\\d{8}$/.test(v)) nascimento.value = v.slice(0,2) + "/" + v.slice(2,4) + "/" + v.slice(4);
+      if (/^\d{8}$/.test(v)) nascimento.value = v.slice(0,2) + "/" + v.slice(2,4) + "/" + v.slice(4);
       atualizarIdade();
     });
 
     document.getElementById("dataBatismo").addEventListener("blur", event => {
       const v = event.target.value.trim();
-      if (/^\\d{8}$/.test(v)) event.target.value = v.slice(0,2) + "/" + v.slice(2,4) + "/" + v.slice(4);
+      if (/^\d{8}$/.test(v)) event.target.value = v.slice(0,2) + "/" + v.slice(2,4) + "/" + v.slice(4);
       if (v && !interpretarData(event.target.value)) event.target.setCustomValidity("Digite a data de batismo no formato DD/MM/AAAA ou deixe em branco.");
       else event.target.setCustomValidity("");
     });
