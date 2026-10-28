@@ -44,7 +44,7 @@ input:focus,select:focus{outline:2px solid #12a7d455;border-color:var(--claro)}i
 <div class="campo completo"><label for="email">E-mail</label><input id="email" type="email" autocomplete="email"></div>
 </div></section>
 <section class="bloco"><h2 class="secao-titulo">Informações da igreja</h2><div class="grade">
-<div class="campo"><label for="dataBatismo">Data de batismo (DD/MM/AAAA)</label><input id="dataBatismo" type="text" inputmode="numeric" placeholder="DD/MM/AAAA" maxlength="10"><p id="ajudaBatismo" class="ajuda">Consulte a data de batismo informada no cadastro anterior. Para exibir a data correta, será necessário localizar seu nome na relação oficial de batismos.</p></div>
+<div class="campo"><label for="dataBatismo">Data de batismo (DD/MM/AAAA)</label><input id="dataBatismo" type="text" inputmode="numeric" placeholder="DD/MM/AAAA" maxlength="10"><p id="ajudaBatismo" class="ajuda">Digite seu nome completo. Se houver um registro na relação de batismos, a data será preenchida automaticamente. Confira a data antes de enviar.</p></div>
 <div class="campo"><label for="atuaMinisterio">Atua em algum ministério? *</label><select id="atuaMinisterio" required><option value="">Selecione</option><option>Sim</option><option>Não</option></select></div>
 <div class="campo completo" id="campoQualMinisterio" hidden><label for="qualMinisterio">Qual ministério? *</label><input id="qualMinisterio" placeholder="Informe o ministério" disabled></div>
 <div class="campo"><label for="trabalha">Você trabalha atualmente? *</label><select id="trabalha" required><option value="">Selecione</option><option>Sim</option><option>Não</option><option>Aposentado(a)</option></select></div>
@@ -74,7 +74,7 @@ input:focus,select:focus{outline:2px solid #12a7d455;border-color:var(--claro)}i
 <footer class="rodape">Primeira Igreja Batista em Vaz Lobo</footer>
 </main>
 <script>
-const URL_SCRIPT="https://script.google.com/macros/s/AKfycbxjusD2XzVeJxdPtA9351rXtU4PhNfq_clz6n0o58SanoaRCezTKP_e4FwgB_AVUjWerA/exec";
+const URL_SCRIPT="https://script.google.com/macros/s/AKfycbz00zcV3Us_mFpcSFL2OFUWJalUnWevcARvkoi_iNV9X1Ky73eBSKcmSZ3N5Qfv902ZMQ/exec";
 const form=document.getElementById("formCadastro"), nascimento=document.getElementById("nascimento"), idadeInfo=document.getElementById("idadeInfo"), fotoInput=document.getElementById("foto"), preview=document.getElementById("preview"), statusEl=document.getElementById("status"), botao=document.getElementById("botaoEnviar"), filhosContainer=document.getElementById("filhosContainer"), temFilhos=document.getElementById("temFilhos"), adicionarFilho=document.getElementById("adicionarFilho"), telaFinal=document.getElementById("telaFinal"), mensagemRevisao=document.getElementById("mensagemRevisao");
 let contadorFilhos=0;
 const meses=["Janeiro","Fevereiro","Março","Abril","Maio","Junho","Julho","Agosto","Setembro","Outubro","Novembro","Dezembro"];
@@ -83,7 +83,86 @@ function paraISO(texto){const d=dataValida(texto);return d?d.getFullYear()+"-"+S
 function mascaraData(el){let v=el.value.replace(/\D/g,"").slice(0,8);if(v.length>4)v=v.slice(0,2)+"/"+v.slice(2,4)+"/"+v.slice(4);else if(v.length>2)v=v.slice(0,2)+"/"+v.slice(2);el.value=v;}
 function atualizarIdade(){const d=dataValida(nascimento.value);if(!nascimento.value.trim()){idadeInfo.textContent="Informe a data no formato DD/MM/AAAA.";nascimento.setCustomValidity("");return;}if(!d){idadeInfo.textContent="Digite uma data válida no formato DD/MM/AAAA.";nascimento.setCustomValidity("Digite uma data válida no formato DD/MM/AAAA.");return;}if(d>new Date()){idadeInfo.textContent="A data não pode estar no futuro.";nascimento.setCustomValidity("A data de nascimento não pode estar no futuro.");return;}nascimento.setCustomValidity("");idadeInfo.textContent="Data de nascimento válida.";}
 [nascimento,document.getElementById("dataBatismo")].forEach(el=>el.addEventListener("input",()=>mascaraData(el)));
+
 nascimento.addEventListener("input",atualizarIdade);
+
+// Consulta a relação oficial de batismos pelo nome completo.
+const nomeInput=document.getElementById("nome");
+const dataBatismoInput=document.getElementById("dataBatismo");
+const ajudaBatismo=document.getElementById("ajudaBatismo");
+let temporizadorBatismo=null;
+let sequenciaConsultaBatismo=0;
+
+dataBatismoInput.addEventListener("input",()=>{
+  dataBatismoInput.dataset.preenchidoConsulta="";
+});
+
+function consultarDataBatismo(){
+  const nome=nomeInput.value.trim().replace(/\\s+/g," ");
+  const partes=nome.split(" ").filter(Boolean);
+  if(partes.length<2 || nome.length<8){
+    ajudaBatismo.textContent="Digite seu nome completo. Se houver um registro na relação de batismos, a data será preenchida automaticamente.";
+    if(dataBatismoInput.dataset.preenchidoConsulta==="sim"){
+      dataBatismoInput.value="";
+      dataBatismoInput.dataset.preenchidoConsulta="";
+    }
+    return;
+  }
+
+  const id=++sequenciaConsultaBatismo;
+  const callbackNome="retornoBatismo_"+id;
+  const script=document.createElement("script");
+  const url=new URL(URL_SCRIPT);
+  url.searchParams.set("acao","consultarBatismo");
+  url.searchParams.set("nome",nome);
+  url.searchParams.set("callback",callbackNome);
+
+  window[callbackNome]=(resposta)=>{
+    delete window[callbackNome];
+    script.remove();
+    if(id!==sequenciaConsultaBatismo)return;
+
+    if(resposta && resposta.resultado==="sucesso" && resposta.dataBatismo){
+      if(!dataBatismoInput.value.trim() || dataBatismoInput.dataset.preenchidoConsulta==="sim"){
+        dataBatismoInput.value=resposta.dataBatismo;
+        dataBatismoInput.dataset.preenchidoConsulta="sim";
+      }
+      ajudaBatismo.textContent="Encontramos uma data na relação de batismos: "+resposta.dataBatismo+". Confira antes de enviar.";
+    }else if(resposta && resposta.resultado==="nome_duplicado"){
+      ajudaBatismo.textContent="Encontramos mais de um registro com esse nome. Fale com a equipe para confirmar a data.";
+      if(dataBatismoInput.dataset.preenchidoConsulta==="sim"){
+        dataBatismoInput.value="";
+        dataBatismoInput.dataset.preenchidoConsulta="";
+      }
+    }else{
+      ajudaBatismo.textContent="Não encontramos uma data para esse nome. Confira a grafia ou preencha a data manualmente, se souber.";
+      if(dataBatismoInput.dataset.preenchidoConsulta==="sim"){
+        dataBatismoInput.value="";
+        dataBatismoInput.dataset.preenchidoConsulta="";
+      }
+    }
+  };
+
+  script.onerror=()=>{
+    delete window[callbackNome];
+    script.remove();
+    if(id===sequenciaConsultaBatismo){
+      ajudaBatismo.textContent="Não foi possível consultar a relação agora. Você pode preencher a data manualmente.";
+    }
+  };
+  script.src=url.toString();
+  document.head.appendChild(script);
+}
+
+nomeInput.addEventListener("input",()=>{
+  clearTimeout(temporizadorBatismo);
+  ajudaBatismo.textContent="Consultando a relação de batismos após você digitar o nome completo...";
+  temporizadorBatismo=setTimeout(consultarDataBatismo,700);
+});
+nomeInput.addEventListener("blur",()=>{
+  clearTimeout(temporizadorBatismo);
+  consultarDataBatismo();
+});
 document.getElementById("atuaMinisterio").addEventListener("change",e=>{const c=document.getElementById("qualMinisterio");const bloco=document.getElementById("campoQualMinisterio");const mostrar=e.target.value==="Sim";bloco.hidden=!mostrar;c.disabled=!mostrar;c.required=mostrar;if(!mostrar)c.value="";});
 function criarCampoFilho(){contadorFilhos++;const bloco=document.createElement("div");bloco.className="bloco filho";bloco.innerHTML='<h3 class="secao-titulo">Filho '+contadorFilhos+'</h3><div class="grade"><div class="campo completo"><label>Nome completo *</label><input name="filhoNome" required></div><div class="campo"><label>Sexo</label><select name="filhoSexo"><option value="">Selecione</option><option>Feminino</option><option>Masculino</option></select></div><div class="campo"><label>Data de nascimento * (DD/MM/AAAA)</label><input name="filhoNascimento" inputmode="numeric" maxlength="10" placeholder="DD/MM/AAAA" required></div><div class="campo completo"><label>Foto do filho (opcional)</label><input name="filhoFoto" type="file" accept="image/jpeg,image/png,image/webp"><p class="ajuda">O nome do arquivo será anotado; o envio da foto do filho ainda não está habilitado.</p></div></div>';const data=bloco.querySelector('[name="filhoNascimento"]');data.addEventListener("input",()=>mascaraData(data));filhosContainer.appendChild(bloco);}
 temFilhos.addEventListener("change",()=>{const mostrar=temFilhos.value==="Sim";filhosContainer.hidden=!mostrar;adicionarFilho.style.display=mostrar?"block":"none";if(mostrar&&!filhosContainer.children.length)criarCampoFilho();if(!mostrar){filhosContainer.innerHTML="";contadorFilhos=0;}});
