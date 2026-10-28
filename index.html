@@ -380,84 +380,127 @@
 
   <script>
     const URL_SCRIPT = "https://script.google.com/macros/s/AKfycbxjusD2XzVeJxdPtA9351rXtU4PhNfq_clz6n0o58SanoaRCezTKP_e4FwgB_AVUjWerA/exec";
-
     const form = document.getElementById("formCadastro");
     const nascimento = document.getElementById("nascimento");
-    const idade = document.getElementById("idade");
-    const mesAniversario = document.getElementById("mesAniversario");
+    const idadeInfo = document.getElementById("idadeInfo");
     const fotoInput = document.getElementById("foto");
     const preview = document.getElementById("preview");
     const status = document.getElementById("status");
     const botao = document.getElementById("botaoEnviar");
+    const acoesPosEnvio = document.getElementById("acoesPosEnvio");
+    const filhosContainer = document.getElementById("filhosContainer");
+    const temFilhos = document.getElementById("temFilhos");
+    const adicionarFilho = document.getElementById("adicionarFilho");
+    let contadorFilhos = 0;
 
-    const meses = [
-      "Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho",
-      "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"
-    ];
+    function interpretarData(texto) {
+      const partes = texto.trim().split("/");
+      if (partes.length !== 3 || partes.some(p => !/^\\d+$/.test(p))) return null;
+      const [dia, mes, ano] = partes.map(Number);
+      const data = new Date(ano, mes - 1, dia, 12);
+      if (ano < 1900 || data.getFullYear() !== ano || data.getMonth() !== mes - 1 || data.getDate() !== dia) return null;
+      return data;
+    }
 
-    nascimento.max = new Date().toISOString().split("T")[0];
+    function paraISO(texto) {
+      const d = interpretarData(texto);
+      return d ? d.getFullYear() + "-" + String(d.getMonth()+1).padStart(2,"0") + "-" + String(d.getDate()).padStart(2,"0") : "";
+    }
 
-    nascimento.addEventListener("change", () => {
-      if (!nascimento.value) {
-        idade.value = "";
-        mesAniversario.value = "";
+    function atualizarIdade() {
+      const texto = nascimento.value.trim();
+      if (!texto) {
+        idadeInfo.innerHTML = '<p class="ajuda">Sua idade aparecerá aqui após informar a data de nascimento.</p>';
+        nascimento.setCustomValidity("");
         return;
       }
-
-      const data = new Date(nascimento.value + "T12:00:00");
+      const data = interpretarData(texto);
+      if (!data) {
+        idadeInfo.innerHTML = '<p class="ajuda">Digite uma data válida no formato DD/MM/AAAA.</p>';
+        nascimento.setCustomValidity("Digite a data no formato DD/MM/AAAA.");
+        return;
+      }
       const hoje = new Date();
-
+      let anos = hoje.getFullYear() - data.getFullYear();
+      if (hoje.getMonth() < data.getMonth() || (hoje.getMonth() === data.getMonth() && hoje.getDate() < data.getDate())) anos--;
       if (data > hoje) {
+        idadeInfo.innerHTML = '<p class="ajuda">A data de nascimento não pode estar no futuro.</p>';
         nascimento.setCustomValidity("A data de nascimento não pode estar no futuro.");
-        nascimento.reportValidity();
-        idade.value = "";
-        mesAniversario.value = "";
         return;
       }
-
       nascimento.setCustomValidity("");
-
-      let anos = hoje.getFullYear() - data.getFullYear();
-      const aindaNaoFezAniversario =
-        hoje.getMonth() < data.getMonth() ||
-        (hoje.getMonth() === data.getMonth() && hoje.getDate() < data.getDate());
-
-      if (aindaNaoFezAniversario) anos--;
-
-      idade.value = anos;
-      mesAniversario.value = meses[data.getMonth()];
+      idadeInfo.innerHTML = '<p class="ajuda">Atualmente você tem <strong>' + anos + ' anos</strong> de idade.</p>';
+    }
+    nascimento.addEventListener("input", atualizarIdade);
+    nascimento.addEventListener("blur", () => {
+      const v = nascimento.value.trim();
+      if (/^\\d{8}$/.test(v)) nascimento.value = v.slice(0,2) + "/" + v.slice(2,4) + "/" + v.slice(4);
+      atualizarIdade();
     });
 
+    document.getElementById("dataBatismo").addEventListener("blur", event => {
+      const v = event.target.value.trim();
+      if (/^\\d{8}$/.test(v)) event.target.value = v.slice(0,2) + "/" + v.slice(2,4) + "/" + v.slice(4);
+      if (v && !interpretarData(event.target.value)) event.target.setCustomValidity("Digite a data de batismo no formato DD/MM/AAAA ou deixe em branco.");
+      else event.target.setCustomValidity("");
+    });
     document.getElementById("atuaMinisterio").addEventListener("change", event => {
       const campo = document.getElementById("qualMinisterio");
-      if (event.target.value === "Não") {
-        campo.value = "";
-        campo.disabled = true;
-      } else {
-        campo.disabled = false;
-      }
+      campo.disabled = event.target.value !== "Sim";
+      if (campo.disabled) campo.value = "";
+    });
+
+    function criarCampoFilho() {
+      contadorFilhos++;
+      const bloco = document.createElement("div");
+      bloco.className = "bloco";
+      bloco.innerHTML = '<h3 class="secao-titulo">Filho ' + contadorFilhos + '</h3><div class="grade"><div class="campo completo"><label>Nome completo <span class="obrigatorio">*</span></label><input name="filhoNome[]" type="text" spellcheck="true" required></div><div class="campo"><label>Sexo</label><select name="filhoSexo[]"><option value="">Selecione</option><option value="Masculino">Masculino</option><option value="Feminino">Feminino</option></select></div><div class="campo"><label>Data de nascimento <span class="obrigatorio">*</span></label><input name="filhoNascimento[]" type="text" inputmode="numeric" placeholder="DD/MM/AAAA" maxlength="10" required></div><div class="campo completo"><label>Foto individual</label><input name="filhoFoto[]" type="file" accept="image/jpeg,image/png,image/webp"><p class="ajuda">Opcional. Máximo 4 MB.</p></div></div>';
+      filhosContainer.appendChild(bloco);
+    }
+    temFilhos.addEventListener("change", () => {
+      const mostrar = temFilhos.value === "Sim";
+      filhosContainer.hidden = !mostrar;
+      adicionarFilho.style.display = mostrar ? "block" : "none";
+      if (mostrar && !filhosContainer.children.length) criarCampoFilho();
+      if (!mostrar) { filhosContainer.innerHTML = ""; contadorFilhos = 0; }
+    });
+    adicionarFilho.addEventListener("click", criarCampoFilho);
+
+    document.getElementById("revisarCadastro").addEventListener("click", () => {
+      acoesPosEnvio.hidden = true;
+      status.style.display = "none";
+      form.scrollIntoView({behavior:"smooth", block:"start"});
+    });
+    document.getElementById("adicionarMembro").addEventListener("click", () => {
+      form.reset();
+      atualizarIdade();
+      preview.style.display = "none";
+      preview.removeAttribute("src");
+      filhosContainer.innerHTML = "";
+      filhosContainer.hidden = true;
+      contadorFilhos = 0;
+      adicionarFilho.style.display = "none";
+      acoesPosEnvio.hidden = true;
+      status.style.display = "none";
+      document.getElementById("qualMinisterio").disabled = true;
+      form.scrollIntoView({behavior:"smooth", block:"start"});
     });
 
     fotoInput.addEventListener("change", () => {
       const arquivo = fotoInput.files[0];
-
       preview.style.display = "none";
       preview.removeAttribute("src");
-
       if (!arquivo) return;
-
       if (!["image/jpeg", "image/png", "image/webp"].includes(arquivo.type)) {
         fotoInput.value = "";
         mostrarStatus("Selecione uma imagem JPG, PNG ou WebP.", false);
         return;
       }
-
       if (arquivo.size > 4 * 1024 * 1024) {
         fotoInput.value = "";
         mostrarStatus("A foto deve ter no máximo 4 MB.", false);
         return;
       }
-
       preview.src = URL.createObjectURL(arquivo);
       preview.style.display = "block";
       status.style.display = "none";
@@ -467,16 +510,10 @@
       status.textContent = mensagem;
       status.className = sucesso ? "sucesso" : "erro";
     }
-
     function arquivoParaBase64(arquivo) {
       return new Promise((resolve, reject) => {
         const leitor = new FileReader();
-
-        leitor.onload = () => {
-          const resultado = String(leitor.result);
-          resolve(resultado.split(",")[1]);
-        };
-
+        leitor.onload = () => resolve(String(leitor.result).split(",")[1]);
         leitor.onerror = () => reject(new Error("Não foi possível ler a foto."));
         leitor.readAsDataURL(arquivo);
       });
@@ -485,76 +522,63 @@
     form.addEventListener("submit", async event => {
       event.preventDefault();
       status.style.display = "none";
-
+      acoesPosEnvio.hidden = true;
       if (!form.reportValidity()) return;
-
-      const arquivo = fotoInput.files[0];
-
-      if (arquivo && arquivo.size > 4 * 1024 * 1024) {
-        mostrarStatus("A foto deve ter no máximo 4 MB.", false);
-        return;
+      const dataNasc = interpretarData(nascimento.value);
+      if (!dataNasc) { mostrarStatus("Confira a data de nascimento: use DD/MM/AAAA.", false); nascimento.focus(); return; }
+      const dataBatismoTexto = document.getElementById("dataBatismo").value.trim();
+      if (dataBatismoTexto && !interpretarData(dataBatismoTexto)) {
+        mostrarStatus("Confira a data de batismo: use DD/MM/AAAA ou deixe em branco.", false);
+        document.getElementById("dataBatismo").focus(); return;
       }
+      const arquivo = fotoInput.files[0];
+      if (arquivo && arquivo.size > 4 * 1024 * 1024) { mostrarStatus("A foto deve ter no máximo 4 MB.", false); return; }
 
+      const hoje = new Date();
+      let anos = hoje.getFullYear() - dataNasc.getFullYear();
+      if (hoje.getMonth() < dataNasc.getMonth() || (hoje.getMonth() === dataNasc.getMonth() && hoje.getDate() < dataNasc.getDate())) anos--;
       const dados = {
         nome: document.getElementById("nome").value.trim(),
         sexo: document.getElementById("sexo").value,
-        nascimento: nascimento.value,
-        idade: idade.value,
-        mesAniversario: mesAniversario.value,
+        nascimento: paraISO(nascimento.value),
+        idade: anos,
+        mesAniversario: ["Janeiro","Fevereiro","Março","Abril","Maio","Junho","Julho","Agosto","Setembro","Outubro","Novembro","Dezembro"][dataNasc.getMonth()],
         estadoCivil: document.getElementById("estadoCivil").value,
         endereco: document.getElementById("endereco").value.trim(),
         bairro: document.getElementById("bairro").value.trim(),
         celular: document.getElementById("celular").value.trim(),
         email: document.getElementById("email").value.trim(),
-        batizado: document.getElementById("batizado").value,
-        dataBatismo: document.getElementById("dataBatismo").value,
+        batizado: "",
+        dataBatismo: paraISO(dataBatismoTexto),
         atuaMinisterio: document.getElementById("atuaMinisterio").value,
         qualMinisterio: document.getElementById("qualMinisterio").value.trim(),
-        fotoData: "",
-        fotoMime: "",
-        fotoNome: ""
+        trabalha: document.getElementById("trabalha").value,
+        temFilhos: temFilhos.value,
+        filhos: Array.from(filhosContainer.querySelectorAll(".bloco")).map(b => ({
+          nome: b.querySelector('[name="filhoNome[]"]').value.trim(),
+          sexo: b.querySelector('[name="filhoSexo[]"]').value,
+          nascimento: paraISO(b.querySelector('[name="filhoNascimento[]"]').value),
+          fotoNome: b.querySelector('[name="filhoFoto[]"]').files[0]?.name || ""
+        })),
+        fotoData: "", fotoMime: "", fotoNome: ""
       };
-
       try {
         botao.disabled = true;
         botao.textContent = "Enviando cadastro...";
-
         if (arquivo) {
           dados.fotoData = await arquivoParaBase64(arquivo);
           dados.fotoMime = arquivo.type;
           dados.fotoNome = arquivo.name;
         }
-
-        /*
-          O modo no-cors permite enviar os dados ao Apps Script sem
-          uma solicitação CORS de preflight. A resposta fica opaca:
-          o navegador não consegue confirmar se o script salvou os dados.
-        */
         await fetch(URL_SCRIPT, {
-          method: "POST",
-          mode: "no-cors",
-          headers: {
-            "Content-Type": "text/plain;charset=UTF-8"
-          },
+          method: "POST", mode: "no-cors",
+          headers: {"Content-Type": "text/plain;charset=UTF-8"},
           body: JSON.stringify(dados)
         });
-
-        mostrarStatus(
-          "Solicitação enviada pelo navegador. Como não é possível confirmar a resposta do Google, verifique a planilha antes de enviar novamente.",
-          true
-        );
-
-        form.reset();
-        idade.value = "";
-        mesAniversario.value = "";
-        document.getElementById("qualMinisterio").disabled = false;
-        preview.style.display = "none";
-        preview.removeAttribute("src");
+        mostrarStatus("Solicitação enviada pelo navegador. O sistema de gravação ainda precisa ser atualizado para confirmar o salvamento e registrar os novos campos. Não envie novamente até a equipe confirmar.", true);
+        acoesPosEnvio.hidden = false;
       } catch (erro) {
-        mostrarStatus(
-          "Não foi possível enviar os dados. Verifique sua conexão e tente novamente.",
-          false
-        );
+        mostrarStatus("Não foi possível enviar os dados. Verifique sua conexão e tente novamente.", false);
       } finally {
         botao.disabled = false;
         botao.textContent = "Enviar cadastro";
