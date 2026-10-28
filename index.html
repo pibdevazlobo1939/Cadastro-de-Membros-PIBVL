@@ -98,7 +98,7 @@ dataBatismoInput.addEventListener("input",()=>{
 });
 
 function consultarDataBatismo(){
-  const nome=nomeInput.value.trim().replace(/\\s+/g," ");
+  const nome=nomeInput.value.trim().replace(/\s+/g," ");
   const partes=nome.split(" ").filter(Boolean);
   if(partes.length<2 || nome.length<8){
     ajudaBatismo.textContent="Digite seu nome completo. Se houver um registro na relação de batismos, a data será preenchida automaticamente.";
