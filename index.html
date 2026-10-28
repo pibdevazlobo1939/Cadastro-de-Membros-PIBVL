@@ -1,589 +1,92 @@
-
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#1246a0">
-  <meta name="description" content="Cadastro de membros da Primeira Igreja Batista em Vaz Lobo.">
-  <title>Cadastro de Membros — Primeira Igreja Batista em Vaz Lobo</title>
-
-  <style>
-    :root {
-      --azul: #1746a2;
-      --azul-escuro: #123579;
-      --azul-claro: #12a7d4;
-      --fundo: #f1f6fc;
-      --texto: #24344d;
-      --borda: #d6e0ee;
-    }
-
-    * {
-      box-sizing: border-box;
-    }
-
-    body {
-      margin: 0;
-      padding: 24px 14px;
-      font-family: Arial, Helvetica, sans-serif;
-      color: var(--texto);
-      background: linear-gradient(135deg, #e9f4ff, #f7faff);
-      min-height: 100vh;
-    }
-
-    .container {
-      width: 100%;
-      max-width: 720px;
-      margin: 0 auto;
-      background: #fff;
-      border-radius: 18px;
-      overflow: hidden;
-      box-shadow: 0 8px 30px rgba(18, 53, 121, .12);
-    }
-
-    .topo {
-      text-align: center;
-      padding: 30px 22px 25px;
-      color: white;
-      background: linear-gradient(120deg, var(--azul-escuro), var(--azul), var(--azul-claro));
-    }
-
-    .logo {
-      display: block;
-      width: 112px;
-      height: 112px;
-      object-fit: contain;
-      margin: 0 auto 16px;
-      padding: 7px;
-      background: white;
-      border-radius: 14px;
-    }
-
-    .topo h1 {
-      font-size: clamp(21px, 4vw, 28px);
-      line-height: 1.3;
-      margin: 0 0 8px;
-    }
-
-    .topo p {
-      margin: 0;
-      font-size: 14px;
-      line-height: 1.5;
-    }
-
-    form {
-      padding: 26px;
-    }
-
-    .secao-titulo {
-      color: var(--azul);
-      font-size: 17px;
-      margin: 4px 0 18px;
-      padding-bottom: 9px;
-      border-bottom: 2px solid #e6eef9;
-    }
-
-    .grade {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 18px 16px;
-    }
-
-    .campo {
-      min-width: 0;
-    }
-
-    .campo.completo {
-      grid-column: 1 / -1;
-    }
-
-    label {
-      display: block;
-      font-size: 14px;
-      font-weight: 700;
-      margin-bottom: 7px;
-    }
-
-    .obrigatorio {
-      color: #c62828;
-    }
-
-    input, select {
-      display: block;
-      width: 100%;
-      min-height: 45px;
-      padding: 11px 12px;
-      border: 1px solid var(--borda);
-      border-radius: 8px;
-      background: #fff;
-      color: var(--texto);
-      font-size: 15px;
-      outline: none;
-      transition: border-color .2s, box-shadow .2s;
-    }
-
-    input:focus, select:focus {
-      border-color: var(--azul-claro);
-      box-shadow: 0 0 0 3px rgba(18, 167, 212, .13);
-    }
-
-    input[readonly] {
-      background: #f3f7fc;
-    }
-
-    .ajuda {
-      margin: 6px 0 0;
-      font-size: 12px;
-      color: #64748b;
-      line-height: 1.5;
-    }
-
-    .bloco {
-      margin-top: 28px;
-    }
-
-    .preview {
-      display: none;
-      width: 110px;
-      height: 110px;
-      object-fit: cover;
-      border-radius: 50%;
-      margin-top: 14px;
-      border: 3px solid #dce9f9;
-    }
-
-    .botao {
-      width: 100%;
-      margin-top: 28px;
-      padding: 15px;
-      border: none;
-      border-radius: 9px;
-      background: var(--azul);
-      color: #fff;
-      font-size: 16px;
-      font-weight: 700;
-      cursor: pointer;
-      transition: background .2s;
-    }
-
-    .botao:hover {
-      background: var(--azul-escuro);
-    }
-
-    .botao:disabled {
-      opacity: .65;
-      cursor: wait;
-    }
-
-    #status {
-      display: none;
-      margin-top: 18px;
-      padding: 13px;
-      border-radius: 8px;
-      font-size: 14px;
-      line-height: 1.5;
-      text-align: center;
-    }
-
-    #status.sucesso {
-      display: block;
-      color: #17633a;
-      background: #e9f8ef;
-    }
-
-    #status.erro {
-      display: block;
-      color: #9d2020;
-      background: #fff0f0;
-    }
-
-    .rodape {
-      text-align: center;
-      padding: 17px;
-      color: #64748b;
-      font-size: 12px;
-      border-top: 1px solid #e8eef6;
-    }
-
-    @media (max-width: 560px) {
-      body {
-        padding: 12px 8px;
-      }
-
-      .topo {
-        padding: 25px 16px;
-      }
-
-      .logo {
-        width: 94px;
-        height: 94px;
-      }
-
-      form {
-        padding: 21px 16px;
-      }
-
-      .grade {
-        grid-template-columns: 1fr;
-        gap: 16px;
-      }
-
-      .campo.completo {
-        grid-column: auto;
-      }
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#1246a0">
+<meta name="description" content="Cadastro de membros da Primeira Igreja Batista em Vaz Lobo.">
+<title>Cadastro de Membros — Primeira Igreja Batista em Vaz Lobo</title>
+<style>
+:root{--azul:#1746a2;--escuro:#123579;--claro:#12a7d4;--texto:#24344d;--borda:#d6e0ee}
+*{box-sizing:border-box}body{margin:0;padding:22px 12px;font-family:Arial,Helvetica,sans-serif;color:var(--texto);background:linear-gradient(135deg,#e9f4ff,#f7faff);min-height:100vh}
+.container{max-width:760px;margin:auto;background:white;border-radius:18px;overflow:hidden;box-shadow:0 8px 30px #1235791f}
+.topo{text-align:center;padding:28px 20px;color:white;background:linear-gradient(120deg,var(--escuro),var(--azul),var(--claro))}
+.logo{width:100px;height:100px;object-fit:contain;background:white;border-radius:12px;padding:6px;margin:0 auto 14px;display:block}.topo h1{font-size:clamp(22px,4vw,29px);margin:0 0 8px}.topo p{margin:5px 0;font-size:14px}
+form{padding:25px}.secao-titulo{font-size:17px;color:var(--azul);margin:5px 0 17px;padding-bottom:9px;border-bottom:2px solid #e6eef9}
+.grade{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}.campo{min-width:0}.completo{grid-column:1/-1}label{display:block;font-size:14px;font-weight:bold;margin-bottom:7px}
+input,select{width:100%;min-height:44px;padding:10px 11px;border:1px solid var(--borda);border-radius:8px;background:white;color:var(--texto);font-size:15px}
+input:focus,select:focus{outline:2px solid #12a7d455;border-color:var(--claro)}input:disabled{background:#f3f7fc;color:#778}
+.ajuda{font-size:12px;color:#64748b;line-height:1.5;margin:6px 0 0}.bloco{margin-top:27px}.preview{display:none;width:110px;height:110px;object-fit:cover;border-radius:50%;margin-top:12px;border:3px solid #dce9f9}
+.botao{width:100%;margin-top:24px;padding:14px;border:0;border-radius:9px;background:var(--azul);color:white;font-size:16px;font-weight:bold;cursor:pointer}.botao:disabled{opacity:.6;cursor:wait}.secundario{background:#eaf1fb;color:var(--azul);margin-top:10px}
+#status{display:none;margin-top:17px;padding:13px;border-radius:8px;font-size:14px;line-height:1.5;text-align:center}#status.sucesso{display:block;background:#e9f8ef;color:#17633a}#status.erro{display:block;background:#fff0f0;color:#9d2020}
+.rodape{text-align:center;padding:17px;color:#64748b;font-size:12px;border-top:1px solid #e8eef6}
+@media(max-width:560px){body{padding:10px 7px}.topo{padding:23px 14px}form{padding:20px 15px}.grade{grid-template-columns:1fr;gap:15px}.completo{grid-column:auto}}
+</style>
 </head>
-
 <body>
-  <main class="container">
-    <header class="topo">
-      <img
-        class="logo"
-        src="logo-pibvl.png"
-        alt="Logo da Primeira Igreja Batista em Vaz Lobo"
-      >
-      <h1>Cadastro de Membros</h1>
-      <p>Primeira Igreja Batista em Vaz Lobo</p>
-      <p>Preencha os dados abaixo com atenção.</p>
-    </header>
-
-    <form id="formCadastro">
-      <h2 class="secao-titulo">Dados pessoais</h2>
-
-      <div class="grade">
-        <div class="campo completo">
-          <label for="nome">Nome completo <span class="obrigatorio">*</span></label>
-          <input id="nome" name="nome" type="text" autocomplete="name" required>
-        </div>
-
-        <div class="campo">
-          <label for="sexo">Sexo <span class="obrigatorio">*</span></label>
-          <select id="sexo" name="sexo" required>
-            <option value="">Selecione</option>
-            <option value="Feminino">Feminino</option>
-            <option value="Masculino">Masculino</option>
-            <option value="Prefiro não informar">Prefiro não informar</option>
-          </select>
-        </div>
-
-        <div class="campo">
-          <label for="nascimento">Data de nascimento <span class="obrigatorio">*</span></label>
-          <input id="nascimento" name="nascimento" type="date" required>
-        </div>
-
-        <div class="campo">
-          <label for="idade">Idade</label>
-          <input id="idade" name="idade" type="number" readonly placeholder="Automática">
-        </div>
-
-        <div class="campo">
-          <label for="mesAniversario">Mês de aniversário</label>
-          <input id="mesAniversario" name="mesAniversario" type="text" readonly placeholder="Automático">
-        </div>
-
-        <div class="campo">
-          <label for="estadoCivil">Estado civil <span class="obrigatorio">*</span></label>
-          <select id="estadoCivil" name="estadoCivil" required>
-            <option value="">Selecione</option>
-            <option value="Solteiro(a)">Solteiro(a)</option>
-            <option value="Casado(a)">Casado(a)</option>
-            <option value="Divorciado(a)">Divorciado(a)</option>
-            <option value="Viúvo(a)">Viúvo(a)</option>
-            <option value="União estável">União estável</option>
-            <option value="Outro">Outro</option>
-          </select>
-        </div>
-      </div>
-
-      <section class="bloco">
-        <h2 class="secao-titulo">Contato e endereço</h2>
-
-        <div class="grade">
-          <div class="campo completo">
-            <label for="endereco">Endereço <span class="obrigatorio">*</span></label>
-            <input id="endereco" name="endereco" type="text" autocomplete="street-address" required>
-          </div>
-
-          <div class="campo">
-            <label for="bairro">Bairro <span class="obrigatorio">*</span></label>
-            <input id="bairro" name="bairro" type="text" required>
-          </div>
-
-          <div class="campo">
-            <label for="celular">Celular / WhatsApp <span class="obrigatorio">*</span></label>
-            <input id="celular" name="celular" type="tel" autocomplete="tel"
-                   placeholder="(21) 99999-9999" required>
-          </div>
-
-          <div class="campo completo">
-            <label for="email">E-mail</label>
-            <input id="email" name="email" type="email" autocomplete="email">
-          </div>
-        </div>
-      </section>
-
-      <section class="bloco">
-        <h2 class="secao-titulo">Informações da igreja</h2>
-
-        <div class="grade">
-          <div class="campo">
-            <label for="batizado">É batizado(a)? <span class="obrigatorio">*</span></label>
-            <select id="batizado" name="batizado" required>
-              <option value="">Selecione</option>
-              <option value="Sim">Sim</option>
-              <option value="Não">Não</option>
-            </select>
-          </div>
-
-          <div class="campo">
-            <label for="dataBatismo">Data de batismo / entrada na igreja</label>
-            <input id="dataBatismo" name="dataBatismo" type="date">
-          </div>
-
-          <div class="campo">
-            <label for="atuaMinisterio">Atua em algum ministério? <span class="obrigatorio">*</span></label>
-            <select id="atuaMinisterio" name="atuaMinisterio" required>
-              <option value="">Selecione</option>
-              <option value="Sim">Sim</option>
-              <option value="Não">Não</option>
-            </select>
-          </div>
-
-          <div class="campo">
-            <label for="qualMinisterio">Qual ministério?</label>
-            <input id="qualMinisterio" name="qualMinisterio" type="text"
-                   placeholder="Informe o ministério">
-          </div>
-        </div>
-      </section>
-
-      <section class="bloco">
-        <h2 class="secao-titulo">Foto individual</h2>
-
-        <div class="campo">
-          <label for="foto">Enviar foto</label>
-          <input id="foto" name="foto" type="file" accept="image/jpeg,image/png,image/webp">
-          <p class="ajuda">Opcional. Escolha uma foto individual em JPG, PNG ou WebP. Tamanho máximo: 4 MB.</p>
-          <img id="preview" class="preview" alt="Prévia da foto selecionada">
-        </div>
-      </section>
-
-      <button class="botao" id="botaoEnviar" type="submit">Enviar cadastro</button>
-      <div id="status" role="status" aria-live="polite"></div>
-    </form>
-
-    <footer class="rodape">
-      Primeira Igreja Batista em Vaz Lobo
-    </footer>
-  </main>
-
-  <script>
-    const URL_SCRIPT = "https://script.google.com/macros/s/AKfycbxjusD2XzVeJxdPtA9351rXtU4PhNfq_clz6n0o58SanoaRCezTKP_e4FwgB_AVUjWerA/exec";
-    const form = document.getElementById("formCadastro");
-    const nascimento = document.getElementById("nascimento");
-    const idadeInfo = document.getElementById("idadeInfo");
-    const fotoInput = document.getElementById("foto");
-    const preview = document.getElementById("preview");
-    const status = document.getElementById("status");
-    const botao = document.getElementById("botaoEnviar");
-    const acoesPosEnvio = document.getElementById("acoesPosEnvio");
-    const filhosContainer = document.getElementById("filhosContainer");
-    const temFilhos = document.getElementById("temFilhos");
-    const adicionarFilho = document.getElementById("adicionarFilho");
-    let contadorFilhos = 0;
-
-    function interpretarData(texto) {
-      const partes = texto.trim().split("/");
-      if (partes.length !== 3 || partes.some(p => !/^\d+$/.test(p))) return null;
-      const [dia, mes, ano] = partes.map(Number);
-      const data = new Date(ano, mes - 1, dia, 12);
-      if (ano < 1900 || data.getFullYear() !== ano || data.getMonth() !== mes - 1 || data.getDate() !== dia) return null;
-      return data;
-    }
-
-    function paraISO(texto) {
-      const d = interpretarData(texto);
-      return d ? d.getFullYear() + "-" + String(d.getMonth()+1).padStart(2,"0") + "-" + String(d.getDate()).padStart(2,"0") : "";
-    }
-
-    function atualizarIdade() {
-      const texto = nascimento.value.trim();
-      if (!texto) {
-        idadeInfo.innerHTML = '<p class="ajuda">Sua idade aparecerá aqui após informar a data de nascimento.</p>';
-        nascimento.setCustomValidity("");
-        return;
-      }
-      const data = interpretarData(texto);
-      if (!data) {
-        idadeInfo.innerHTML = '<p class="ajuda">Digite uma data válida no formato DD/MM/AAAA.</p>';
-        nascimento.setCustomValidity("Digite a data no formato DD/MM/AAAA.");
-        return;
-      }
-      const hoje = new Date();
-      let anos = hoje.getFullYear() - data.getFullYear();
-      if (hoje.getMonth() < data.getMonth() || (hoje.getMonth() === data.getMonth() && hoje.getDate() < data.getDate())) anos--;
-      if (data > hoje) {
-        idadeInfo.innerHTML = '<p class="ajuda">A data de nascimento não pode estar no futuro.</p>';
-        nascimento.setCustomValidity("A data de nascimento não pode estar no futuro.");
-        return;
-      }
-      nascimento.setCustomValidity("");
-      idadeInfo.innerHTML = '<p class="ajuda">Atualmente você tem <strong>' + anos + ' anos</strong> de idade.</p>';
-    }
-    nascimento.addEventListener("input", atualizarIdade);
-    nascimento.addEventListener("blur", () => {
-      const v = nascimento.value.trim();
-      if (/^\d{8}$/.test(v)) nascimento.value = v.slice(0,2) + "/" + v.slice(2,4) + "/" + v.slice(4);
-      atualizarIdade();
-    });
-
-    document.getElementById("dataBatismo").addEventListener("blur", event => {
-      const v = event.target.value.trim();
-      if (/^\d{8}$/.test(v)) event.target.value = v.slice(0,2) + "/" + v.slice(2,4) + "/" + v.slice(4);
-      if (v && !interpretarData(event.target.value)) event.target.setCustomValidity("Digite a data de batismo no formato DD/MM/AAAA ou deixe em branco.");
-      else event.target.setCustomValidity("");
-    });
-    document.getElementById("atuaMinisterio").addEventListener("change", event => {
-      const campo = document.getElementById("qualMinisterio");
-      campo.disabled = event.target.value !== "Sim";
-      if (campo.disabled) campo.value = "";
-    });
-
-    function criarCampoFilho() {
-      contadorFilhos++;
-      const bloco = document.createElement("div");
-      bloco.className = "bloco";
-      bloco.innerHTML = '<h3 class="secao-titulo">Filho ' + contadorFilhos + '</h3><div class="grade"><div class="campo completo"><label>Nome completo <span class="obrigatorio">*</span></label><input name="filhoNome[]" type="text" spellcheck="true" required></div><div class="campo"><label>Sexo</label><select name="filhoSexo[]"><option value="">Selecione</option><option value="Masculino">Masculino</option><option value="Feminino">Feminino</option></select></div><div class="campo"><label>Data de nascimento <span class="obrigatorio">*</span></label><input name="filhoNascimento[]" type="text" inputmode="numeric" placeholder="DD/MM/AAAA" maxlength="10" required></div><div class="campo completo"><label>Foto individual</label><input name="filhoFoto[]" type="file" accept="image/jpeg,image/png,image/webp"><p class="ajuda">Opcional. Máximo 4 MB.</p></div></div>';
-      filhosContainer.appendChild(bloco);
-    }
-    temFilhos.addEventListener("change", () => {
-      const mostrar = temFilhos.value === "Sim";
-      filhosContainer.hidden = !mostrar;
-      adicionarFilho.style.display = mostrar ? "block" : "none";
-      if (mostrar && !filhosContainer.children.length) criarCampoFilho();
-      if (!mostrar) { filhosContainer.innerHTML = ""; contadorFilhos = 0; }
-    });
-    adicionarFilho.addEventListener("click", criarCampoFilho);
-
-    document.getElementById("revisarCadastro").addEventListener("click", () => {
-      acoesPosEnvio.hidden = true;
-      status.style.display = "none";
-      form.scrollIntoView({behavior:"smooth", block:"start"});
-    });
-    document.getElementById("adicionarMembro").addEventListener("click", () => {
-      form.reset();
-      atualizarIdade();
-      preview.style.display = "none";
-      preview.removeAttribute("src");
-      filhosContainer.innerHTML = "";
-      filhosContainer.hidden = true;
-      contadorFilhos = 0;
-      adicionarFilho.style.display = "none";
-      acoesPosEnvio.hidden = true;
-      status.style.display = "none";
-      document.getElementById("qualMinisterio").disabled = true;
-      form.scrollIntoView({behavior:"smooth", block:"start"});
-    });
-
-    fotoInput.addEventListener("change", () => {
-      const arquivo = fotoInput.files[0];
-      preview.style.display = "none";
-      preview.removeAttribute("src");
-      if (!arquivo) return;
-      if (!["image/jpeg", "image/png", "image/webp"].includes(arquivo.type)) {
-        fotoInput.value = "";
-        mostrarStatus("Selecione uma imagem JPG, PNG ou WebP.", false);
-        return;
-      }
-      if (arquivo.size > 4 * 1024 * 1024) {
-        fotoInput.value = "";
-        mostrarStatus("A foto deve ter no máximo 4 MB.", false);
-        return;
-      }
-      preview.src = URL.createObjectURL(arquivo);
-      preview.style.display = "block";
-      status.style.display = "none";
-    });
-
-    function mostrarStatus(mensagem, sucesso) {
-      status.textContent = mensagem;
-      status.className = sucesso ? "sucesso" : "erro";
-    }
-    function arquivoParaBase64(arquivo) {
-      return new Promise((resolve, reject) => {
-        const leitor = new FileReader();
-        leitor.onload = () => resolve(String(leitor.result).split(",")[1]);
-        leitor.onerror = () => reject(new Error("Não foi possível ler a foto."));
-        leitor.readAsDataURL(arquivo);
-      });
-    }
-
-    form.addEventListener("submit", async event => {
-      event.preventDefault();
-      status.style.display = "none";
-      acoesPosEnvio.hidden = true;
-      if (!form.reportValidity()) return;
-      const dataNasc = interpretarData(nascimento.value);
-      if (!dataNasc) { mostrarStatus("Confira a data de nascimento: use DD/MM/AAAA.", false); nascimento.focus(); return; }
-      const dataBatismoTexto = document.getElementById("dataBatismo").value.trim();
-      if (dataBatismoTexto && !interpretarData(dataBatismoTexto)) {
-        mostrarStatus("Confira a data de batismo: use DD/MM/AAAA ou deixe em branco.", false);
-        document.getElementById("dataBatismo").focus(); return;
-      }
-      const arquivo = fotoInput.files[0];
-      if (arquivo && arquivo.size > 4 * 1024 * 1024) { mostrarStatus("A foto deve ter no máximo 4 MB.", false); return; }
-
-      const hoje = new Date();
-      let anos = hoje.getFullYear() - dataNasc.getFullYear();
-      if (hoje.getMonth() < dataNasc.getMonth() || (hoje.getMonth() === dataNasc.getMonth() && hoje.getDate() < dataNasc.getDate())) anos--;
-      const dados = {
-        nome: document.getElementById("nome").value.trim(),
-        sexo: document.getElementById("sexo").value,
-        nascimento: paraISO(nascimento.value),
-        idade: anos,
-        mesAniversario: ["Janeiro","Fevereiro","Março","Abril","Maio","Junho","Julho","Agosto","Setembro","Outubro","Novembro","Dezembro"][dataNasc.getMonth()],
-        estadoCivil: document.getElementById("estadoCivil").value,
-        endereco: document.getElementById("endereco").value.trim(),
-        bairro: document.getElementById("bairro").value.trim(),
-        celular: document.getElementById("celular").value.trim(),
-        email: document.getElementById("email").value.trim(),
-        batizado: "",
-        dataBatismo: paraISO(dataBatismoTexto),
-        atuaMinisterio: document.getElementById("atuaMinisterio").value,
-        qualMinisterio: document.getElementById("qualMinisterio").value.trim(),
-        trabalha: document.getElementById("trabalha").value,
-        temFilhos: temFilhos.value,
-        filhos: Array.from(filhosContainer.querySelectorAll(".bloco")).map(b => ({
-          nome: b.querySelector('[name="filhoNome[]"]').value.trim(),
-          sexo: b.querySelector('[name="filhoSexo[]"]').value,
-          nascimento: paraISO(b.querySelector('[name="filhoNascimento[]"]').value),
-          fotoNome: b.querySelector('[name="filhoFoto[]"]').files[0]?.name || ""
-        })),
-        fotoData: "", fotoMime: "", fotoNome: ""
-      };
-      try {
-        botao.disabled = true;
-        botao.textContent = "Enviando cadastro...";
-        if (arquivo) {
-          dados.fotoData = await arquivoParaBase64(arquivo);
-          dados.fotoMime = arquivo.type;
-          dados.fotoNome = arquivo.name;
-        }
-        await fetch(URL_SCRIPT, {
-          method: "POST", mode: "no-cors",
-          headers: {"Content-Type": "text/plain;charset=UTF-8"},
-          body: JSON.stringify(dados)
-        });
-        mostrarStatus("Solicitação enviada pelo navegador. O sistema de gravação ainda precisa ser atualizado para confirmar o salvamento e registrar os novos campos. Não envie novamente até a equipe confirmar.", true);
-        acoesPosEnvio.hidden = false;
-      } catch (erro) {
-        mostrarStatus("Não foi possível enviar os dados. Verifique sua conexão e tente novamente.", false);
-      } finally {
-        botao.disabled = false;
-        botao.textContent = "Enviar cadastro";
-      }
-    });
-  </script>
+<main class="container">
+<header class="topo">
+<img class="logo" src="logo-pibvl.png" alt="Logo da Primeira Igreja Batista em Vaz Lobo">
+<h1>Cadastro de Membros</h1><p>Primeira Igreja Batista em Vaz Lobo</p><p>Preencha os dados abaixo com atenção.</p>
+</header>
+<form id="formCadastro">
+<h2 class="secao-titulo">Dados pessoais</h2>
+<div class="grade">
+<div class="campo completo"><label for="nome">Nome completo *</label><input id="nome" required autocomplete="name"></div>
+<div class="campo"><label for="sexo">Sexo *</label><select id="sexo" required><option value="">Selecione</option><option>Feminino</option><option>Masculino</option></select></div>
+<div class="campo"><label for="nascimento">Data de nascimento * (DD/MM/AAAA)</label><input id="nascimento" type="text" inputmode="numeric" placeholder="DD/MM/AAAA" maxlength="10" required><p id="idadeInfo" class="ajuda">Sua idade aparecerá após informar a data de nascimento.</p></div>
+<div class="campo"><label for="idade">Idade</label><input id="idade" readonly placeholder="Automática"></div>
+<div class="campo"><label for="mesAniversario">Mês de aniversário</label><input id="mesAniversario" readonly placeholder="Automático"></div>
+<div class="campo"><label for="estadoCivil">Estado civil *</label><select id="estadoCivil" required><option value="">Selecione</option><option>Solteiro(a)</option><option>Casado(a)</option><option>Divorciado(a)</option><option>Viúvo(a)</option><option>União estável</option><option>Outro</option></select></div>
+</div>
+<section class="bloco"><h2 class="secao-titulo">Contato e endereço</h2><div class="grade">
+<div class="campo completo"><label for="endereco">Endereço *</label><input id="endereco" autocomplete="street-address" required></div>
+<div class="campo"><label for="bairro">Bairro *</label><input id="bairro" required></div>
+<div class="campo"><label for="celular">Celular / WhatsApp *</label><input id="celular" type="tel" autocomplete="tel" placeholder="(21) 99999-9999" required></div>
+<div class="campo completo"><label for="email">E-mail</label><input id="email" type="email" autocomplete="email"></div>
+</div></section>
+<section class="bloco"><h2 class="secao-titulo">Informações da igreja</h2><div class="grade">
+<div class="campo"><label for="dataBatismo">Data de batismo (DD/MM/AAAA)</label><input id="dataBatismo" type="text" inputmode="numeric" placeholder="DD/MM/AAAA" maxlength="10"><p class="ajuda">Opcional. Deixe em branco se não souber.</p></div>
+<div class="campo"><label for="atuaMinisterio">Atua em algum ministério? *</label><select id="atuaMinisterio" required><option value="">Selecione</option><option>Sim</option><option>Não</option></select></div>
+<div class="campo completo"><label for="qualMinisterio">Qual ministério?</label><input id="qualMinisterio" placeholder="Informe o ministério" disabled></div>
+<div class="campo"><label for="trabalha">Você trabalha atualmente? *</label><select id="trabalha" required><option value="">Selecione</option><option>Sim</option><option>Não</option><option>Aposentado(a)</option></select></div>
+</div></section>
+<section class="bloco"><h2 class="secao-titulo">Filhos que frequentam a igreja</h2>
+<div class="campo"><label for="temFilhos">Possui filho que frequenta a igreja, mas ainda não é batizado? *</label><select id="temFilhos" required><option value="">Selecione</option><option>Sim</option><option>Não</option></select></div>
+<div id="filhosContainer" hidden></div><button type="button" id="adicionarFilho" class="botao secundario" style="display:none">+ Adicionar outro filho</button>
+</section>
+<section class="bloco"><h2 class="secao-titulo">Foto individual</h2><div class="campo"><label for="foto">Foto do membro</label><input id="foto" type="file" accept="image/jpeg,image/png,image/webp"><p class="ajuda">Opcional. A equipe de Comunicação poderá utilizar a foto em publicações de aniversário. JPG, PNG ou WebP, até 4 MB.</p><img id="preview" class="preview" alt="Prévia da foto selecionada"></div></section>
+<button class="botao" id="botaoEnviar" type="submit">Enviar cadastro</button>
+<div id="status" role="status" aria-live="polite"></div>
+<div id="acoesPosEnvio" hidden><button type="button" class="botao secundario" id="revisarCadastro">Revisar informações</button><button type="button" class="botao secundario" id="adicionarMembro">Cadastrar outro membro</button></div>
+</form>
+<footer class="rodape">Primeira Igreja Batista em Vaz Lobo</footer>
+</main>
+<script>
+const URL_SCRIPT="https://script.google.com/macros/s/AKfycbxjusD2XzVeJxdPtA9351rXtU4PhNfq_clz6n0o58SanoaRCezTKP_e4FwgB_AVUjWerA/exec";
+const form=document.getElementById("formCadastro"), nascimento=document.getElementById("nascimento"), idadeInfo=document.getElementById("idadeInfo"), fotoInput=document.getElementById("foto"), preview=document.getElementById("preview"), statusEl=document.getElementById("status"), botao=document.getElementById("botaoEnviar"), filhosContainer=document.getElementById("filhosContainer"), temFilhos=document.getElementById("temFilhos"), adicionarFilho=document.getElementById("adicionarFilho"), acoes=document.getElementById("acoesPosEnvio");
+let contadorFilhos=0;
+const meses=["Janeiro","Fevereiro","Março","Abril","Maio","Junho","Julho","Agosto","Setembro","Outubro","Novembro","Dezembro"];
+function dataValida(texto){const p=String(texto||"").trim().split("/");if(p.length!==3||p.some(x=>!/^\d+$/.test(x)))return null;const [dia,mes,ano]=p.map(Number);const d=new Date(ano,mes-1,dia,12);if(ano<1900||d.getFullYear()!==ano||d.getMonth()!==mes-1||d.getDate()!==dia)return null;return d;}
+function paraISO(texto){const d=dataValida(texto);return d?d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0"):"";}
+function mascaraData(el){let v=el.value.replace(/\D/g,"").slice(0,8);if(v.length>4)v=v.slice(0,2)+"/"+v.slice(2,4)+"/"+v.slice(4);else if(v.length>2)v=v.slice(0,2)+"/"+v.slice(2);el.value=v;}
+function atualizarIdade(){const d=dataValida(nascimento.value);if(!nascimento.value.trim()){idadeInfo.textContent="Sua idade aparecerá após informar a data de nascimento.";document.getElementById("idade").value="";document.getElementById("mesAniversario").value="";return;}if(!d){idadeInfo.textContent="Digite uma data válida no formato DD/MM/AAAA.";document.getElementById("idade").value="";document.getElementById("mesAniversario").value="";return;}const hoje=new Date();let anos=hoje.getFullYear()-d.getFullYear();if(hoje.getMonth()<d.getMonth()||(hoje.getMonth()===d.getMonth()&&hoje.getDate()<d.getDate()))anos--;if(d>hoje){idadeInfo.textContent="A data não pode estar no futuro.";return;}document.getElementById("idade").value=anos;document.getElementById("mesAniversario").value=meses[d.getMonth()];idadeInfo.textContent="Idade calculada automaticamente.";}
+[nascimento,document.getElementById("dataBatismo")].forEach(el=>el.addEventListener("input",()=>mascaraData(el)));
+nascimento.addEventListener("input",atualizarIdade);
+document.getElementById("atuaMinisterio").addEventListener("change",e=>{const c=document.getElementById("qualMinisterio");c.disabled=e.target.value!=="Sim";if(c.disabled)c.value="";});
+function criarCampoFilho(){contadorFilhos++;const bloco=document.createElement("div");bloco.className="bloco filho";bloco.innerHTML='<h3 class="secao-titulo">Filho '+contadorFilhos+'</h3><div class="grade"><div class="campo completo"><label>Nome completo *</label><input name="filhoNome" required></div><div class="campo"><label>Sexo</label><select name="filhoSexo"><option value="">Selecione</option><option>Feminino</option><option>Masculino</option></select></div><div class="campo"><label>Data de nascimento * (DD/MM/AAAA)</label><input name="filhoNascimento" inputmode="numeric" maxlength="10" placeholder="DD/MM/AAAA" required></div><div class="campo completo"><label>Foto do filho (opcional)</label><input name="filhoFoto" type="file" accept="image/jpeg,image/png,image/webp"><p class="ajuda">O nome do arquivo será anotado; o envio da foto do filho ainda não está habilitado.</p></div></div>';const data=bloco.querySelector('[name="filhoNascimento"]');data.addEventListener("input",()=>mascaraData(data));filhosContainer.appendChild(bloco);}
+temFilhos.addEventListener("change",()=>{const mostrar=temFilhos.value==="Sim";filhosContainer.hidden=!mostrar;adicionarFilho.style.display=mostrar?"block":"none";if(mostrar&&!filhosContainer.children.length)criarCampoFilho();if(!mostrar){filhosContainer.innerHTML="";contadorFilhos=0;}});
+adicionarFilho.addEventListener("click",criarCampoFilho);
+function mostrarStatus(msg,sucesso){statusEl.textContent=msg;statusEl.className=sucesso?"sucesso":"erro";}
+function arquivoBase64(arq){return new Promise((resolve,reject)=>{const r=new FileReader();r.onload=()=>resolve(String(r.result).split(",")[1]);r.onerror=()=>reject(new Error("Não foi possível ler a foto."));r.readAsDataURL(arq);});}
+fotoInput.addEventListener("change",()=>{const f=fotoInput.files[0];preview.style.display="none";preview.removeAttribute("src");if(!f)return;if(!["image/jpeg","image/png","image/webp"].includes(f.type)||f.size>4*1024*1024){fotoInput.value="";mostrarStatus("Escolha uma imagem JPG, PNG ou WebP de até 4 MB.",false);return;}preview.src=URL.createObjectURL(f);preview.style.display="block";});
+form.addEventListener("submit",async e=>{e.preventDefault();statusEl.style.display="none";acoes.hidden=true;if(!form.reportValidity())return;const dn=dataValida(nascimento.value);if(!dn||dn>new Date()){mostrarStatus("Confira a data de nascimento no formato DD/MM/AAAA.",false);nascimento.focus();return;}const db=document.getElementById("dataBatismo").value.trim();if(db&&!dataValida(db)){mostrarStatus("Confira a data de batismo ou deixe o campo em branco.",false);return;}
+const filhos=Array.from(filhosContainer.querySelectorAll(".filho")).map(b=>({nome:b.querySelector('[name="filhoNome"]').value.trim(),sexo:b.querySelector('[name="filhoSexo"]').value,nascimento:paraISO(b.querySelector('[name="filhoNascimento"]').value),fotoNome:b.querySelector('[name="filhoFoto"]').files[0]?.name||""}));
+if(filhos.some(f=>!f.nome||!f.nascimento)){mostrarStatus("Confira o nome e a data de nascimento de cada filho.",false);return;}
+const arq=fotoInput.files[0];const dados={nome:document.getElementById("nome").value.trim(),sexo:document.getElementById("sexo").value,nascimento:paraISO(nascimento.value),idade:document.getElementById("idade").value,mesAniversario:document.getElementById("mesAniversario").value,estadoCivil:document.getElementById("estadoCivil").value,endereco:document.getElementById("endereco").value.trim(),bairro:document.getElementById("bairro").value.trim(),celular:document.getElementById("celular").value.trim(),email:document.getElementById("email").value.trim(),batizado:"",dataBatismo:paraISO(db),atuaMinisterio:document.getElementById("atuaMinisterio").value,qualMinisterio:document.getElementById("qualMinisterio").value.trim(),trabalha:document.getElementById("trabalha").value,temFilhos:temFilhos.value,filhos:filhos,fotoData:"",fotoMime:"",fotoNome:""};
+try{botao.disabled=true;botao.textContent="Enviando cadastro...";if(arq){dados.fotoData=await arquivoBase64(arq);dados.fotoMime=arq.type;dados.fotoNome=arq.name;}await fetch(URL_SCRIPT,{method:"POST",mode:"no-cors",headers:{"Content-Type":"text/plain;charset=UTF-8"},body:JSON.stringify(dados)});mostrarStatus("O envio foi iniciado. Como o navegador não permite confirmar a resposta do sistema, confira com a equipe se o cadastro apareceu na planilha antes de enviar novamente.",true);acoes.hidden=false;}catch(err){mostrarStatus("Não foi possível enviar. Verifique sua conexão e tente novamente.",false);}finally{botao.disabled=false;botao.textContent="Enviar cadastro";}});
+document.getElementById("revisarCadastro").addEventListener("click",()=>{acoes.hidden=true;statusEl.style.display="none";form.scrollIntoView({behavior:"smooth",block:"start"});});
+document.getElementById("adicionarMembro").addEventListener("click",()=>{form.reset();filhosContainer.innerHTML="";filhosContainer.hidden=true;contadorFilhos=0;adicionarFilho.style.display="none";acoes.hidden=true;statusEl.style.display="none";preview.style.display="none";preview.removeAttribute("src");document.getElementById("qualMinisterio").disabled=true;atualizarIdade();form.scrollIntoView({behavior:"smooth",block:"start"});});
+</script>
 </body>
 </html>
