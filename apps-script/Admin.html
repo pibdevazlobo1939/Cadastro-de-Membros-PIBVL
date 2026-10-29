@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Painel Administrativo | PIB Vaz Lobo</title>
+<script src="https://accounts.google.com/gsi/client" async defer></script>
+<style>
+:root{--azul:#1746a2;--escuro:#123579;--fundo:#f3f7fc;--borda:#dbe4f0;--texto:#24344d}
+*{box-sizing:border-box}body{margin:0;font:15px Arial,sans-serif;background:var(--fundo);color:var(--texto)}
+header{background:linear-gradient(120deg,var(--escuro),var(--azul));color:#fff;padding:24px 18px;text-align:center}
+main{max-width:1100px;margin:22px auto;padding:0 14px}.card{background:#fff;border:1px solid var(--borda);border-radius:14px;padding:20px;margin-bottom:16px;box-shadow:0 4px 18px #1235790d}
+button,input,select,textarea{font:inherit;padding:10px;border:1px solid var(--borda);border-radius:8px}button{background:var(--azul);color:#fff;border:0;cursor:pointer}button:disabled{opacity:.5;cursor:wait}.sec{background:#edf3fb;color:var(--escuro)}.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}.row input{flex:1;min-width:200px}table{width:100%;border-collapse:collapse;margin-top:12px}th,td{text-align:left;padding:10px;border-bottom:1px solid var(--borda);vertical-align:top}th{background:#f5f8fc}td{font-size:14px}.tablewrap{overflow:auto}.hidden{display:none}.muted{color:#63728a}.status{padding:10px;border-radius:8px;background:#edf3fb;margin-top:12px;white-space:pre-wrap}.danger{color:#9f2525}.field{display:grid;gap:5px;margin:10px 0}.field input,.field textarea{width:100%}.notice{font-size:13px;line-height:1.5}
+@media(max-width:650px){header{padding:18px 12px}main{margin:12px auto}.card{padding:14px}table{min-width:720px}}
+</style>
+</head>
+<body>
+<header><h1 style="margin:0">Painel Administrativo</h1><p style="margin:8px 0 0">Primeira Igreja Batista em Vaz Lobo</p></header>
+<main>
+<section class="card" id="login">
+<h2>Acesso da equipe</h2>
+<p>Entre com uma das contas Google autorizadas para consultar e atualizar os cadastros.</p>
+<div id="googleButton"></div>
+<p class="notice muted">O acesso é restrito à equipe autorizada. Não compartilhe esta página com pessoas de fora da equipe.</p>
+</section>
+<section class="card hidden" id="app">
+<div class="row"><div style="flex:1"><strong id="email"></strong><div class="muted">Área administrativa</div></div><button class="sec" onclick="sair()">Sair</button></div>
+<hr style="border:0;border-top:1px solid var(--borda);margin:18px 0">
+<div class="row"><input id="busca" placeholder="Buscar por nome, celular ou e-mail"><button onclick="carregar()">Atualizar lista</button><button class="sec" onclick="historico()">Ver histórico</button></div>
+<div id="status" class="status">Faça login para carregar os cadastros.</div>
+<div class="tablewrap"><table><thead><tr><th>Nome</th><th>Nascimento</th><th>Celular</th><th>E-mail</th><th>Batismo</th><th>Ação</th></tr></thead><tbody id="linhas"></tbody></table></div>
+<div id="editor" class="card hidden" style="margin-top:18px">
+<h2>Editar cadastro</h2><p class="muted">As alterações serão registradas no histórico administrativo.</p>
+<input type="hidden" id="linha">
+<div class="field"><label>Nome completo</label><input id="e_nome"></div>
+<div class="field"><label>Celular</label><input id="e_celular"></div>
+<div class="field"><label>E-mail</label><input id="e_email"></div>
+<div class="field"><label>Endereço</label><input id="e_endereco"></div>
+<div class="field"><label>Bairro</label><input id="e_bairro"></div>
+<div class="field"><label>Estado civil</label><input id="e_estadoCivil"></div>
+<div class="field"><label>Data de batismo</label><input id="e_batismo" placeholder="dd/mm/aaaa ou yyyy-mm-dd"></div>
+<div class="row"><button onclick="salvar()">Salvar alterações</button><button class="sec" onclick="fecharEditor()">Cancelar</button></div>
+</div>
+<div id="historicoBox" class="hidden"><h2>Histórico de alterações</h2><div class="tablewrap"><table><thead><tr><th>Data</th><th>Responsável</th><th>Ação</th><th>Nome do membro</th><th>Detalhes</th></tr></thead><tbody id="historicoLinhas"></tbody></table></div></div>
+</section>
+</main>
+<script>
+const CLIENT_ID = "2825703529-k89sf13k5lt42mtq6g0bi8r3cmm4c3tn.apps.googleusercontent.com";
+let idToken = "", membros = [];
+function mostrarStatus(msg, erro=false){const el=document.getElementById("status");el.textContent=msg;el.className="status"+(erro?" danger":"")}
+function inicializarLogin(){
+ if(!window.google?.accounts?.id){setTimeout(inicializarLogin,300);return}
+ google.accounts.id.initialize({client_id:CLIENT_ID,callback:credencialRecebida});
+ google.accounts.id.renderButton(document.getElementById("googleButton"),{theme:"outline",size:"large",shape:"rectangular",text:"signin_with"});
+}
+function credencialRecebida(resp){
+ idToken=resp.credential;
+ google.script.run.withSuccessHandler(r=>{
+  if(!r||!r.ok){mostrarStatus(r?.mensagem||"Acesso não autorizado.",true);idToken="";return}
+  document.getElementById("login").classList.add("hidden");
+  document.getElementById("app").classList.remove("hidden");
+  document.getElementById("email").textContent=r.email;
+  carregar();
+ }).withFailureHandler(e=>{mostrarStatus("Falha ao validar o acesso: "+(e.message||e),true)}).adminValidarAcesso(idToken);
+}
+function sair(){idToken="";membros=[];document.getElementById("app").classList.add("hidden");document.getElementById("login").classList.remove("hidden");document.getElementById("linhas").innerHTML="";document.getElementById("status").textContent="Sessão encerrada."}
+function carregar(){
+ mostrarStatus("Carregando cadastros…");
+ google.script.run.withSuccessHandler(r=>{
+  if(!r?.ok){mostrarStatus(r?.mensagem||"Não foi possível carregar.",true);return}
+  membros=r.membros||[];renderizar();mostrarStatus("Cadastros carregados: "+membros.length);
+ }).withFailureHandler(e=>mostrarStatus("Erro ao carregar: "+(e.message||e),true)).adminListarMembros(idToken);
+}
+function renderizar(){
+ const q=document.getElementById("busca").value.trim().toLocaleLowerCase("pt-BR");
+ const filtrados=membros.filter(m=>[m.nome,m.celular,m.email].join(" ").toLocaleLowerCase("pt-BR").includes(q));
+ const tbody=document.getElementById("linhas");tbody.innerHTML="";
+ filtrados.forEach(m=>{const tr=document.createElement("tr");
+ [m.nome,m.nascimento,m.celular,m.email,m.batismo].forEach(v=>{const td=document.createElement("td");td.textContent=v||"—";tr.appendChild(td)});
+ const td=document.createElement("td"),b=document.createElement("button");b.textContent="Editar";b.onclick=()=>abrirEditor(m);td.appendChild(b);tr.appendChild(td);tbody.appendChild(tr)});
+}
+document.getElementById("busca").addEventListener("input",renderizar);
+function abrirEditor(m){document.getElementById("linha").value=m.linha;document.getElementById("e_nome").value=m.nome||"";document.getElementById("e_celular").value=m.celular||"";document.getElementById("e_email").value=m.email||"";document.getElementById("e_endereco").value=m.endereco||"";document.getElementById("e_bairro").value=m.bairro||"";document.getElementById("e_estadoCivil").value=m.estadoCivil||"";document.getElementById("e_batismo").value=m.batismo||"";document.getElementById("editor").classList.remove("hidden");document.getElementById("editor").scrollIntoView({behavior:"smooth"})}
+function fecharEditor(){document.getElementById("editor").classList.add("hidden")}
+function salvar(){
+ const dados={linha:Number(document.getElementById("linha").value),nome:document.getElementById("e_nome").value.trim(),celular:document.getElementById("e_celular").value.trim(),email:document.getElementById("e_email").value.trim(),endereco:document.getElementById("e_endereco").value.trim(),bairro:document.getElementById("e_bairro").value.trim(),estadoCivil:document.getElementById("e_estadoCivil").value.trim(),batismo:document.getElementById("e_batismo").value.trim()};
+ if(!dados.nome){mostrarStatus("Informe o nome completo.",true);return}
+ mostrarStatus("Salvando alterações…");
+ google.script.run.withSuccessHandler(r=>{if(!r?.ok){mostrarStatus(r?.mensagem||"Não foi possível salvar.",true);return}fecharEditor();mostrarStatus("Cadastro atualizado e histórico registrado.");carregar()}).withFailureHandler(e=>mostrarStatus("Erro ao salvar: "+(e.message||e),true)).adminAtualizarMembro(idToken,dados);
+}
+function historico(){
+ document.getElementById("historicoBox").classList.remove("hidden");
+ google.script.run.withSuccessHandler(r=>{const tbody=document.getElementById("historicoLinhas");tbody.innerHTML="";if(!r?.ok){mostrarStatus(r?.mensagem||"Não foi possível carregar o histórico.",true);return}(r.registros||[]).forEach(m=>{const tr=document.createElement("tr");[m.data,m.email,m.acao,m.nome,m.detalhes].forEach(v=>{const td=document.createElement("td");td.textContent=v||"—";tr.appendChild(td)});tbody.appendChild(tr)});mostrarStatus("Histórico carregado.")}).withFailureHandler(e=>mostrarStatus("Erro no histórico: "+(e.message||e),true)).adminHistorico(idToken);
+}
+inicializarLogin();
+</script>
+</body>
+</html>
