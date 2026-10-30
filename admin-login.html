@@ -32,25 +32,22 @@
     const params = new URLSearchParams(location.search);
     const returnOrigin = params.get("returnOrigin");
 
-    function origemAutorizada() {
-      try {
-        if (!returnOrigin || !document.referrer) return false;
+   function origemAutorizada() {
+  try {
+    if (!returnOrigin || !window.opener) return false;
 
-        const origemRetorno = new URL(returnOrigin).origin;
-        const origemRemetente = new URL(document.referrer).origin;
+    const origemRetorno = new URL(returnOrigin).origin;
 
-        if (origemRetorno !== returnOrigin || origemRetorno !== origemRemetente) {
-          return false;
-        }
+    if (origemRetorno !== returnOrigin) return false;
 
-        return (
-          origemRetorno === "https://script.google.com" ||
-          /^https:\/\/[a-z0-9-]+-script\.googleusercontent\.com$/i.test(origemRetorno)
-        );
-      } catch (e) {
-        return false;
-      }
-    }
+    return (
+      origemRetorno === "https://script.google.com" ||
+      /^https:\/\/[a-z0-9-]+-script\.googleusercontent\.com$/i.test(origemRetorno)
+    );
+  } catch (e) {
+    return false;
+  }
+}
 
     function status(message, error=false) {
       const el = document.getElementById("status");
