@@ -1,3 +1,4 @@
+
 <!doctype html>
 <html lang="pt-BR">
 <head>
@@ -8,7 +9,11 @@
   <style>
     body{font:16px Arial,sans-serif;background:#f3f7fc;color:#24344d;margin:0;min-height:100vh;display:grid;place-items:center}
     main{background:#fff;border:1px solid #dbe4f0;border-radius:14px;padding:28px;max-width:440px;width:calc(100% - 40px);box-sizing:border-box;text-align:center;box-shadow:0 4px 18px #1235790d}
-    h1{font-size:22px;color:#123579}p{line-height:1.5}.muted{font-size:13px;color:#63728a}#googleButton{display:flex;justify-content:center;margin:24px 0}.error{color:#9f2525}
+    h1{font-size:22px;color:#123579}
+    p{line-height:1.5}
+    .muted{font-size:13px;color:#63728a}
+    #googleButton{display:flex;justify-content:center;margin:24px 0}
+    .error{color:#9f2525}
   </style>
 </head>
 <body>
@@ -20,14 +25,32 @@
     <p id="status" class="muted">Aguardando o carregamento do login do Google…</p>
     <p class="muted">Esta página apenas autentica a conta. O acesso aos cadastros continua sendo validado pelo servidor.</p>
   </main>
+
   <script>
     const CLIENT_ID = "2825703529-k89sf13k5lt42mtq6g0bi8r3cmm4c3tn.apps.googleusercontent.com";
+
     const params = new URLSearchParams(location.search);
     const returnOrigin = params.get("returnOrigin");
-    const allowedParentOrigins = [
-      "https://script.googleusercontent.com",
-      "https://script.google.com"
-    ];
+
+    function origemAutorizada() {
+      try {
+        if (!returnOrigin || !document.referrer) return false;
+
+        const origemRetorno = new URL(returnOrigin).origin;
+        const origemRemetente = new URL(document.referrer).origin;
+
+        if (origemRetorno !== returnOrigin || origemRetorno !== origemRemetente) {
+          return false;
+        }
+
+        return (
+          origemRetorno === "https://script.google.com" ||
+          /^https:\/\/[a-z0-9-]+-script\.googleusercontent\.com$/i.test(origemRetorno)
+        );
+      } catch (e) {
+        return false;
+      }
+    }
 
     function status(message, error=false) {
       const el = document.getElementById("status");
@@ -36,24 +59,28 @@
     }
 
     function inicializarLogin() {
-      if (!allowedParentOrigins.includes(returnOrigin)) {
+      if (!origemAutorizada()) {
         status("Origem de retorno inválida. Feche esta janela e abra o login pelo painel.", true);
         return;
       }
+
       if (!window.google?.accounts?.id) {
         setTimeout(inicializarLogin, 250);
         return;
       }
+
       google.accounts.id.initialize({
         client_id: CLIENT_ID,
         callback: credencialRecebida,
         auto_select: false,
         cancel_on_tap_outside: true
       });
+
       google.accounts.id.renderButton(
         document.getElementById("googleButton"),
         {theme:"outline",size:"large",shape:"rectangular",text:"signin_with"}
       );
+
       status("Clique no botão para entrar com sua conta Google.");
     }
 
@@ -62,10 +89,15 @@
         status("Não foi possível concluir o login. Feche esta janela e tente novamente.", true);
         return;
       }
+
       window.opener.postMessage(
-        {type:"PIBVL_ADMIN_GOOGLE_TOKEN", credential:resp.credential},
+        {
+          type:"PIBVL_ADMIN_GOOGLE_TOKEN",
+          credential:resp.credential
+        },
         returnOrigin
       );
+
       status("Login enviado ao painel. Esta janela será fechada.");
       setTimeout(() => window.close(), 500);
     }
