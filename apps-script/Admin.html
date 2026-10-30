@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Painel Administrativo | PIB Vaz Lobo</title>
-<script src="https://accounts.google.com/gsi/client" async defer></script>
+
 <style>
 :root{--azul:#1746a2;--escuro:#123579;--fundo:#f3f7fc;--borda:#dbe4f0;--texto:#24344d}
 *{box-sizing:border-box}body{margin:0;font:15px Arial,sans-serif;background:var(--fundo);color:var(--texto)}
@@ -20,7 +20,7 @@ button,input,select,textarea{font:inherit;padding:10px;border:1px solid var(--bo
 <section class="card" id="login">
 <h2>Acesso da equipe</h2>
 <p>Entre com uma das contas Google autorizadas para consultar e atualizar os cadastros.</p>
-<div id="googleButton"></div>
+<button type="button" onclick="abrirLoginGoogle()">Entrar com Google</button>
 <p class="notice muted">O acesso é restrito à equipe autorizada. Não compartilhe esta página com pessoas de fora da equipe.</p>
 </section>
 <section class="card hidden" id="app">
@@ -45,24 +45,31 @@ button,input,select,textarea{font:inherit;padding:10px;border:1px solid var(--bo
 </section>
 </main>
 <script>
-const CLIENT_ID = "2825703529-k89sf13k5lt42mtq6g0bi8r3cmm4c3tn.apps.googleusercontent.com";
-let idToken = "", membros = [];
+const LOGIN_URL = "https://pibdevazlobo1939.github.io/Cadastro-de-Membros-PIBVL/admin-login.html";
+const LOGIN_ORIGIN = "https://pibdevazlobo1939.github.io";
+let idToken = "", membros = [], janelaLogin = null;
 function mostrarStatus(msg, erro=false){const el=document.getElementById("status");el.textContent=msg;el.className="status"+(erro?" danger":"")}
-function inicializarLogin(){
- if(!window.google?.accounts?.id){setTimeout(inicializarLogin,300);return}
- google.accounts.id.initialize({client_id:CLIENT_ID,callback:credencialRecebida});
- google.accounts.id.renderButton(document.getElementById("googleButton"),{theme:"outline",size:"large",shape:"rectangular",text:"signin_with"});
+function abrirLoginGoogle(){
+ const retorno=encodeURIComponent(location.origin);
+ const url=LOGIN_URL+"?returnOrigin="+retorno;
+ janelaLogin=window.open(url,"PIBVLGoogleLogin","popup,width=520,height=680");
+ if(!janelaLogin){mostrarStatus("O navegador bloqueou a janela de login. Permita pop-ups para este site e tente novamente.",true);return}
+ mostrarStatus("Conclua o login do Google na janela que foi aberta.");
 }
-function credencialRecebida(resp){
- idToken=resp.credential;
+window.addEventListener("message",function(event){
+ if(event.origin!==LOGIN_ORIGIN || !janelaLogin || event.source!==janelaLogin)return;
+ if(!event.data || event.data.type!=="PIBVL_ADMIN_GOOGLE_TOKEN" || !event.data.credential)return;
+ janelaLogin=null;
+ idToken=event.data.credential;
+ mostrarStatus("Validando seu acesso…");
  google.script.run.withSuccessHandler(r=>{
   if(!r||!r.ok){mostrarStatus(r?.mensagem||"Acesso não autorizado.",true);idToken="";return}
   document.getElementById("login").classList.add("hidden");
   document.getElementById("app").classList.remove("hidden");
   document.getElementById("email").textContent=r.email;
   carregar();
- }).withFailureHandler(e=>{mostrarStatus("Falha ao validar o acesso: "+(e.message||e),true)}).adminValidarAcesso(idToken);
-}
+ }).withFailureHandler(e=>{mostrarStatus("Falha ao validar o acesso: "+(e.message||e),true);idToken=""}).adminValidarAcesso(idToken);
+});
 function sair(){idToken="";membros=[];document.getElementById("app").classList.add("hidden");document.getElementById("login").classList.remove("hidden");document.getElementById("linhas").innerHTML="";document.getElementById("status").textContent="Sessão encerrada."}
 function carregar(){
  mostrarStatus("Carregando cadastros…");
@@ -92,7 +99,6 @@ function historico(){
  document.getElementById("historicoBox").classList.remove("hidden");
  google.script.run.withSuccessHandler(r=>{const tbody=document.getElementById("historicoLinhas");tbody.innerHTML="";if(!r?.ok){mostrarStatus(r?.mensagem||"Não foi possível carregar o histórico.",true);return}(r.registros||[]).forEach(m=>{const tr=document.createElement("tr");[m.data,m.email,m.acao,m.nome,m.detalhes].forEach(v=>{const td=document.createElement("td");td.textContent=v||"—";tr.appendChild(td)});tbody.appendChild(tr)});mostrarStatus("Histórico carregado.")}).withFailureHandler(e=>mostrarStatus("Erro no histórico: "+(e.message||e),true)).adminHistorico(idToken);
 }
-inicializarLogin();
 </script>
 </body>
 </html>
