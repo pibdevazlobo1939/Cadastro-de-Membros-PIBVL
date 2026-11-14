@@ -49,6 +49,63 @@ form.formmc{padding:0}
 #modalCaixa h3{margin:0 0 12px;color:var(--azul)}.modal-corpo{font-size:15px;line-height:1.6}.modal-corpo p{margin:8px 0}
 .modal-botoes{display:flex;gap:10px;margin-top:16px}.modal-botoes .botao{margin-top:0}
 @media(max-width:560px){#abaMeuCadastro{padding:20px 15px}.dados{grid-template-columns:1fr}.mc-topo{flex-direction:column;text-align:center}.modal-botoes{flex-direction:column-reverse}}
+a.botao{display:block;text-align:center;text-decoration:none}
+.menu-inferior button{text-align:center;line-height:1.2}
+.segmentado{display:flex;gap:6px;background:#eef3fa;border-radius:12px;padding:4px;margin:14px 0}
+.segmentado button{flex:1;border:0;background:transparent;color:#4b5b76;font:bold 14px Arial,Helvetica,sans-serif;padding:11px 8px;border-radius:9px;cursor:pointer}
+.segmentado button.ativo{background:#fff;color:var(--azul);box-shadow:0 1px 4px #12357926}
+.eq-topo{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.eq-topo strong{word-break:break-all}
+.eq-barra{display:flex;align-items:center;justify-content:space-between;gap:10px}.eq-barra p{margin:0}
+.botao-peq{display:inline-block;border:1px solid var(--borda);background:#fff;color:var(--azul);font:bold 13px Arial,Helvetica,sans-serif;padding:9px 12px;border-radius:8px;cursor:pointer;text-decoration:none;text-align:center}
+.botao-peq.principal{background:var(--azul);border-color:var(--azul);color:#fff}
+.botao-peq:disabled{opacity:.6;cursor:wait}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin:14px 0}
+.chip{border:1px solid var(--borda);background:#fff;color:#4b5b76;font:bold 13px Arial,Helvetica,sans-serif;padding:8px 12px;border-radius:999px;cursor:pointer}
+.chip.ativo{background:var(--azul);border-color:var(--azul);color:#fff}
+.cartao-sol,.membro{border:1px solid #e4ecf7;border-radius:12px;padding:14px;margin-bottom:12px;background:#fff}
+.cartao-sol-topo{display:flex;justify-content:space-between;align-items:center;gap:10px}
+.cartao-sol p{margin:6px 0}.motivo{font-size:15px;line-height:1.5;color:#24344d}
+.acoes{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+.badge{font-size:12px;font-weight:bold;padding:4px 10px;border-radius:999px;white-space:nowrap}
+.badge-pendente{background:#fff3d6;color:#6b5210}.badge-autorizada{background:#e3eefc;color:#184f95}.badge-concluida{background:#e1f5e8;color:#17633a}.badge-recusada{background:#fde8e8;color:#9d2020}
+.vazio{text-align:center;padding:18px 0}
+.campo-link{width:100%;margin:10px 0;font-size:13px}
+.kpis{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin:16px 0}
+.tile{border:1px solid #e4ecf7;border-radius:12px;padding:14px;display:flex;flex-direction:column;gap:4px;background:#fff}
+.tile.heroi{grid-column:1/-1}
+.tile-rotulo{font-size:13px;color:#52514e}.tile-valor{font-size:30px;font-weight:bold;color:#0b0b0b;line-height:1.1}.tile.heroi .tile-valor{font-size:48px}
+.tile-nota{font-size:12px;color:#898781}
+.graficos{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.cartao-graf{border:1px solid #e4ecf7;border-radius:12px;padding:14px;background:#fff;min-width:0}.cartao-graf.largo{grid-column:1/-1}
+.cartao-graf h4{margin:0 0 12px;font-size:14px;color:#24344d}
+.segbar{display:flex;gap:2px;height:28px}
+.segbloco{display:flex;align-items:center;min-width:0;border-radius:4px;outline-offset:2px}
+.segbloco span{color:#fff;font-size:12px;font-weight:bold;padding-left:8px;white-space:nowrap}
+.segbloco:focus-visible,.coluna:focus-visible,.ranked-linha:focus-visible{outline:2px solid #123579}
+.legenda{display:flex;gap:6px 14px;flex-wrap:wrap;margin-top:10px;font-size:13px;color:#52514e}
+.leg-item{display:inline-flex;align-items:center;gap:6px}.leg-item i{width:10px;height:10px;border-radius:2px;display:inline-block}
+.ranked{display:grid;gap:10px}
+.ranked-linha{display:grid;grid-template-columns:minmax(80px,32%) 1fr 28px;gap:8px;align-items:center;font-size:13px}
+.ranked-nome{color:#52514e}.ranked-valor{text-align:right;color:#0b0b0b;font-weight:bold}
+.ranked-trilho{height:14px}.ranked-trilho i{display:block;height:100%;background:#2a78d6;border-radius:0 4px 4px 0}
+.colunas{display:grid;grid-template-columns:repeat(12,1fr);gap:2px;align-items:end;border-bottom:1px solid #c3c2b7}
+.coluna{display:flex;flex-direction:column;align-items:center;justify-content:flex-end;gap:3px;height:150px;border:0;background:transparent;padding:0 0 4px;cursor:pointer;min-width:0}
+.coluna-valor{font-size:12px;font-weight:bold;color:#0b0b0b;height:14px}
+.coluna-barra{display:block;width:min(24px,70%);background:#2a78d6;border-radius:4px 4px 0 0}
+.coluna.ativa .coluna-barra{background:#184f95;outline:2px solid #123579;outline-offset:1px}
+.coluna:hover .coluna-barra{background:#3987e5}
+.coluna-mes{font-size:10px;color:#898781;position:relative;top:22px;height:0}.coluna-mes.atual{color:#0b0b0b;font-weight:bold}
+.colunas+.ajuda{margin-top:28px}
+.tabela-num{margin:16px 0}.tabela-num summary{cursor:pointer;color:var(--azul);font-weight:bold;font-size:14px}
+.tabela-num table{width:100%;border-collapse:collapse;margin-top:10px;font-size:13px}.tabela-num td,.tabela-num th{text-align:left;padding:6px 8px;border-bottom:1px solid #e1e0d9}.tabela-num td:last-child,.tabela-num th:last-child{text-align:right}
+.filtros{display:grid;grid-template-columns:1fr;gap:10px;margin:10px 0 14px}
+.filtros input,.filtros select{width:100%}
+.membro{display:flex;flex-direction:column;gap:6px}.membro-info{display:flex;flex-direction:column;gap:3px}.membro-info .ajuda{margin:0}
+#dica{position:fixed;z-index:60;background:#0b0b0b;color:#fff;font-size:13px;padding:7px 10px;border-radius:8px;pointer-events:none;max-width:260px}
+@media(min-width:620px){.filtros{grid-template-columns:2fr 1fr 1fr}.membro{flex-direction:row;align-items:center;justify-content:space-between}.membro .acoes{margin-top:0;justify-content:flex-end}}
+@media(max-width:560px){.graficos{grid-template-columns:1fr}.cartao-graf.largo{grid-column:auto}.ranked-linha{grid-template-columns:minmax(70px,34%) 1fr 26px}.menu-inferior button{font-size:11px;padding:8px 3px}}
+#abaEquipe{padding:25px}@media(max-width:560px){#abaEquipe{padding:20px 15px}}
 </style>
 </head>
 <body>
@@ -123,12 +180,36 @@ form.formmc{padding:0}
   <section id="mcCadastro" hidden></section>
 </div>
 
+<div id="abaEquipe" hidden>
+  <div id="eqEntrada" hidden>
+    <div class="aviso aviso-info">
+      <strong>Área restrita</strong>
+      <p>Esta área é exclusiva da equipe autorizada da igreja. Entre com a sua conta Google.</p>
+    </div>
+    <div id="eqBotaoGoogle" style="display:flex;justify-content:center;margin:18px 0"></div>
+    <div id="eqStatus" class="status-mc" role="alert"></div>
+  </div>
+  <div id="eqPainel" hidden>
+    <div class="eq-topo">
+      <span class="ajuda">Conectado como <strong id="eqEmail"></strong></span>
+      <button type="button" class="botao-peq" id="eqSair">Sair</button>
+    </div>
+    <div class="segmentado" role="tablist">
+      <button type="button" class="ativo" data-sub="autorizacao">Autorização de Cadastros<span id="eqSubPend"></span></button>
+      <button type="button" data-sub="membros">Membros</button>
+    </div>
+    <div id="eqAutorizacao"></div>
+    <div id="eqMembros" hidden></div>
+  </div>
+</div>
+
 <footer class="rodape">Primeira Igreja Batista em Vaz Lobo</footer>
 </main>
 
 <nav class="menu-inferior" aria-label="Navegação principal">
   <button type="button" data-aba="cadastro" class="ativo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M19 8v6M16 11h6"/></svg><span>Cadastro de Membros</span></button>
   <button type="button" data-aba="meu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="9" cy="11" r="2.5"/><path d="M5.5 17a3.5 3.5 0 0 1 7 0M15 9h3M15 13h3"/></svg><span>Meu Cadastro</span></button>
+  <button type="button" data-aba="equipe"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l8 3v6c0 4.5-3.2 8-8 9-4.8-1-8-4.5-8-9V6l8-3z"/><path d="M9 12l2 2 4-4"/></svg><span>Área da Equipe</span></button>
 </nav>
 
 <div id="modalFundo" hidden><div id="modalCaixa" role="dialog" aria-modal="true"></div></div>
@@ -653,6 +734,7 @@ const TEL_COMUNICACAO="+55 21 96670-9417";
 
 const abaCadastro=document.getElementById("abaCadastro");
 const abaMeuCadastro=document.getElementById("abaMeuCadastro");
+const abaEquipe=document.getElementById("abaEquipe");
 const mcEntrada=document.getElementById("mcEntrada");
 const mcCadastro=document.getElementById("mcCadastro");
 const mcStatusEntrada=document.getElementById("mcStatusEntrada");
@@ -749,17 +831,21 @@ function caixaRevisao(){
 
 /* ---------- abas ---------- */
 function irParaAba(nome){
-  const meu=nome==="meu";
-  abaCadastro.hidden=meu;
-  abaMeuCadastro.hidden=!meu;
+  abaCadastro.hidden=nome!=="cadastro";
+  abaMeuCadastro.hidden=nome!=="meu";
+  abaEquipe.hidden=nome!=="equipe";
   document.querySelectorAll(".menu-inferior button").forEach(b=>
     b.classList.toggle("ativo",b.dataset.aba===nome)
   );
-  document.getElementById("tituloTopo").textContent=meu?"Meu Cadastro":"Cadastro de Membros";
-  document.getElementById("subtituloTopo").textContent=meu
-    ?"Consulte os dados que você preencheu."
-    :"Preencha os dados abaixo com atenção.";
-  if(meu&&sessaoMembro&&!cadastroAtual&&!carregandoMeuCadastro)carregarMeuCadastro();
+  const textos={
+    cadastro:["Cadastro de Membros","Preencha os dados abaixo com atenção."],
+    meu:["Meu Cadastro","Consulte os dados que você preencheu."],
+    equipe:["Área da Equipe","Acesso restrito à equipe autorizada."]
+  };
+  document.getElementById("tituloTopo").textContent=textos[nome][0];
+  document.getElementById("subtituloTopo").textContent=textos[nome][1];
+  if(nome==="meu"&&sessaoMembro&&!cadastroAtual&&!carregandoMeuCadastro)carregarMeuCadastro();
+  if(nome==="equipe")abrirEquipe();
   window.scrollTo({top:0,behavior:"smooth"});
 }
 
@@ -1194,6 +1280,499 @@ function renderizarEdicao(c){
   }
   try{sessaoMembro=sessionStorage.getItem("pibvl_sessao")||"";}catch(e){}
 })();
+
+/* =====================================================================
+   ÁREA DA EQUIPE (login Google + autorização + membros)
+   ===================================================================== */
+const GOOGLE_CLIENT_ID="2825703529-k89sf13k5lt42mtq6g0bi8r3cmm4c3tn.apps.googleusercontent.com";
+const MESES_CURTOS=["Jan","Fev","Mar","Abr","Mai","Jun","Jul","Ago","Set","Out","Nov","Dez"];
+const COR_1="#2a78d6",COR_2="#eb6834",COR_3="#1baf7a";
+
+let tokenEquipe="",emailEquipe="";
+let subEquipe="autorizacao";
+let eqSolicitacoes=null,eqMembros=null,eqFilhos=null;
+let filtroSolicitacao="Pendente";
+let filtroMes="",filtroBusca="",filtroFilhos="",limiteLista=50;
+
+function semAcento(s){return String(s||"").normalize("NFD").replace(/[̀-ͯ]/g,"").toLowerCase();}
+function soDigitos(s){return String(s||"").replace(/\D/g,"");}
+
+function linkWhatsApp(celular,texto){
+  let d=soDigitos(celular);
+  if(!d)return "";
+  if(!((d.length===12||d.length===13)&&d.indexOf("55")===0))d="55"+d;
+  return "https://wa.me/"+d+(texto?"?text="+encodeURIComponent(texto):"");
+}
+
+/* ---------- dica (tooltip) ---------- */
+const dicaEl=el("div",{id:"dica",hidden:true,role:"tooltip"});
+document.body.appendChild(dicaEl);
+function mostrarDica(valor,nome,x,y){
+  dicaEl.replaceChildren(el("strong",{texto:valor}),el("span",{texto:" "+nome}));
+  dicaEl.hidden=false;
+  const w=dicaEl.offsetWidth,h=dicaEl.offsetHeight;
+  dicaEl.style.left=Math.max(6,Math.min(window.innerWidth-w-6,x-w/2))+"px";
+  dicaEl.style.top=Math.max(6,y-h-12)+"px";
+}
+function esconderDica(){dicaEl.hidden=true;}
+function anexarDica(alvo,valor,nome){
+  alvo.addEventListener("pointermove",e=>mostrarDica(valor,nome,e.clientX,e.clientY));
+  alvo.addEventListener("pointerleave",esconderDica);
+  alvo.addEventListener("focus",()=>{const r=alvo.getBoundingClientRect();mostrarDica(valor,nome,r.left+r.width/2,r.top);});
+  alvo.addEventListener("blur",esconderDica);
+}
+
+/* ---------- login ---------- */
+function carregarGoogle(){
+  return new Promise((ok,falha)=>{
+    if(window.google&&google.accounts&&google.accounts.id)return ok();
+    const s=document.createElement("script");
+    s.src="https://accounts.google.com/gsi/client";
+    s.async=true;
+    s.onload=()=>ok();
+    s.onerror=()=>falha(new Error("Não foi possível carregar o login do Google. Verifique sua conexão."));
+    document.head.appendChild(s);
+  });
+}
+
+function mensagemEquipe(texto,erro){
+  const e=document.getElementById("eqStatus");
+  e.textContent=texto||"";
+  e.className="status-mc"+(erro?" erro":"");
+  e.style.display=texto?"block":"none";
+}
+
+async function mostrarEntradaEquipe(msg){
+  document.getElementById("eqEntrada").hidden=false;
+  document.getElementById("eqPainel").hidden=true;
+  mensagemEquipe(msg,!!msg);
+  try{await carregarGoogle();}catch(err){mensagemEquipe(err.message,true);return;}
+  google.accounts.id.initialize({client_id:GOOGLE_CLIENT_ID,callback:credencialEquipe,auto_select:false,cancel_on_tap_outside:true});
+  const alvo=document.getElementById("eqBotaoGoogle");
+  alvo.replaceChildren();
+  google.accounts.id.renderButton(alvo,{theme:"outline",size:"large",shape:"rectangular",text:"signin_with",locale:"pt-BR"});
+}
+
+async function credencialEquipe(resp){
+  if(!resp||!resp.credential){mensagemEquipe("Não foi possível concluir o login. Tente novamente.",true);return;}
+  mensagemEquipe("Verificando seu acesso...",false);
+  try{
+    const r=await chamarServidor("equipeValidar",{idToken:resp.credential});
+    if(!r||!r.ok){mensagemEquipe((r&&r.mensagem)||"Esta conta não tem acesso à Área da Equipe.",true);return;}
+    tokenEquipe=resp.credential;emailEquipe=r.email;
+    try{sessionStorage.setItem("pibvl_equipe",tokenEquipe);}catch(e){}
+    mostrarPainelEquipe();
+  }catch(err){mensagemEquipe(err.message,true);}
+}
+
+function sairEquipe(msg){
+  tokenEquipe="";emailEquipe="";eqSolicitacoes=null;eqMembros=null;eqFilhos=null;
+  try{sessionStorage.removeItem("pibvl_equipe");}catch(e){}
+  try{if(window.google&&google.accounts&&google.accounts.id)google.accounts.id.disableAutoSelect();}catch(e){}
+  fecharModal();
+  mostrarEntradaEquipe(msg||"");
+}
+
+async function abrirEquipe(){
+  if(tokenEquipe){if(!eqSolicitacoes)carregarSolicitacoes();return;}
+  let guardado="";
+  try{guardado=sessionStorage.getItem("pibvl_equipe")||"";}catch(e){}
+  if(guardado){
+    try{
+      const r=await chamarServidor("equipeValidar",{idToken:guardado});
+      if(r&&r.ok){tokenEquipe=guardado;emailEquipe=r.email;mostrarPainelEquipe();return;}
+    }catch(e){}
+    try{sessionStorage.removeItem("pibvl_equipe");}catch(e){}
+  }
+  mostrarEntradaEquipe("");
+}
+
+async function chamarEquipe(acao,params){
+  const r=await chamarServidor(acao,Object.assign({idToken:tokenEquipe},params||{}));
+  if(r&&!r.ok&&/Sessão Google inválida|Faça login/.test(r.mensagem||"")){
+    sairEquipe("Sua sessão expirou. Entre novamente com sua conta Google.");
+    const e=new Error(r.mensagem);e.sessaoExpirada=true;throw e;
+  }
+  return r;
+}
+
+function mostrarPainelEquipe(){
+  document.getElementById("eqEntrada").hidden=true;
+  document.getElementById("eqPainel").hidden=false;
+  document.getElementById("eqEmail").textContent=emailEquipe;
+  trocarSubEquipe("autorizacao");
+  carregarSolicitacoes();
+}
+
+document.getElementById("eqSair").addEventListener("click",()=>sairEquipe(""));
+document.querySelectorAll("#eqPainel .segmentado button").forEach(b=>
+  b.addEventListener("click",()=>trocarSubEquipe(b.dataset.sub))
+);
+
+function trocarSubEquipe(nome){
+  subEquipe=nome;
+  document.querySelectorAll("#eqPainel .segmentado button").forEach(b=>b.classList.toggle("ativo",b.dataset.sub===nome));
+  document.getElementById("eqAutorizacao").hidden=nome!=="autorizacao";
+  document.getElementById("eqMembros").hidden=nome!=="membros";
+  if(nome==="autorizacao"&&!eqSolicitacoes)carregarSolicitacoes();
+  if(nome==="membros"&&!eqMembros)carregarMembros();
+}
+
+/* ---------- visualização de um cadastro (janela) ---------- */
+function corpoCadastro(c){
+  const dl=(...itens)=>el("dl",{class:"dados"},itens.filter(Boolean).map(([r,v])=>linhaDado(r,v)));
+  const foto=c.foto?el("img",{class:"mc-foto",src:c.foto,alt:"Foto do membro"}):el("div",{class:"mc-foto mc-sem-foto",texto:"Sem foto"});
+  const idade=idadeDe(c.nascimento);
+  return el("div",{},
+    el("div",{class:"mc-topo"},foto,el("div",{},
+      el("strong",{texto:c.nome}),
+      el("p",{class:"ajuda",texto:"Cadastro em "+(c.dataCadastro||"—")}),
+      el("p",{class:"ajuda",texto:"Edição: "+(c.situacao==="Liberado"?"liberada":"protegida")})
+    )),
+    dl(["Sexo",c.sexo],["Data de nascimento",isoParaBR(c.nascimento)+(idade!==""?" ("+idade+" anos)":"")],["Estado civil",c.estadoCivil],
+       ["Endereço",c.endereco],["Bairro",c.bairro],["Celular / WhatsApp",c.celular],["E-mail",c.email],
+       ["Data de batismo",isoParaBR(c.dataBatismo)],["Atua em ministério",c.atuaMinisterio==="Sim"?"Sim — "+c.qualMinisterio:c.atuaMinisterio],["Trabalha atualmente",c.trabalha]),
+    c.filhos.length?el("div",{},el("strong",{texto:"Filhos que frequentam a igreja"}),
+      c.filhos.map(f=>el("p",{class:"ajuda",texto:f.nome+" — "+(f.sexo||"sexo não informado")+" — "+isoParaBR(f.nascimento)}))):
+      el("p",{class:"ajuda",texto:"Nenhum filho cadastrado."})
+  );
+}
+
+async function verCadastroEquipe(id){
+  abrirModal("Cadastro",[el("p",{class:"ajuda",texto:"Carregando..."})],[{texto:"Fechar",principal:true,acao:fecharModal}]);
+  try{
+    const r=await chamarEquipe("equipeCadastro",{idCadastro:id});
+    if(!r.ok)throw new Error(r.mensagem);
+    abrirModal("Cadastro de "+r.cadastro.nome,[corpoCadastro(r.cadastro)],[{texto:"Fechar",principal:true,acao:fecharModal}]);
+  }catch(err){
+    if(err.sessaoExpirada)return;
+    abrirModal("Cadastro",[el("div",{class:"aviso aviso-erro",texto:err.message})],[{texto:"Fechar",principal:true,acao:fecharModal}]);
+  }
+}
+
+/* ---------- link de acesso ---------- */
+function gerarLinkEquipe(idCadastro,nome,celular){
+  abrirModal("Gerar link de acesso",[
+    el("p",{texto:"Vamos gerar um link individual para "+nome+"."}),
+    el("p",{texto:"Ele abre somente o cadastro dessa pessoa e vale por 7 dias. Se já existir um link, o anterior deixa de valer."})
+  ],[
+    {texto:"Cancelar",acao:fecharModal},
+    {texto:"Gerar link",principal:true,acao:async ev=>{
+      const btn=ev.currentTarget;btn.disabled=true;btn.textContent="Gerando...";
+      try{
+        const r=await chamarEquipe("equipeGerarLink",{idCadastro:idCadastro});
+        if(!r.ok)throw new Error(r.mensagem);
+        mostrarLinkGerado(r,celular);
+      }catch(err){
+        if(err.sessaoExpirada)return;
+        abrirModal("Gerar link de acesso",[el("div",{class:"aviso aviso-erro",texto:err.message})],[{texto:"Fechar",principal:true,acao:fecharModal}]);
+      }
+    }}
+  ]);
+}
+
+function mostrarLinkGerado(r,celular){
+  const campo=el("input",{class:"campo-link",readonly:true,"aria-label":"Link de acesso"});
+  campo.value=r.link;
+  const aviso=el("p",{class:"ajuda"});
+  const primeiro=String(r.nome||"").split(" ")[0];
+  const texto="Olá, "+primeiro+"! Segue o link de acesso ao seu cadastro de membro da Primeira Igreja Batista em Vaz Lobo:\n\n"+r.link+"\n\nO link vale até "+r.validoAte+".";
+  const wa=linkWhatsApp(celular,texto);
+  abrirModal("Link de acesso gerado",[
+    el("p",{texto:"Link de "+r.nome+" (válido até "+r.validoAte+"):"}),
+    campo,aviso,
+    wa?el("a",{class:"botao",href:wa,target:"_blank",rel:"noopener",texto:"Enviar pelo WhatsApp"}):el("p",{class:"ajuda",texto:"Este cadastro não tem celular para envio pelo WhatsApp."}),
+    el("p",{class:"ajuda",texto:"Envie o link só para a própria pessoa."})
+  ],[
+    {texto:"Copiar link",acao:async()=>{
+      try{await navigator.clipboard.writeText(r.link);aviso.textContent="Link copiado.";}
+      catch(e){campo.focus();campo.select();aviso.textContent="Selecione e copie o link acima.";}
+    }},
+    {texto:"Fechar",principal:true,acao:fecharModal}
+  ]);
+}
+
+/* ---------- Autorização de Cadastros ---------- */
+const SITUACOES_SOL=[["Pendente","Pendentes"],["Autorizada","Autorizadas"],["Concluída","Concluídas"],["Recusada","Recusadas"],["","Todas"]];
+
+async function carregarSolicitacoes(){
+  const box=document.getElementById("eqAutorizacao");
+  box.replaceChildren(el("p",{class:"ajuda",texto:"Carregando pedidos..."}));
+  try{
+    const r=await chamarEquipe("equipeSolicitacoes");
+    if(!r.ok)throw new Error(r.mensagem);
+    eqSolicitacoes=r.solicitacoes;
+    renderSolicitacoes();
+  }catch(err){
+    if(err.sessaoExpirada)return;
+    box.replaceChildren(el("div",{class:"aviso aviso-erro",texto:err.message}),
+      el("button",{type:"button",class:"botao secundario",texto:"Tentar de novo",onclick:carregarSolicitacoes}));
+  }
+}
+
+function badgeSituacao(s){
+  const mapa={"Pendente":"badge-pendente","Autorizada":"badge-autorizada","Concluída":"badge-concluida","Recusada":"badge-recusada"};
+  return el("span",{class:"badge "+(mapa[s]||""),texto:s});
+}
+
+function confirmarDecisao(s,decisao){
+  const autorizar=decisao==="autorizar";
+  abrirModal(autorizar?"Autorizar a edição do cadastro?":"Recusar o pedido?",[
+    el("p",{texto:s.nome+" pediu a revisão: “"+s.motivo+"”."}),
+    el("p",{texto:autorizar
+      ?"Ao autorizar, o membro poderá editar o cadastro uma vez. Depois que ele reenviar, o cadastro volta a ficar protegido."
+      :"O cadastro continuará protegido e o membro verá que o pedido não foi autorizado."})
+  ],[
+    {texto:"Voltar",acao:fecharModal},
+    {texto:autorizar?"Autorizar":"Recusar",principal:true,acao:async ev=>{
+      const btn=ev.currentTarget;btn.disabled=true;btn.textContent="Salvando...";
+      try{
+        const r=await chamarEquipe("equipeDecidir",{idSolicitacao:s.id,decisao:decisao});
+        if(!r.ok)throw new Error(r.mensagem);
+        fecharModal();eqMembros=null;
+        await carregarSolicitacoes();
+      }catch(err){
+        if(err.sessaoExpirada)return;
+        abrirModal("Não foi possível salvar",[el("div",{class:"aviso aviso-erro",texto:err.message})],[{texto:"Fechar",principal:true,acao:()=>{fecharModal();carregarSolicitacoes();}}]);
+      }
+    }}
+  ]);
+}
+
+function cartaoSolicitacao(s){
+  const acoes=[el("button",{type:"button",class:"botao-peq",texto:"Ver cadastro",onclick:()=>verCadastroEquipe(s.idCadastro)})];
+  if(s.situacao==="Pendente"){
+    acoes.push(el("button",{type:"button",class:"botao-peq principal",texto:"Autorizar",onclick:()=>confirmarDecisao(s,"autorizar")}));
+    acoes.push(el("button",{type:"button",class:"botao-peq",texto:"Recusar",onclick:()=>confirmarDecisao(s,"recusar")}));
+  }
+  if(s.situacao==="Autorizada"){
+    const aviso="Olá! Seu pedido de revisão do cadastro foi autorizado. Acesse "+URL_SITE_EQUIPE+" , entre em Meu Cadastro e toque em Editar meu cadastro.";
+    const wa=linkWhatsApp(s.celular,aviso);
+    if(wa)acoes.push(el("a",{class:"botao-peq",href:wa,target:"_blank",rel:"noopener",texto:"Avisar pelo WhatsApp"}));
+  }
+  acoes.push(el("button",{type:"button",class:"botao-peq",texto:"Gerar link de acesso",onclick:()=>gerarLinkEquipe(s.idCadastro,s.nome,s.celular)}));
+  return el("article",{class:"cartao-sol"},
+    el("div",{class:"cartao-sol-topo"},el("strong",{texto:s.nome}),badgeSituacao(s.situacao)),
+    el("p",{class:"ajuda",texto:"Pedido em "+s.data+(s.celular?" · "+s.celular:"")}),
+    el("p",{class:"motivo",texto:"“"+s.motivo+"”"}),
+    s.decididoPor?el("p",{class:"ajuda",texto:(s.situacao==="Recusada"?"Recusado":"Autorizado")+" por "+s.decididoPor+" em "+s.dataDecisao}):null,
+    s.dataConclusao?el("p",{class:"ajuda",texto:"Concluída em "+s.dataConclusao}):null,
+    s.situacao==="Autorizada"?el("p",{class:"ajuda",texto:"Aguardando o membro editar e reenviar o cadastro."}):null,
+    el("div",{class:"acoes"},acoes)
+  );
+}
+
+const URL_SITE_EQUIPE="https://pibdevazlobo1939.github.io/Cadastro-de-Membros-PIBVL/";
+
+function renderSolicitacoes(){
+  const box=document.getElementById("eqAutorizacao");
+  const lista=eqSolicitacoes||[];
+  const cont=sit=>sit?lista.filter(s=>s.situacao===sit).length:lista.length;
+  const chips=el("div",{class:"chips",role:"group","aria-label":"Filtrar pedidos"},
+    SITUACOES_SOL.map(([sit,nome])=>el("button",{type:"button",class:"chip"+(filtroSolicitacao===sit?" ativo":""),
+      texto:nome+" ("+cont(sit)+")",onclick:()=>{filtroSolicitacao=sit;renderSolicitacoes();}}))
+  );
+  const filtrada=filtroSolicitacao?lista.filter(s=>s.situacao===filtroSolicitacao):lista;
+  const pend=cont("Pendente");
+  document.getElementById("eqSubPend").textContent=pend?" ("+pend+")":"";
+  box.replaceChildren(
+    el("div",{class:"eq-barra"},
+      el("p",{class:"ajuda",texto:"Pedidos de revisão de cadastro enviados pelos membros."}),
+      el("button",{type:"button",class:"botao-peq",texto:"Atualizar",onclick:carregarSolicitacoes})),
+    chips,
+    filtrada.length?el("div",{},filtrada.map(cartaoSolicitacao))
+      :el("p",{class:"ajuda vazio",texto:"Nenhum pedido nesta situação."})
+  );
+}
+
+/* ---------- Membros: números e gráficos ---------- */
+async function carregarMembros(){
+  const box=document.getElementById("eqMembros");
+  box.replaceChildren(el("p",{class:"ajuda",texto:"Carregando membros..."}));
+  try{
+    const r=await chamarEquipe("equipeMembros");
+    if(!r.ok)throw new Error(r.mensagem);
+    eqMembros=r.membros;eqFilhos=r.filhos;
+    renderMembros();
+  }catch(err){
+    if(err.sessaoExpirada)return;
+    box.replaceChildren(el("div",{class:"aviso aviso-erro",texto:err.message}),
+      el("button",{type:"button",class:"botao secundario",texto:"Tentar de novo",onclick:carregarMembros}));
+  }
+}
+
+function contar(lista,fn){const m=new Map();lista.forEach(x=>{const k=fn(x);m.set(k,(m.get(k)||0)+1);});return m;}
+
+function barraSegmentada(titulo,partes){
+  const total=partes.reduce((a,p)=>a+p.valor,0);
+  const visiveis=partes.filter(p=>p.valor>0);
+  const resumo=partes.map(p=>p.nome+": "+p.valor).join(", ");
+  const barra=el("div",{class:"segbar",role:"img","aria-label":titulo+" — "+resumo});
+  visiveis.forEach(p=>{
+    const pct=total?Math.round(p.valor*100/total):0;
+    const bloco=el("div",{class:"segbloco",tabindex:"0",style:"flex:"+p.valor+" 1 0;background:"+p.cor,
+      "aria-label":p.nome+": "+p.valor+" ("+pct+"%)"},pct>=14?el("span",{texto:pct+"%"}):null);
+    anexarDica(bloco,String(p.valor),p.nome+" ("+pct+"%)");
+    barra.appendChild(bloco);
+  });
+  const legenda=el("div",{class:"legenda"},partes.map(p=>
+    el("span",{class:"leg-item"},el("i",{style:"background:"+p.cor}),p.nome)));
+  return el("section",{class:"cartao-graf"},el("h4",{texto:titulo}),
+    total?barra:el("p",{class:"ajuda",texto:"Sem dados."}),legenda);
+}
+
+function barrasOrdenadas(titulo,pares){
+  const max=Math.max(1,...pares.map(p=>p[1]));
+  return el("section",{class:"cartao-graf"},el("h4",{texto:titulo}),
+    pares.length?el("div",{class:"ranked"},pares.map(([nome,n])=>{
+      const linha=el("div",{class:"ranked-linha",tabindex:"0","aria-label":nome+": "+n},
+        el("span",{class:"ranked-nome",texto:nome}),
+        el("span",{class:"ranked-trilho"},el("i",{style:"width:"+(n*100/max)+"%"})),
+        el("span",{class:"ranked-valor",texto:String(n)}));
+      anexarDica(linha,String(n),nome);
+      return linha;
+    })):el("p",{class:"ajuda",texto:"Sem dados."}));
+}
+
+function colunasMeses(contagens){
+  const max=Math.max(1,...contagens);
+  const hoje=new Date().getMonth();
+  const area=el("div",{class:"colunas",role:"group","aria-label":"Aniversariantes por mês"});
+  contagens.forEach((n,i)=>{
+    const rotulo=meses[i]+": "+n+(n===1?" aniversariante":" aniversariantes");
+    const col=el("button",{type:"button",class:"coluna"+(filtroMes===String(i)?" ativa":""),"aria-label":rotulo,"data-mes":String(i),
+      onclick:()=>{
+        filtroMes=filtroMes===String(i)?"":String(i);
+        document.getElementById("fMes").value=filtroMes;
+        marcarMesAtivo();limiteLista=50;renderListaMembros();
+        document.getElementById("listaMembros").scrollIntoView({behavior:"smooth",block:"start"});
+      }},
+      el("span",{class:"coluna-valor",texto:(n===max&&n>0)||i===hoje?String(n):""}),
+      el("span",{class:"coluna-barra",style:"height:"+(n?Math.max(4,n*100/max):2)+"px"}),
+      el("span",{class:"coluna-mes"+(i===hoje?" atual":""),texto:MESES_CURTOS[i]})
+    );
+    anexarDica(col,String(n),(n===1?"aniversariante":"aniversariantes")+" em "+meses[i]);
+    area.appendChild(col);
+  });
+  return el("section",{class:"cartao-graf largo"},el("h4",{texto:"Aniversariantes por mês"}),
+    area,el("p",{class:"ajuda",texto:"Toque em um mês para ver os aniversariantes na lista abaixo."}));
+}
+
+function marcarMesAtivo(){
+  document.querySelectorAll(".coluna").forEach(c=>c.classList.toggle("ativa",c.dataset.mes===filtroMes));
+}
+
+function renderMembros(){
+  const box=document.getElementById("eqMembros");
+  const m=eqMembros||[];
+  const total=m.length;
+  const sexo=contar(m,x=>x.sexo||"Não informado");
+  const fem=sexo.get("Feminino")||0,mas=sexo.get("Masculino")||0,outro=total-fem-mas;
+  const atua=m.filter(x=>x.atuaMinisterio==="Sim").length;
+  const bat=m.filter(x=>x.dataBatismo).length;
+  const trab=contar(m,x=>x.trabalha||"Não informado");
+  const t1=trab.get("Sim")||0,t2=trab.get("Não")||0,t3=trab.get("Aposentado(a)")||0,t4=total-t1-t2-t3;
+  const civil=[...contar(m,x=>x.estadoCivil||"Não informado").entries()].sort((a,b)=>b[1]-a[1]);
+  const mesesN=new Array(12).fill(0);
+  m.forEach(x=>{const mm=Number(String(x.nascimento).slice(5,7));if(mm>=1&&mm<=12)mesesN[mm-1]++;});
+
+  const tile=(rotulo,valor,nota,heroi)=>el("div",{class:"tile"+(heroi?" heroi":"")},
+    el("span",{class:"tile-rotulo",texto:rotulo}),el("span",{class:"tile-valor",texto:String(valor)}),nota?el("span",{class:"tile-nota",texto:nota}):null);
+
+  const kpis=el("div",{class:"kpis"},
+    tile("Total de membros",total,"",true),
+    tile("Mulheres",fem),tile("Homens",mas),
+    tile("Filhos cadastrados",eqFilhos.length,"não contam como membros"));
+
+  const sexoPartes=[{nome:"Feminino",valor:fem,cor:COR_1},{nome:"Masculino",valor:mas,cor:COR_2}];
+  if(outro>0)sexoPartes.push({nome:"Não informado",valor:outro,cor:COR_3});
+  const trabPartes=[{nome:"Trabalham",valor:t1,cor:COR_1},{nome:"Não trabalham",valor:t2,cor:COR_2},{nome:"Aposentados",valor:t3,cor:COR_3}];
+
+  const tabela=el("details",{class:"tabela-num"},el("summary",{texto:"Ver os números em tabela"}),
+    el("table",{},el("thead",{},el("tr",{},el("th",{texto:"Indicador"}),el("th",{texto:"Pessoas"}))),
+      el("tbody",{},[
+        ["Total de membros",total],["Mulheres",fem],["Homens",mas],["Filhos cadastrados",eqFilhos.length],
+        ["Atuam em ministério",atua],["Não atuam em ministério",total-atua],
+        ["Com data de batismo",bat],["Sem data de batismo",total-bat],
+        ["Trabalham",t1],["Não trabalham",t2],["Aposentados",t3],
+        ...civil.map(([n,v])=>["Estado civil: "+n,v]),
+        ...mesesN.map((v,i)=>["Aniversário em "+meses[i],v])
+      ].map(([a,b])=>el("tr",{},el("td",{texto:a}),el("td",{texto:String(b)}))))));
+
+  const opcoesMes=[el("option",{value:"",texto:"Todos os meses"}),...meses.map((n,i)=>el("option",{value:String(i),texto:n}))];
+  const campoBusca=el("input",{id:"fBusca",type:"search",placeholder:"Buscar por nome, celular ou e-mail","aria-label":"Buscar membro"});
+  const selMes=el("select",{id:"fMes","aria-label":"Aniversário em"},opcoesMes);
+  const selFilhos=el("select",{id:"fFilhos","aria-label":"Filhos"},
+    el("option",{value:"",texto:"Com ou sem filhos"}),el("option",{value:"com",texto:"Somente quem tem filhos cadastrados"}));
+  campoBusca.value=filtroBusca;selMes.value=filtroMes;selFilhos.value=filtroFilhos;
+  campoBusca.addEventListener("input",()=>{filtroBusca=campoBusca.value;limiteLista=50;renderListaMembros();});
+  selMes.addEventListener("change",()=>{filtroMes=selMes.value;marcarMesAtivo();limiteLista=50;renderListaMembros();});
+  selFilhos.addEventListener("change",()=>{filtroFilhos=selFilhos.value;limiteLista=50;renderListaMembros();});
+
+  box.replaceChildren(
+    el("div",{class:"eq-barra"},el("p",{class:"ajuda",texto:"Números calculados com os cadastros enviados. Filhos não entram na contagem de membros."}),
+      el("button",{type:"button",class:"botao-peq",texto:"Atualizar",onclick:()=>{eqMembros=null;carregarMembros();}})),
+    kpis,
+    el("div",{class:"graficos"},
+      barraSegmentada("Sexo",sexoPartes),
+      barraSegmentada("Atuação em ministério",[{nome:"Atuam em ministério",valor:atua,cor:COR_1},{nome:"Não atuam",valor:total-atua,cor:COR_2}]),
+      barraSegmentada("Data de batismo no cadastro",[{nome:"Com data de batismo",valor:bat,cor:COR_1},{nome:"Sem data de batismo",valor:total-bat,cor:COR_2}]),
+      barraSegmentada("Situação de trabalho",t4>0?trabPartes.concat([{nome:"Não informado",valor:t4,cor:"#898781"}]):trabPartes),
+      barrasOrdenadas("Estado civil",civil),
+      colunasMeses(mesesN)),
+    tabela,
+    el("h3",{class:"secao-titulo bloco",texto:"Lista de membros"}),
+    el("div",{class:"filtros"},campoBusca,selMes,selFilhos),
+    el("div",{id:"listaMembros"})
+  );
+  renderListaMembros();
+}
+
+function renderListaMembros(){
+  const alvo=document.getElementById("listaMembros");
+  if(!alvo)return;
+  const filhosPor=new Map();
+  eqFilhos.forEach(f=>{if(!filhosPor.has(f.idResponsavel))filhosPor.set(f.idResponsavel,[]);filhosPor.get(f.idResponsavel).push(f);});
+  const q=semAcento(filtroBusca).trim(),qd=soDigitos(filtroBusca);
+  let lista=eqMembros.filter(x=>{
+    if(q){
+      const texto=semAcento(x.nome+" "+x.email);
+      const okTexto=texto.includes(q);
+      const okFone=qd.length>=3&&soDigitos(x.celular).includes(qd);
+      if(!okTexto&&!okFone)return false;
+    }
+    if(filtroMes!==""&&Number(String(x.nascimento).slice(5,7))-1!==Number(filtroMes))return false;
+    if(filtroFilhos==="com"&&!filhosPor.has(x.id))return false;
+    return true;
+  });
+  lista.sort((a,b)=>filtroMes!==""
+    ?Number(String(a.nascimento).slice(8,10))-Number(String(b.nascimento).slice(8,10))||a.nome.localeCompare(b.nome,"pt-BR")
+    :a.nome.localeCompare(b.nome,"pt-BR"));
+  const mostrar=lista.slice(0,limiteLista);
+  alvo.replaceChildren(...[
+    el("p",{class:"ajuda",texto:"Mostrando "+mostrar.length+" de "+lista.length+(lista.length===1?" membro":" membros")+"."}),
+    mostrar.map(x=>{
+      const fl=filhosPor.get(x.id)||[];
+      const wa=linkWhatsApp(x.celular,"Olá, "+String(x.nome).split(" ")[0]+"! Aqui é da Primeira Igreja Batista em Vaz Lobo.");
+      const dia=Number(String(x.nascimento).slice(8,10)),mes=Number(String(x.nascimento).slice(5,7));
+      return el("article",{class:"membro"},
+        el("div",{class:"membro-info"},
+          el("strong",{texto:x.nome}),
+          el("span",{class:"ajuda",texto:[x.celular,x.bairro].filter(Boolean).join(" · ")||"Sem celular informado"}),
+          filtroMes!==""&&dia?el("span",{class:"ajuda",texto:"Aniversário em "+String(dia).padStart(2,"0")+"/"+String(mes).padStart(2,"0")}):null,
+          fl.length?el("span",{class:"ajuda",texto:"Filhos: "+fl.map(f=>f.nome).join(", ")}):null
+        ),
+        el("div",{class:"acoes"},
+          wa?el("a",{class:"botao-peq principal",href:wa,target:"_blank",rel:"noopener",texto:"WhatsApp"}):null,
+          el("button",{type:"button",class:"botao-peq",texto:"Ver cadastro",onclick:()=>verCadastroEquipe(x.id)}),
+          el("button",{type:"button",class:"botao-peq",texto:"Gerar link",onclick:()=>gerarLinkEquipe(x.id,x.nome,x.celular)})
+        ));
+    }),
+    lista.length>mostrar.length?el("button",{type:"button",class:"botao secundario",texto:"Mostrar mais",onclick:()=>{limiteLista+=50;renderListaMembros();}}):null,
+    lista.length?null:el("p",{class:"ajuda vazio",texto:"Nenhum membro encontrado com esses filtros."})
+  ].flat().filter(Boolean));
+}
+
 </script>
 </body>
 </html>
