@@ -373,8 +373,7 @@ function enviarAoServidor(dados){
 }
 
 window.addEventListener("message",evento=>{
-  if(evento.source!==iframeEnvio.contentWindow)return;
-  if(!evento.data || typeof evento.data!=="string")return;
+    if(!/^https:\/\/([a-z0-9-]+\.)*(script\.google\.com|googleusercontent\.com)$/.test(evento.origin))return;
 
   let mensagem;
 
