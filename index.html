@@ -107,10 +107,40 @@ a.botao{display:block;text-align:center;text-decoration:none}
 @media(max-width:560px){.graficos{grid-template-columns:1fr}.cartao-graf.largo{grid-column:auto}.ranked-linha{grid-template-columns:minmax(70px,34%) 1fr 26px}.menu-inferior button{font-size:11px;padding:8px 3px}}
 .verbox{display:flex;gap:10px;align-items:flex-start;margin:12px 0 0;font-size:14px;line-height:1.4;cursor:pointer}.verbox input{width:20px;min-height:20px;height:20px;flex:none;margin:1px 0 0;accent-color:var(--azul)}
 .link-texto{text-align:center;margin:14px 0 0}.link-texto button{border:0;background:none;color:var(--azul);font:bold 14px Arial,Helvetica,sans-serif;text-decoration:underline;cursor:pointer;padding:8px}
-.status-mc.ok{background:#e9f8ef;color:#17633a}
+.status-mc.ok{background:#e9f8ef;color:#17633a}.status-mc.info{background:#eef5ff;color:#1746a2}.mc-pessoas{display:flex;gap:8px;flex-wrap:wrap;margin:4px 0 16px}
 .codigo-grande{font:bold 34px/1.2 "Courier New",monospace;letter-spacing:6px;text-align:center;background:#eef5ff;border:1px dashed #9db9e6;border-radius:12px;padding:14px;margin:12px 0;color:var(--escuro);word-break:break-all}
-.formmc>p.ajuda{margin:0 0 14px}#mcPassoSenha{margin-top:12px}.modal-corpo a.botao{color:#fff;text-decoration:none;margin-top:14px}
+.formmc>p.ajuda,#mcPasso1>p.ajuda,#mcPasso2>p.ajuda{margin:0 0 14px}#mcPassoSenha{margin-top:12px}.modal-corpo a.botao{color:#fff;text-decoration:none;margin-top:14px}
 #formCriar .botao.secundario,#formEntrar .botao,#formCodigo .botao{margin-top:18px}
+body:has(#abaMeuCadastro:not([hidden]) #mcCadastro:not([hidden])) .topo{display:none}
+#abaMeuCadastro:has(#mcCadastro:not([hidden])){background:#eaf3fd radial-gradient(ellipse 60% 30% at 0% 0%,#d6e7fb 0,transparent 70%),radial-gradient(ellipse 40% 40% at 100% 25%,#cfe2f9 0,transparent 70%)}
+.mc-cab{display:flex;align-items:center;gap:16px;padding-bottom:16px;border-bottom:1.5px solid #b9cfe8;margin-bottom:22px}
+.mc-cab img{width:56px;height:56px;padding:7px;border-radius:50%;background:#fff;object-fit:contain;box-shadow:0 3px 10px #1746a233;flex:none}
+.mc-cab .igreja{font-weight:bold;color:var(--azul);font-size:17px;padding-right:16px;border-right:1.5px solid #9db4d6;line-height:1.1;white-space:nowrap}
+.mc-cab h2{margin:0;font-size:32px;color:#0e2459;white-space:nowrap}
+.cartao{background:#fff;border-radius:22px;box-shadow:0 6px 24px #1746a21c;padding:20px;margin-bottom:20px}
+.mc-perfil{display:flex;gap:22px;align-items:center}
+.mc-perfil .mc-foto{width:140px;height:140px;border-radius:18px;border:0;flex:none}
+.mc-perfil .info{flex:1;min-width:0;border-left:1.5px solid #cdd9ea;padding-left:22px}
+.mc-perfil .mc-nome{font-size:34px;color:#0e2459;margin:0;line-height:1.1}
+.mc-selo{display:inline-block;background:#cfe3fb;color:#0e2459;font-weight:bold;font-size:16px;padding:9px 20px;border-radius:999px;margin-top:14px}
+.botao-rev{display:inline-flex;gap:8px;align-items:center;justify-content:center;border:2px solid var(--azul);background:#fff;color:var(--azul);border-radius:12px;padding:13px 18px;font:bold 15px Arial,Helvetica,sans-serif;cursor:pointer;white-space:nowrap}
+.cartao h3{display:flex;gap:12px;align-items:center;margin:0 0 16px;padding-bottom:12px;border-bottom:1.5px solid #dbe5f2;font-size:22px;color:#0e2459}
+.cartao h3 .ico{color:var(--azul);display:flex}
+.mc-itens{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px 24px}
+.mc-item{display:flex;gap:12px;align-items:center;min-width:0}
+.mc-item .ico{flex:none;width:46px;height:46px;border-radius:50%;background:#e3effd;color:var(--azul);display:flex;align-items:center;justify-content:center}
+.mc-item small{display:block;color:#5d7090;font-size:14px;margin-bottom:3px}.mc-item b{font-size:17px;word-break:break-word;color:#0e2459}
+.mc-bloco+.mc-bloco{margin-top:30px;padding-top:6px}
+.mc-links{display:flex;justify-content:center;gap:26px;margin:10px 0 4px;flex-wrap:wrap}
+.mc-links button{border:0;background:transparent;color:var(--azul);font:bold 14px Arial,Helvetica,sans-serif;text-decoration:underline;cursor:pointer;padding:8px}
+@media(max-width:640px){
+.mc-cab{gap:10px;padding-bottom:12px;margin-bottom:16px}.mc-cab img{width:44px;height:44px;padding:6px}.mc-cab .igreja{font-size:12px;padding-right:10px}.mc-cab h2{font-size:22px}
+.cartao{padding:12px;border-radius:18px;margin-bottom:14px}.mc-perfil{gap:10px}.mc-perfil .mc-foto{width:76px;height:76px;border-radius:14px}
+.mc-perfil .info{padding-left:10px}.mc-perfil .mc-nome{font-size:19px}.mc-selo{font-size:11px;padding:6px 10px;margin-top:8px}
+.botao-rev{flex-direction:column;gap:4px;white-space:normal;text-align:center;font-size:11px;padding:8px;width:76px;border-width:1.5px;border-radius:10px;line-height:1.15}.botao-rev svg{width:18px;height:18px}
+.cartao h3{font-size:16px;gap:8px;margin-bottom:12px;padding-bottom:10px}.cartao h3 svg{width:22px;height:22px}
+.mc-itens{gap:14px 10px}.mc-item{gap:7px}.mc-item .ico{width:30px;height:30px}.mc-item .ico svg{width:16px;height:16px}.mc-item small{font-size:11px;margin-bottom:2px}.mc-item b{font-size:11.5px;word-break:normal;overflow-wrap:anywhere}
+}
 #abaEquipe{padding:25px}@media(max-width:560px){#abaEquipe{padding:20px 15px}}
 </style>
 </head>
@@ -122,6 +152,11 @@ a.botao{display:block;text-align:center;text-decoration:none}
 </header>
 
 <div id="abaCadastro">
+<div id="avisoOutraPessoa" class="aviso aviso-info" hidden style="margin:18px 25px 0">
+  <strong id="avisoTitulo">Cadastrando outro membro</strong>
+  <p id="avisoTexto"></p>
+  <button type="button" class="botao-peq" id="cancelarOutraPessoa">Cancelar</button>
+</div>
 <form id="formCadastro">
 <h2 class="secao-titulo">Dados pessoais</h2>
 <div class="grade">
@@ -162,6 +197,7 @@ a.botao{display:block;text-align:center;text-decoration:none}
   <p id="mensagemFinal" style="line-height:1.6">Seu cadastro foi concluído com sucesso! Agradecemos por manter seus dados atualizados. Que Deus abençoe sua vida!</p>
   <button type="button" class="botao secundario" id="irMeuCadastro">Ver Meu Cadastro</button>
   <button type="button" class="botao secundario" id="adicionarMembro">Cadastrar outro membro</button>
+  <button type="button" class="botao secundario" id="voltarEquipe" hidden>Voltar à Área da Equipe</button>
 </section>
 
 </div>
@@ -177,12 +213,23 @@ a.botao{display:block;text-align:center;text-decoration:none}
     <form id="formEntrar" class="formmc">
       <div class="grade">
         <div class="campo completo"><label for="mcEmail">E-mail</label><input id="mcEmail" type="email" autocomplete="username" required></div>
-        <div class="campo completo"><label for="mcSenha">Senha</label><input id="mcSenha" type="password" autocomplete="current-password" required></div>
+        <div class="campo completo"><label for="mcSenha">Senha</label><input id="mcSenha" type="password" inputmode="numeric" autocomplete="current-password" required></div>
       </div>
       <label class="verbox"><input type="checkbox" class="ver-senha" data-alvo="mcSenha"><span>Mostrar senha</span></label>
       <label class="verbox"><input type="checkbox" id="mcLembrar" checked> <span>Manter conectado neste aparelho por 30 dias<small class="ajuda" style="display:block">Não use em aparelho de outras pessoas.</small></span></label>
       <button class="botao" id="mcBotaoEntrar" type="submit">Entrar</button>
-      <p class="link-texto"><button type="button" id="mcPrimeiro">Primeiro acesso ou esqueci a senha</button></p>
+      <p class="link-texto"><button type="button" id="mcPrimeiro">Esqueci minha senha</button></p>
+    </form>
+
+    <form id="formPasse" class="formmc" hidden>
+      <p class="ajuda" style="font-size:14px">Seu cadastro foi enviado. Para consultá-lo depois, crie uma senha de <strong>4 números</strong>. Seu e-mail de acesso: <strong id="mcPasseEmail"></strong></p>
+      <div class="grade">
+        <div class="campo"><label for="mcPasseSenha">Crie sua senha (4 números)</label><input id="mcPasseSenha" type="password" inputmode="numeric" autocomplete="new-password" maxlength="4" placeholder="••••" required></div>
+        <div class="campo"><label for="mcPasseSenha2">Confirme a senha</label><input id="mcPasseSenha2" type="password" inputmode="numeric" autocomplete="new-password" maxlength="4" placeholder="••••" required></div>
+      </div>
+      <label class="verbox"><input type="checkbox" class="ver-senha" data-alvo="mcPasseSenha,mcPasseSenha2"><span>Mostrar senha</span></label>
+      <label class="verbox"><input type="checkbox" id="mcPasseLembrar" checked><span>Manter conectado neste aparelho por 30 dias<small class="ajuda" style="display:block">Não use em aparelho de outras pessoas.</small></span></label>
+      <button class="botao" id="mcBotaoPasse" type="submit">Criar senha e ver meu cadastro</button>
     </form>
 
     <form id="formCodigo" class="formmc" hidden>
@@ -195,24 +242,30 @@ a.botao{display:block;text-align:center;text-decoration:none}
     </form>
 
     <form id="formCriar" class="formmc" hidden>
-      <p class="ajuda" style="font-size:14px">Informe o e-mail e a data de nascimento do seu cadastro. Enviaremos um código de 6 números ao seu e-mail para você criar uma nova senha.</p>
-      <div class="grade">
-        <div class="campo completo"><label for="mcCriarEmail">E-mail do cadastro</label><input id="mcCriarEmail" type="email" autocomplete="username" required></div>
-        <div class="campo completo"><label for="mcCriarNasc">Data de nascimento (DD/MM/AAAA)</label><input id="mcCriarNasc" inputmode="numeric" maxlength="10" placeholder="DD/MM/AAAA" required></div>
-      </div>
-      <button class="botao secundario" id="mcEnviarCodigo" type="button">Enviar código para o meu e-mail</button>
-      <p class="link-texto"><button type="button" id="mcJaTenhoCodigo">Já tenho um código</button></p>
-      <div id="mcPassoSenha" hidden>
+      <div id="mcPasso1">
+        <p class="ajuda" style="font-size:14px">Informe o e-mail e a data de nascimento do seu cadastro e crie uma senha de <strong>4 números</strong>.</p>
         <div class="grade">
-          <div class="campo completo"><label for="mcCriarCodigo">Código recebido</label><input id="mcCriarCodigo" autocomplete="one-time-code" maxlength="9" placeholder="6 números do e-mail ou código da Comunicação"></div>
-          <div class="campo completo"><label for="mcNovaSenha">Nova senha (mínimo 6 caracteres)</label><input id="mcNovaSenha" type="password" autocomplete="new-password" maxlength="64"></div>
-          <div class="campo completo"><label for="mcNovaSenha2">Repita a nova senha</label><input id="mcNovaSenha2" type="password" autocomplete="new-password" maxlength="64"></div>
+          <div class="campo completo"><label for="mcCriarEmail">E-mail do cadastro</label><input id="mcCriarEmail" type="email" autocomplete="username" required></div>
+          <div class="campo completo"><label for="mcCriarNasc">Data de nascimento (DD/MM/AAAA)</label><input id="mcCriarNasc" inputmode="numeric" maxlength="10" placeholder="DD/MM/AAAA" required></div>
+          <div class="campo"><label for="mcNovaSenha">Crie sua senha (4 números)</label><input id="mcNovaSenha" type="password" inputmode="numeric" autocomplete="new-password" maxlength="4" placeholder="••••" required></div>
+          <div class="campo"><label for="mcNovaSenha2">Confirme a senha</label><input id="mcNovaSenha2" type="password" inputmode="numeric" autocomplete="new-password" maxlength="4" placeholder="••••" required></div>
         </div>
         <label class="verbox"><input type="checkbox" class="ver-senha" data-alvo="mcNovaSenha,mcNovaSenha2"><span>Mostrar senha</span></label>
-        <label class="verbox"><input type="checkbox" id="mcCriarLembrar" checked> <span>Manter conectado neste aparelho por 30 dias<small class="ajuda" style="display:block">Não use em aparelho de outras pessoas.</small></span></label>
-        <button class="botao" id="mcBotaoCriar" type="submit">Criar senha e entrar</button>
+        <label class="verbox"><input type="checkbox" id="mcCriarLembrar" checked><span>Manter conectado neste aparelho por 30 dias<small class="ajuda" style="display:block">Não use em aparelho de outras pessoas.</small></span></label>
+        <button class="botao" id="mcContinuar" type="submit">Continuar</button>
+        <p class="link-texto"><button type="button" id="mcJaTenhoCodigo">Já tenho um código da Comunicação</button></p>
       </div>
-      <p class="link-texto"><button type="button" id="mcVoltarEntrar">Voltar para a entrada</button></p>
+      <div id="mcPasso2" hidden>
+        <p class="ajuda" style="font-size:14px">Para confirmar que o cadastro é seu, digite o <strong>código de 6 números</strong> que enviamos para o seu e-mail (veja também o spam). Se a Comunicação lhe passou um código, digite esse código.</p>
+        <div class="grade">
+          <div class="campo completo"><label for="mcCriarCodigo">Código recebido</label><input id="mcCriarCodigo" inputmode="text" autocomplete="one-time-code" autocapitalize="characters" maxlength="9" placeholder="Código"></div>
+        </div>
+        <button class="botao" id="mcBotaoCriar" type="submit">Confirmar e ver meu cadastro</button>
+        <p class="link-texto"><button type="button" id="mcReenviar">Enviar o código de novo</button></p>
+        <p class="link-texto"><button type="button" id="mcVoltarPasso1">Corrigir meus dados</button></p>
+      </div>
+      <p class="link-texto"><button type="button" id="mcVoltarEntrar">Já tenho senha: entrar</button></p>
+      <p class="link-texto"><button type="button" id="mcSemEmail">Não tenho e-mail: entrar com código da Comunicação</button></p>
     </form>
 
     <div id="mcStatusEntrada" class="status-mc" role="alert"></div>
@@ -237,6 +290,7 @@ a.botao{display:block;text-align:center;text-decoration:none}
   <div id="eqPainel" hidden>
     <div class="eq-topo">
       <span class="ajuda">Conectado como <strong id="eqEmail"></strong></span>
+      <button type="button" class="botao-peq" id="eqCadastrar">Cadastrar outro membro</button>
       <button type="button" class="botao-peq" id="eqSair">Sair</button>
     </div>
     <div class="segmentado" role="tablist">
@@ -702,16 +756,37 @@ form.addEventListener("submit",async e=>{
       dados.fotoNome=arq.name;
     }
 
+    // Define a quem este cadastro fica vinculado.
+    if(modoEquipeCadastro){
+      dados.idTokenEquipe=tokenEquipe;
+    }else{
+      if(!sessaoMembro&&lerAparelho())await sessaoSilenciosa();
+      if(sessaoMembro)dados.sessao=sessaoMembro;
+      else if(ultimoEnvio&&ultimoEnvio.passe)dados.passe=ultimoEnvio.passe;
+    }
+
     mostrarStatus("Enviando os dados. Aguarde a confirmação...",true);
 
     const resposta=await enviarAoServidor(dados);
 
     if(resposta.resultado==="sucesso"){
+      const viaPasse=!!(resposta.vinculado&&!dados.sessao&&dados.passe);
+      if(resposta.porEquipe||(viaPasse&&ultimoEnvio)){
+        /* mantém os dados do primeiro cadastro (para criar a senha dele depois) */
+      }else{
+        ultimoEnvio={email:dados.email,nascimento:isoParaBR(dados.nascimento),passe:resposta.passe||"",vinculado:!!resposta.vinculado};
+      }
       form.hidden=true;
       telaFinal.hidden=false;
+      document.getElementById("irMeuCadastro").hidden=!!resposta.porEquipe;
+      document.getElementById("voltarEquipe").hidden=!resposta.porEquipe;
 
-      document.getElementById("mensagemFinal").textContent=
-        "Seu cadastro foi concluído com sucesso! Agradecemos por manter seus dados atualizados. Que Deus abençoe sua vida!";
+      document.getElementById("mensagemFinal").textContent=resposta.porEquipe
+        ?"O cadastro de "+dados.nome+" foi registrado pela equipe com sucesso."
+        :resposta.vinculado
+        ?"O cadastro de "+dados.nome+" foi concluído com sucesso e ficará junto ao seu no Meu Cadastro. Que Deus abençoe sua vida!"
+        :"Seu cadastro foi concluído com sucesso! Agradecemos por manter seus dados atualizados. Que Deus abençoe sua vida!";
+      atualizarAvisoVinculo();
 
       telaFinal.scrollIntoView({
         behavior:"smooth",
@@ -742,6 +817,7 @@ form.addEventListener("submit",async e=>{
 });
 
 document.getElementById("adicionarMembro").addEventListener("click",()=>{
+  atualizarAvisoVinculo();
   form.reset();
   form.hidden=false;
   telaFinal.hidden=true;
@@ -764,6 +840,7 @@ document.getElementById("adicionarMembro").addEventListener("click",()=>{
 
   atualizarIdade();
 
+  atualizarAvisoVinculo();
   form.scrollIntoView({
     behavior:"smooth",
     block:"start"
@@ -785,6 +862,7 @@ const mcCadastro=document.getElementById("mcCadastro");
 const mcStatusEntrada=document.getElementById("mcStatusEntrada");
 let sessaoMembro="";
 let cadastroAtual=null;
+let alvoAtual="";
 let carregandoMeuCadastro=false;
 
 function el(tag,props,...filhos){
@@ -826,6 +904,8 @@ function salvarSessao(s){
 function limparSessao(){
   sessaoMembro="";
   cadastroAtual=null;
+  alvoAtual="";
+  definirModoOutraPessoa(false);
   try{sessionStorage.removeItem("pibvl_sessao");}catch(e){}
 }
 
@@ -876,6 +956,7 @@ function caixaRevisao(){
 
 /* ---------- abas ---------- */
 function irParaAba(nome){
+  if(nome!=="cadastro"&&modoEquipeCadastro){modoEquipeCadastro=false;}
   abaCadastro.hidden=nome!=="cadastro";
   abaMeuCadastro.hidden=nome!=="meu";
   abaEquipe.hidden=nome!=="equipe";
@@ -894,6 +975,7 @@ function irParaAba(nome){
     else if(lerAparelho())entrarPorAparelho();
   }
   if(nome==="equipe")abrirEquipe();
+  atualizarAvisoVinculo();
   window.scrollTo({top:0,behavior:"smooth"});
 }
 
@@ -901,7 +983,63 @@ document.querySelectorAll(".menu-inferior button").forEach(b=>
   b.addEventListener("click",()=>irParaAba(b.dataset.aba))
 );
 
-document.getElementById("irMeuCadastro").addEventListener("click",()=>irParaAba("meu"));
+let modoOutraPessoa=false;
+let modoEquipeCadastro=false;
+let ultimoEnvio=null;
+function definirModoOutraPessoa(ativo){
+  modoOutraPessoa=ativo;
+  atualizarAvisoVinculo();
+}
+function podeVincular(){
+  return !modoEquipeCadastro&&!!(sessaoMembro||(ultimoEnvio&&ultimoEnvio.passe)||lerAparelho());
+}
+// Mostra, acima do formulário, para quem o cadastro será registrado.
+function atualizarAvisoVinculo(){
+  const aviso=document.getElementById("avisoOutraPessoa");
+  const titulo=document.getElementById("avisoTitulo"),texto=document.getElementById("avisoTexto");
+  const cancelar=document.getElementById("cancelarOutraPessoa");
+  const mostrar=!telaFinal.hidden?false:(modoEquipeCadastro||podeVincular());
+  aviso.hidden=!mostrar;
+  if(!mostrar)return;
+  if(modoEquipeCadastro){
+    titulo.textContent="Cadastro feito pela equipe";
+    texto.textContent="Preencha os dados do membro. Este cadastro não ficará vinculado a nenhum acesso; depois você pode gerar o código ou o link de acesso dele na Área da Equipe.";
+    cancelar.textContent="Voltar à Área da Equipe";cancelar.hidden=false;
+  }else{
+    titulo.textContent="Cadastrando outro membro";
+    texto.textContent="Você já tem um cadastro conectado a este aparelho. Se estes dados forem de outra pessoa, o cadastro dela ficará junto ao seu no Meu Cadastro, para você acompanhar e pedir revisões por ela.";
+    cancelar.textContent="Cancelar";cancelar.hidden=!modoOutraPessoa;
+  }
+}
+document.getElementById("cancelarOutraPessoa").addEventListener("click",()=>{
+  if(modoEquipeCadastro){irParaAba("equipe");return;}
+  definirModoOutraPessoa(false);
+  document.getElementById("irMeuCadastro").click();
+});
+document.getElementById("voltarEquipe").addEventListener("click",()=>irParaAba("equipe"));
+document.getElementById("eqCadastrar").addEventListener("click",()=>{
+  modoEquipeCadastro=true;
+  modoOutraPessoa=false;
+  document.getElementById("adicionarMembro").click();
+  irParaAba("cadastro");
+});
+document.getElementById("irMeuCadastro").addEventListener("click",()=>{
+  if(ultimoEnvio&&ultimoEnvio.vinculado){cadastroAtual=null;definirModoOutraPessoa(false);}
+  if(!sessaoMembro&&!lerAparelho()&&ultimoEnvio&&!ultimoEnvio.vinculado){
+    if(ultimoEnvio.passe&&ultimoEnvio.email){
+      document.getElementById("mcPasseEmail").textContent=ultimoEnvio.email;
+      modoEntrada("passe");
+    }else if(!ultimoEnvio.email){
+      modoEntrada("codigo");
+      mostrarEntrada("Você não informou e-mail no cadastro. Para consultar seus dados, peça um código de acesso à equipe de Comunicação.","info");
+    }else{
+      document.getElementById("mcCriarEmail").value=ultimoEnvio.email;
+      document.getElementById("mcCriarNasc").value=ultimoEnvio.nascimento||"";
+      modoEntrada("criar");
+    }
+  }
+  irParaAba("meu");
+});
 
 /* ---------- entrada ---------- */
 function mostrarEntrada(mensagem,tipo){
@@ -916,15 +1054,29 @@ function mostrarEntrada(mensagem,tipo){
 const formEntrar=document.getElementById("formEntrar");
 const formCodigo=document.getElementById("formCodigo");
 const formCriar=document.getElementById("formCriar");
+const formPasse=document.getElementById("formPasse");
+
+function lerTemSenha(){
+  try{return localStorage.getItem("pibvl_tem_senha")==="1";}catch(e){return false;}
+}
+function marcarTemSenha(){
+  try{localStorage.setItem("pibvl_tem_senha","1");}catch(e){}
+}
 
 function modoEntrada(m){
   formEntrar.hidden=m!=="senha";
   formCodigo.hidden=m!=="codigo";
   formCriar.hidden=m!=="criar";
-  document.getElementById("mcModoBotoes").hidden=m==="criar";
+  formPasse.hidden=m!=="passe";
+  document.getElementById("mcModoBotoes").hidden=m==="criar"||m==="passe";
   document.querySelectorAll("#mcModoBotoes button").forEach(b=>b.classList.toggle("ativo",b.dataset.modo===m));
-  document.getElementById("mcTituloEntrada").textContent=m==="criar"?"Criar ou redefinir minha senha":"Consultar meu cadastro";
+  document.getElementById("mcTituloEntrada").textContent=m==="criar"?"Primeiro acesso: crie sua senha":m==="passe"?"Quase pronto: crie sua senha":"Consultar meu cadastro";
+  if(m==="criar")passoCriar(1);
   mostrarEntrada("");
+}
+function passoCriar(n){
+  document.getElementById("mcPasso1").hidden=n!==1;
+  document.getElementById("mcPasso2").hidden=n!==2;
 }
 document.querySelectorAll("#mcModoBotoes button").forEach(b=>b.addEventListener("click",()=>modoEntrada(b.dataset.modo)));
 document.getElementById("mcPrimeiro").addEventListener("click",()=>{
@@ -932,16 +1084,18 @@ document.getElementById("mcPrimeiro").addEventListener("click",()=>{
   modoEntrada("criar");
 });
 document.getElementById("mcVoltarEntrar").addEventListener("click",()=>modoEntrada("senha"));
-document.getElementById("mcJaTenhoCodigo").addEventListener("click",()=>{
-  document.getElementById("mcPassoSenha").hidden=false;
-  document.getElementById("mcCriarCodigo").focus();
-});
+document.getElementById("mcSemEmail").addEventListener("click",()=>modoEntrada("codigo"));
+document.getElementById("mcVoltarPasso1").addEventListener("click",()=>{passoCriar(1);mostrarEntrada("");});
 document.querySelectorAll(".ver-senha").forEach(c=>c.addEventListener("change",()=>{
   c.dataset.alvo.split(",").forEach(id=>{document.getElementById(id).type=c.checked?"text":"password";});
 }));
 
 const mcCriarNasc=document.getElementById("mcCriarNasc");
 mcCriarNasc.addEventListener("input",()=>mascaraData(mcCriarNasc));
+["mcNovaSenha","mcNovaSenha2","mcSenha","mcPasseSenha","mcPasseSenha2"].forEach(id=>{
+  const c=document.getElementById(id);
+  c.addEventListener("input",()=>{c.value=c.value.replace(/\D/g,"");});
+});
 
 function guardarAparelho(token){
   if(!token)return;
@@ -954,16 +1108,17 @@ function apagarAparelho(){
   try{localStorage.removeItem("pibvl_aparelho");}catch(e){}
 }
 
-async function concluirEntrada(r){
+async function concluirEntrada(r,comSenha){
   salvarSessao(r.sessao);
   guardarAparelho(r.aparelho);
-  [formEntrar,formCodigo,formCriar].forEach(f=>f.reset());
+  if(comSenha)marcarTemSenha();
+  [formEntrar,formCodigo,formCriar,formPasse].forEach(f=>f.reset());
   document.querySelectorAll(".ver-senha").forEach(c=>c.dispatchEvent(new Event("change")));
-  document.getElementById("mcPassoSenha").hidden=true;
+  passoCriar(1);
   await carregarMeuCadastro();
 }
 
-async function enviarEntrada(botao,textoOcupado,textoNormal,acao,params){
+async function enviarEntrada(botao,textoOcupado,textoNormal,acao,params,comSenha){
   botao.disabled=true;
   botao.textContent=textoOcupado;
   try{
@@ -971,7 +1126,7 @@ async function enviarEntrada(botao,textoOcupado,textoNormal,acao,params){
     if(!r||!r.ok){
       mostrarEntrada((r&&r.mensagem)||"Não foi possível entrar. Tente novamente.");
     }else{
-      await concluirEntrada(r);
+      await concluirEntrada(r,comSenha);
     }
   }catch(err){
     mostrarEntrada(err.message);
@@ -987,7 +1142,7 @@ formEntrar.addEventListener("submit",e=>{
     email:document.getElementById("mcEmail").value.trim(),
     senha:document.getElementById("mcSenha").value,
     lembrar:document.getElementById("mcLembrar").checked?"1":"0"
-  });
+  },true);
 });
 
 formCodigo.addEventListener("submit",e=>{
@@ -998,39 +1153,68 @@ formCodigo.addEventListener("submit",e=>{
   });
 });
 
-document.getElementById("mcEnviarCodigo").addEventListener("click",async()=>{
+function dadosPasso1(){
   const email=document.getElementById("mcCriarEmail").value.trim();
   const d=dataValida(mcCriarNasc.value);
-  if(!email||!document.getElementById("mcCriarEmail").checkValidity()){mostrarEntrada("Informe o e-mail do cadastro.");return;}
-  if(!d||d>new Date()){mostrarEntrada("Confira a data de nascimento no formato DD/MM/AAAA.");return;}
-  const botao=document.getElementById("mcEnviarCodigo");
-  botao.disabled=true;botao.textContent="Enviando...";
+  const s1=document.getElementById("mcNovaSenha").value,s2=document.getElementById("mcNovaSenha2").value;
+  if(!email||!document.getElementById("mcCriarEmail").checkValidity()){mostrarEntrada("Informe o e-mail do cadastro.");return null;}
+  if(!d||d>new Date()){mostrarEntrada("Confira a data de nascimento no formato DD/MM/AAAA.");return null;}
+  if(!/^\d{4}$/.test(s1)){mostrarEntrada("A senha deve ter exatamente 4 números.");return null;}
+  if(s1!==s2){mostrarEntrada("As duas senhas não são iguais. Digite novamente.");return null;}
+  return {email:email,nascimento:paraISO(mcCriarNasc.value),senha:s1};
+}
+
+async function enviarCodigoEmail(botao){
+  const d=dadosPasso1();
+  if(!d)return;
+  const textoAntes=botao.textContent;
+  botao.disabled=true;botao.textContent="Enviando o código...";
   try{
-    const r=await chamarServidor("membroPedirCodigo",{email:email,nascimento:paraISO(mcCriarNasc.value)});
+    const r=await chamarServidor("membroPedirCodigo",{email:d.email,nascimento:d.nascimento});
     if(!r||!r.ok){mostrarEntrada((r&&r.mensagem)||"Não foi possível enviar o código.");}
     else{
+      passoCriar(2);
       mostrarEntrada(r.mensagem,"ok");
-      document.getElementById("mcPassoSenha").hidden=false;
       document.getElementById("mcCriarCodigo").focus();
     }
   }catch(err){mostrarEntrada(err.message);}
-  finally{botao.disabled=false;botao.textContent="Enviar código para o meu e-mail";}
+  finally{botao.disabled=false;botao.textContent=textoAntes;}
+}
+
+document.getElementById("mcReenviar").addEventListener("click",e=>enviarCodigoEmail(e.currentTarget));
+document.getElementById("mcJaTenhoCodigo").addEventListener("click",()=>{
+  if(!dadosPasso1())return;
+  passoCriar(2);
+  mostrarEntrada("");
+  document.getElementById("mcCriarCodigo").focus();
 });
 
 formCriar.addEventListener("submit",e=>{
   e.preventDefault();
-  const s1=document.getElementById("mcNovaSenha").value,s2=document.getElementById("mcNovaSenha2").value;
-  const d=dataValida(mcCriarNasc.value);
-  if(!d||d>new Date()){mostrarEntrada("Confira a data de nascimento no formato DD/MM/AAAA.");return;}
-  if(s1.length<6){mostrarEntrada("A senha precisa ter pelo menos 6 caracteres.");return;}
-  if(s1!==s2){mostrarEntrada("As duas senhas não são iguais. Digite novamente.");return;}
-  enviarEntrada(document.getElementById("mcBotaoCriar"),"Salvando...","Criar senha e entrar","membroCriarSenha",{
-    email:document.getElementById("mcCriarEmail").value.trim(),
-    nascimento:paraISO(mcCriarNasc.value),
-    codigo:document.getElementById("mcCriarCodigo").value.trim(),
-    senha:s1,
+  if(!document.getElementById("mcPasso1").hidden){
+    enviarCodigoEmail(document.getElementById("mcContinuar"));
+    return;
+  }
+  const d=dadosPasso1();
+  if(!d)return;
+  const codigo=document.getElementById("mcCriarCodigo").value.trim();
+  if(!codigo){mostrarEntrada("Digite o código que você recebeu.");return;}
+  enviarEntrada(document.getElementById("mcBotaoCriar"),"Salvando...","Confirmar e ver meu cadastro","membroCriarSenha",{
+    email:d.email,nascimento:d.nascimento,codigo:codigo,senha:d.senha,
     lembrar:document.getElementById("mcCriarLembrar").checked?"1":"0"
-  });
+  },true);
+});
+
+formPasse.addEventListener("submit",e=>{
+  e.preventDefault();
+  const s1=document.getElementById("mcPasseSenha").value,s2=document.getElementById("mcPasseSenha2").value;
+  if(!/^\d{4}$/.test(s1)){mostrarEntrada("A senha deve ter exatamente 4 números.");return;}
+  if(s1!==s2){mostrarEntrada("As duas senhas não são iguais. Digite novamente.");return;}
+  if(!ultimoEnvio||!ultimoEnvio.passe){modoEntrada("criar");mostrarEntrada("Por segurança, confirme seu e-mail para criar a senha.");return;}
+  const passe=ultimoEnvio.passe;
+  enviarEntrada(document.getElementById("mcBotaoPasse"),"Salvando...","Criar senha e ver meu cadastro","membroCriarSenhaPasse",{
+    passe:passe,senha:s1,lembrar:document.getElementById("mcPasseLembrar").checked?"1":"0"
+  },true).then(()=>{if(sessaoMembro&&ultimoEnvio)ultimoEnvio.passe="";});
 });
 
 let reentrando=false;
@@ -1059,6 +1243,14 @@ async function entrarPorAparelho(){
   return false;
 }
 
+// Recupera a sessão pelo aparelho guardado, sem mexer na tela.
+async function sessaoSilenciosa(){
+  try{
+    const r=await chamarServidor("membroEntrarAparelho",{aparelho:lerAparelho()});
+    if(r&&r.ok)salvarSessao(r.sessao);
+  }catch(e){}
+}
+
 async function entrarPorLink(token){
   mcEntrada.hidden=true;
   mcCadastro.hidden=false;
@@ -1081,7 +1273,7 @@ function sair(){
   apagarAparelho();
   if(ap)chamarServidor("membroSair",{aparelho:ap}).catch(()=>{});
   limparSessao();
-  modoEntrada("senha");
+  modoEntrada(lerTemSenha()?"senha":"criar");
   window.scrollTo({top:0,behavior:"smooth"});
 }
 
@@ -1092,7 +1284,8 @@ async function carregarMeuCadastro(){
   mcCadastro.hidden=false;
   mcCadastro.replaceChildren(el("p",{class:"ajuda",texto:"Carregando seu cadastro..."}));
   try{
-    const r=await chamarServidor("membroCadastro",{sessao:sessaoMembro});
+    alvoAtual="";
+    const r=await chamarServidor("membroCadastro",{sessao:sessaoMembro,alvo:""});
     if(!r||!r.ok){
       limparSessao();
       carregandoMeuCadastro=false;
@@ -1100,7 +1293,12 @@ async function carregarMeuCadastro(){
       mostrarEntrada((r&&r.mensagem)||"Sua sessão expirou. Entre novamente.");
       return;
     }
-    renderizarCadastro(r.cadastro);
+    const lista=r.lista||[];
+    const outros=await Promise.all(lista.filter(x=>!x.principal).map(async x=>{
+      const o=await chamarServidor("membroCadastro",{sessao:sessaoMembro,alvo:x.id});
+      return o&&o.ok?o.cadastro:null;
+    }));
+    renderizarCadastro(r.cadastro,lista,outros.filter(Boolean));
   }catch(err){
     mcCadastro.replaceChildren(
       el("div",{class:"aviso aviso-erro",texto:err.message}),
@@ -1116,98 +1314,116 @@ function linhaDado(rotulo,valor){
   return el("div",{class:"dado"},el("dt",{texto:rotulo}),el("dd",{texto:valor||"—"}));
 }
 
-function renderizarCadastro(c){
-  cadastroAtual=c;
-  mcEntrada.hidden=true;
-  mcCadastro.hidden=false;
+const ICONES={
+  cal:'<rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/>',
+  mail:'<rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/>',
+  tel:'<path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2z"/>',
+  casa:'<path d="m3 11 9-8 9 8"/><path d="M5 10v10h14V10"/><path d="M10 20v-6h4v6"/>',
+  lapis:'<path d="M4 20h4L19 9l-4-4L4 16z"/><path d="m13.5 6.5 4 4"/>',
+  pessoa:'<circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/>',
+  cruz:'<path d="M12 3v18M6 9h12"/>',
+  maleta:'<rect x="3" y="7" width="18" height="13" rx="2"/><path d="M9 7V4h6v3"/>',
+  mais:'<path d="M12 5v14M5 12h14"/>'
+};
+// Ícones fixos do próprio site (nenhum dado de membro entra aqui).
+function icone(nome,tam){
+  const sp=document.createElement("span");
+  sp.className="ico";
+  sp.innerHTML='<svg viewBox="0 0 24 24" width="'+(tam||22)+'" height="'+(tam||22)+'" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'+ICONES[nome]+'</svg>';
+  return sp;
+}
+function itemCartao(ic,rotulo,valor){
+  return el("div",{class:"mc-item"},icone(ic,20),el("div",{},el("small",{texto:rotulo}),el("b",{texto:valor||"—"})));
+}
+function cabecalhoCompacto(){
+  return el("div",{class:"mc-cab"},
+    el("img",{src:"logo-pibvl-transparente.png",alt:"Logo da PIB de Vaz Lobo"}),
+    el("span",{class:"igreja",texto:"PIB de Vaz Lobo"}),
+    el("h2",{texto:"Meu Cadastro"}));
+}
 
+function blocoCadastro(c,ehProprio){
   const foto=c.foto
-    ?el("img",{class:"mc-foto",src:c.foto,alt:"Sua foto"})
+    ?el("img",{class:"mc-foto",src:c.foto,alt:"Foto de "+c.nome})
     :el("div",{class:"mc-foto mc-sem-foto",texto:"Sem foto"});
 
-  const topo=el("div",{class:"mc-topo"},foto,
-    el("div",{},
-      el("h2",{class:"mc-nome",texto:"Meu cadastro: "+c.nome}),
-      el("p",{class:"ajuda",texto:"Cadastro realizado em "+(c.dataCadastro||"—")}),
-      (c.ultimaAtualizacao&&c.ultimaAtualizacao!==c.dataCadastro)
-        ?el("p",{class:"ajuda",texto:"Última atualização em "+c.ultimaAtualizacao}):null
-    )
-  );
-
   const sol=c.solicitacao;
-  let faixa;
+  let faixa=null;
   if(c.situacao==="Liberado"){
     faixa=el("div",{class:"aviso aviso-ok"},
       el("strong",{texto:"Edição liberada pela equipe"}),
-      el("p",{texto:"Você pode corrigir os dados"+(sol&&sol.motivo?" que pediu para revisar":"")+" e enviar o cadastro novamente."}),
-      sol&&sol.motivo?el("p",{class:"ajuda",texto:"Motivo do pedido: "+sol.motivo}):null,
-      el("button",{type:"button",class:"botao",texto:"Editar meu cadastro",onclick:()=>renderizarEdicao(c)})
+      el("p",{texto:"Toque em “Revisar Cadastro” para corrigir os dados"+(sol&&sol.motivo?" que foram pedidos":"")+" e enviar novamente."}),
+      sol&&sol.motivo?el("p",{class:"ajuda",texto:"Motivo do pedido: "+sol.motivo}):null
     );
   }else if(sol&&sol.situacao==="Pendente"){
     faixa=el("div",{},
       el("div",{class:"aviso aviso-espera"},
         el("strong",{texto:"Aguardando confirmação do pedido"}),
-        el("p",{texto:"Seu pedido de revisão foi enviado em "+sol.data+". Assim que a equipe autorizar, você poderá editar o cadastro."}),
+        el("p",{texto:"Seu pedido foi enviado em "+sol.data+". Assim que a equipe autorizar, você poderá editar o cadastro."}),
         el("p",{class:"ajuda",texto:"Motivo informado: "+sol.motivo})
       ),
       caixaRevisao()
     );
-  }else{
-    const recusada=sol&&sol.situacao==="Recusada";
+  }else if(sol&&sol.situacao==="Recusada"){
     faixa=el("div",{class:"aviso aviso-info"},
-      el("strong",{texto:recusada?"Seu último pedido de revisão não foi autorizado":"Cadastro protegido"}),
-      el("p",{texto:recusada
-        ?"Fale com a equipe de Comunicação ou com a 1ª Secretaria para entender o motivo. Se necessário, você pode fazer um novo pedido."
-        :"Para evitar alterações acidentais, seu cadastro fica bloqueado. Se notar alguma informação errada, solicite a revisão."}),
-      el("button",{type:"button",class:"botao",texto:"Solicitar revisão do cadastro",onclick:abrirPedidoRevisao})
+      el("strong",{texto:"O último pedido de edição não foi autorizado"}),
+      el("p",{texto:"Fale com a equipe de Comunicação ou com a 1ª Secretaria para entender o motivo. Se necessário, faça um novo pedido."})
     );
   }
 
-  const idade=idadeDe(c.nascimento);
-  const dados=el("div",{},
-    el("h3",{class:"secao-titulo",texto:"Dados pessoais"}),
-    el("dl",{class:"dados"},
-      linhaDado("Nome completo",c.nome),
-      linhaDado("Sexo",c.sexo),
-      linhaDado("Data de nascimento",isoParaBR(c.nascimento)+(idade!==""?" ("+idade+" anos)":"")),
-      linhaDado("Estado civil",c.estadoCivil)
+  const aoEditar=()=>{
+    alvoAtual=ehProprio?"":c.id;
+    if(c.situacao==="Liberado")renderizarEdicao(c);
+    else if(sol&&sol.situacao==="Pendente"&&faixa)faixa.scrollIntoView({behavior:"smooth",block:"center"});
+    else abrirPedidoRevisao();
+  };
+
+  const perfil=el("section",{class:"cartao mc-perfil"},
+    foto,
+    el("div",{class:"info"},
+      el("h2",{class:"mc-nome",texto:c.nome}),
+      el("span",{class:"mc-selo",texto:"Membro da Igreja"})
     ),
-    el("h3",{class:"secao-titulo",texto:"Contato e endereço"}),
-    el("dl",{class:"dados"},
-      linhaDado("Endereço",c.endereco),
-      linhaDado("Bairro",c.bairro),
-      linhaDado("Celular / WhatsApp",c.celular),
-      linhaDado("E-mail",c.email)
-    ),
-    el("h3",{class:"secao-titulo",texto:"Informações da igreja"}),
-    el("dl",{class:"dados"},
-      linhaDado("Data de batismo",isoParaBR(c.dataBatismo)),
-      linhaDado("Atua em algum ministério?",c.atuaMinisterio),
-      c.atuaMinisterio==="Sim"?linhaDado("Qual ministério?",c.qualMinisterio):null,
-      linhaDado("Trabalha atualmente?",c.trabalha)
-    ),
-    el("h3",{class:"secao-titulo",texto:"Filhos que frequentam a igreja"}),
-    c.filhos.length
-      ?el("div",{},c.filhos.map(f=>
-          el("dl",{class:"dados filho-lido"},
-            linhaDado("Nome do filho",f.nome),
-            linhaDado("Sexo",f.sexo),
-            linhaDado("Data de nascimento",isoParaBR(f.nascimento))
-          )))
-      :el("p",{class:"ajuda",texto:"Nenhum filho cadastrado."})
+    el("button",{type:"button",class:"botao-rev",onclick:aoEditar},icone("lapis",18),"Revisar Cadastro")
   );
 
-  mcCadastro.replaceChildren(topo,faixa,dados,
-    el("button",{type:"button",class:"botao secundario",texto:"Sair",onclick:sair})
+  const idade=idadeDe(c.nascimento);
+  const enderecoTxt=[c.endereco,c.bairro].filter(Boolean).join(" – ");
+  const pessoais=el("section",{class:"cartao"},
+    el("h3",{},icone("pessoa",26),"Informações Pessoais"),
+    el("div",{class:"mc-itens"},
+      itemCartao("cal","Data de Nascimento",isoParaBR(c.nascimento)+(idade!==""?" ("+idade+" anos)":"")),
+      itemCartao("mail","E-mail",c.email),
+      itemCartao("tel","Telefone",c.celular),
+      itemCartao("casa","Endereço",enderecoTxt)
+    )
   );
+  return el("div",{class:"mc-bloco"},...[perfil,faixa,pessoais].filter(Boolean));
+}
+
+function renderizarCadastro(c,lista,outros){
+  cadastroAtual=c;
+  mcEntrada.hidden=true;
+  mcCadastro.hidden=false;
+  const blocos=[blocoCadastro(c,true)].concat((outros||[]).map(o=>blocoCadastro(o,false)));
+  mcCadastro.replaceChildren(cabecalhoCompacto(),...blocos,
+    el("div",{class:"mc-links"},
+      el("button",{type:"button",texto:"Cadastrar outro membro",onclick:()=>{
+        definirModoOutraPessoa(true);
+        document.getElementById("adicionarMembro").click();
+        irParaAba("cadastro");
+      }}),
+      el("button",{type:"button",texto:"Sair",onclick:sair})
+    ));
 }
 
 /* ---------- pedido de revisão ---------- */
 function abrirPedidoRevisao(){
   const caixaTexto=el("textarea",{id:"mcMotivo",rows:"4",maxlength:"500",placeholder:"Ex.: preciso anexar uma nova foto",class:"mc-motivo"});
   const aviso=el("p",{class:"status-mc erro",style:"display:none"});
-  abrirModal("Solicitar revisão do cadastro",[
-    el("p",{texto:"Por qual motivo você quer revisar o seu cadastro?"}),
+  abrirModal("Solicitar edição do cadastro",[
+    el("p",{texto:"Por segurança, o cadastro fica protegido contra alterações acidentais. Para editar, a equipe precisa autorizar."}),
+    el("p",{texto:"Por qual motivo você quer editar o cadastro?"}),
     caixaTexto,aviso
   ],[
     {texto:"Cancelar",acao:fecharModal},
@@ -1219,7 +1435,7 @@ function abrirPedidoRevisao(){
       }
       btn.disabled=true;btn.textContent="Enviando...";
       try{
-        const r=await chamarServidor("membroSolicitarRevisao",{sessao:sessaoMembro,motivo:motivo});
+        const r=await chamarServidor("membroSolicitarRevisao",{sessao:sessaoMembro,alvo:alvoAtual,motivo:motivo});
         if(!r||!r.ok){
           aviso.textContent=(r&&r.mensagem)||"Não foi possível enviar o pedido.";
           aviso.style.display="block";btn.disabled=false;btn.textContent="Enviar pedido";return;
@@ -1399,7 +1615,7 @@ function renderizarEdicao(c){
         const btn=ev.currentTarget;
         btn.disabled=true;btn.textContent="Enviando...";
         const dados={
-          acao:"editar",sessao:sessaoMembro,
+          acao:"editar",sessao:sessaoMembro,alvo:alvoAtual,
           nome:f_nome.value.trim(),sexo:f_sexo.value,nascimento:paraISO(f_nasc.value),
           estadoCivil:f_civil.value,endereco:f_end.value.trim(),bairro:f_bairro.value.trim(),
           celular:f_cel.value.trim(),email:f_email.value.trim(),
@@ -1430,13 +1646,15 @@ function renderizarEdicao(c){
   });
 
   mcCadastro.replaceChildren(
-    el("h2",{class:"mc-nome",texto:"Editar meu cadastro"}),
+    cabecalhoCompacto(),
+    el("h2",{class:"mc-nome",texto:"Revisar cadastro"}),
     form
   );
   window.scrollTo({top:0,behavior:"smooth"});
 }
 
 /* ---------- início: link de acesso ou sessão guardada ---------- */
+modoEntrada(lerTemSenha()?"senha":"criar");
 (function iniciarMeuCadastro(){
   const p=new URLSearchParams(location.search);
   const token=p.get("acesso");
@@ -1723,7 +1941,7 @@ function cartaoSolicitacao(s){
     acoes.push(el("button",{type:"button",class:"botao-peq",texto:"Recusar",onclick:()=>confirmarDecisao(s,"recusar")}));
   }
   if(s.situacao==="Autorizada"){
-    const aviso="Olá! Seu pedido de revisão do cadastro foi autorizado. Acesse "+URL_SITE_EQUIPE+" , entre em Meu Cadastro e toque em Editar meu cadastro.";
+    const aviso="Olá! Seu pedido de revisão do cadastro foi autorizado. Acesse "+URL_SITE_EQUIPE+" , entre em Meu Cadastro e toque em Revisar Cadastro.";
     const wa=linkWhatsApp(s.celular,aviso);
     if(wa)acoes.push(el("a",{class:"botao-peq",href:wa,target:"_blank",rel:"noopener",texto:"Avisar pelo WhatsApp"}));
   }
