@@ -341,6 +341,39 @@ function gerarIdentificador(){
   return "pibvl_"+Date.now()+"_"+Math.random().toString(36).slice(2);
 }
 
+function concluirEnvio(identificador,resultado){
+  if(!envioPendente||envioPendente.identificador!==identificador)return;
+  clearTimeout(envioPendente.temporizador);
+  const pendente=envioPendente;
+  envioPendente=null;
+  pendente.resolve(resultado);
+}
+
+function consultarStatusEnvio(identificador){
+  return new Promise(resolve=>{
+    const nomeCb="cbStatus_"+Date.now()+"_"+Math.random().toString(36).slice(2);
+    const script=document.createElement("script");
+    const limpar=()=>{delete window[nomeCb];script.remove();};
+    const t=setTimeout(()=>{limpar();resolve(null);},8000);
+    window[nomeCb]=dados=>{clearTimeout(t);limpar();resolve(dados);};
+    script.onerror=()=>{clearTimeout(t);limpar();resolve(null);};
+    script.src=URL_SCRIPT+"?acao=statusCadastro&identificador="+encodeURIComponent(identificador)+"&callback="+nomeCb+"&_="+Date.now();
+    document.body.appendChild(script);
+  });
+}
+
+async function verificarStatusEnvio(identificador){
+  await new Promise(r=>setTimeout(r,3000));
+  while(envioPendente&&envioPendente.identificador===identificador){
+    const resposta=await consultarStatusEnvio(identificador);
+    if(resposta&&resposta.encontrado&&resposta.dados){
+      concluirEnvio(identificador,resposta.dados);
+      return;
+    }
+    await new Promise(r=>setTimeout(r,2500));
+  }
+}
+
 function enviarAoServidor(dados){
   return new Promise((resolve,reject)=>{
     const identificador=gerarIdentificador();
@@ -364,6 +397,7 @@ function enviarAoServidor(dados){
 
     try{
       formularioEnvio.submit();
+      verificarStatusEnvio(identificador);
     }catch(erro){
       clearTimeout(temporizador);
       envioPendente=null;
@@ -373,7 +407,8 @@ function enviarAoServidor(dados){
 }
 
 window.addEventListener("message",evento=>{
-    if(!/^https:\/\/([a-z0-9-]+\.)*(script\.google\.com|googleusercontent\.com)$/.test(evento.origin))return;
+  if(!/^https:\/\/([a-z0-9-]+\.)*(script\.google\.com|googleusercontent\.com)$/.test(evento.origin))return;
+  if(!evento.data || typeof evento.data!=="string")return;
 
   let mensagem;
 
