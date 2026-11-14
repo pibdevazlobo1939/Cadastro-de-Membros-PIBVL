@@ -105,6 +105,12 @@ a.botao{display:block;text-align:center;text-decoration:none}
 #dica{position:fixed;z-index:60;background:#0b0b0b;color:#fff;font-size:13px;padding:7px 10px;border-radius:8px;pointer-events:none;max-width:260px}
 @media(min-width:620px){.filtros{grid-template-columns:2fr 1fr 1fr}.membro{flex-direction:row;align-items:center;justify-content:space-between}.membro .acoes{margin-top:0;justify-content:flex-end}}
 @media(max-width:560px){.graficos{grid-template-columns:1fr}.cartao-graf.largo{grid-column:auto}.ranked-linha{grid-template-columns:minmax(70px,34%) 1fr 26px}.menu-inferior button{font-size:11px;padding:8px 3px}}
+.verbox{display:flex;gap:10px;align-items:flex-start;margin:12px 0 0;font-size:14px;line-height:1.4;cursor:pointer}.verbox input{width:20px;min-height:20px;height:20px;flex:none;margin:1px 0 0;accent-color:var(--azul)}
+.link-texto{text-align:center;margin:14px 0 0}.link-texto button{border:0;background:none;color:var(--azul);font:bold 14px Arial,Helvetica,sans-serif;text-decoration:underline;cursor:pointer;padding:8px}
+.status-mc.ok{background:#e9f8ef;color:#17633a}
+.codigo-grande{font:bold 34px/1.2 "Courier New",monospace;letter-spacing:6px;text-align:center;background:#eef5ff;border:1px dashed #9db9e6;border-radius:12px;padding:14px;margin:12px 0;color:var(--escuro);word-break:break-all}
+.formmc>p.ajuda{margin:0 0 14px}#mcPassoSenha{margin-top:12px}.modal-corpo a.botao{color:#fff;text-decoration:none;margin-top:14px}
+#formCriar .botao.secundario,#formEntrar .botao,#formCodigo .botao{margin-top:18px}
 #abaEquipe{padding:25px}@media(max-width:560px){#abaEquipe{padding:20px 15px}}
 </style>
 </head>
@@ -162,19 +168,58 @@ a.botao{display:block;text-align:center;text-decoration:none}
 
 <div id="abaMeuCadastro" hidden>
   <section id="mcEntrada">
-    <h2 class="secao-titulo">Consultar meu cadastro</h2>
-    <p class="ajuda" style="font-size:14px">Entre com o e-mail e a data de nascimento que você informou no cadastro.</p>
+    <h2 class="secao-titulo" id="mcTituloEntrada">Consultar meu cadastro</h2>
+    <div class="segmentado" id="mcModoBotoes" role="tablist">
+      <button type="button" class="ativo" data-modo="senha">E-mail e senha</button>
+      <button type="button" data-modo="codigo">Código da Comunicação</button>
+    </div>
+
     <form id="formEntrar" class="formmc">
       <div class="grade">
-        <div class="campo completo"><label for="mcEmail">E-mail</label><input id="mcEmail" type="email" autocomplete="email" required></div>
-        <div class="campo completo"><label for="mcNascimento">Data de nascimento (DD/MM/AAAA)</label><input id="mcNascimento" inputmode="numeric" maxlength="10" placeholder="DD/MM/AAAA" required></div>
+        <div class="campo completo"><label for="mcEmail">E-mail</label><input id="mcEmail" type="email" autocomplete="username" required></div>
+        <div class="campo completo"><label for="mcSenha">Senha</label><input id="mcSenha" type="password" autocomplete="current-password" required></div>
       </div>
-      <div id="mcStatusEntrada" class="status-mc" role="alert"></div>
+      <label class="verbox"><input type="checkbox" class="ver-senha" data-alvo="mcSenha"><span>Mostrar senha</span></label>
+      <label class="verbox"><input type="checkbox" id="mcLembrar" checked> <span>Manter conectado neste aparelho por 30 dias<small class="ajuda" style="display:block">Não use em aparelho de outras pessoas.</small></span></label>
       <button class="botao" id="mcBotaoEntrar" type="submit">Entrar</button>
+      <p class="link-texto"><button type="button" id="mcPrimeiro">Primeiro acesso ou esqueci a senha</button></p>
     </form>
+
+    <form id="formCodigo" class="formmc" hidden>
+      <p class="ajuda" style="font-size:14px">Use o celular do seu cadastro e o código de 6 letras e números que a equipe de Comunicação enviou para você.</p>
+      <div class="grade">
+        <div class="campo completo"><label for="mcCelular">Celular com DDD</label><input id="mcCelular" type="tel" inputmode="tel" autocomplete="tel" placeholder="(21) 90000-0000" required></div>
+        <div class="campo completo"><label for="mcCodigo">Código da Comunicação</label><input id="mcCodigo" autocomplete="off" autocapitalize="characters" maxlength="9" placeholder="Ex.: K7M4PX" required></div>
+      </div>
+      <button class="botao" id="mcBotaoCodigo" type="submit">Entrar com o código</button>
+    </form>
+
+    <form id="formCriar" class="formmc" hidden>
+      <p class="ajuda" style="font-size:14px">Informe o e-mail e a data de nascimento do seu cadastro. Enviaremos um código de 6 números ao seu e-mail para você criar uma nova senha.</p>
+      <div class="grade">
+        <div class="campo completo"><label for="mcCriarEmail">E-mail do cadastro</label><input id="mcCriarEmail" type="email" autocomplete="username" required></div>
+        <div class="campo completo"><label for="mcCriarNasc">Data de nascimento (DD/MM/AAAA)</label><input id="mcCriarNasc" inputmode="numeric" maxlength="10" placeholder="DD/MM/AAAA" required></div>
+      </div>
+      <button class="botao secundario" id="mcEnviarCodigo" type="button">Enviar código para o meu e-mail</button>
+      <p class="link-texto"><button type="button" id="mcJaTenhoCodigo">Já tenho um código</button></p>
+      <div id="mcPassoSenha" hidden>
+        <div class="grade">
+          <div class="campo completo"><label for="mcCriarCodigo">Código recebido</label><input id="mcCriarCodigo" autocomplete="one-time-code" maxlength="9" placeholder="6 números do e-mail ou código da Comunicação"></div>
+          <div class="campo completo"><label for="mcNovaSenha">Nova senha (mínimo 6 caracteres)</label><input id="mcNovaSenha" type="password" autocomplete="new-password" maxlength="64"></div>
+          <div class="campo completo"><label for="mcNovaSenha2">Repita a nova senha</label><input id="mcNovaSenha2" type="password" autocomplete="new-password" maxlength="64"></div>
+        </div>
+        <label class="verbox"><input type="checkbox" class="ver-senha" data-alvo="mcNovaSenha,mcNovaSenha2"><span>Mostrar senha</span></label>
+        <label class="verbox"><input type="checkbox" id="mcCriarLembrar" checked> <span>Manter conectado neste aparelho por 30 dias<small class="ajuda" style="display:block">Não use em aparelho de outras pessoas.</small></span></label>
+        <button class="botao" id="mcBotaoCriar" type="submit">Criar senha e entrar</button>
+      </div>
+      <p class="link-texto"><button type="button" id="mcVoltarEntrar">Voltar para a entrada</button></p>
+    </form>
+
+    <div id="mcStatusEntrada" class="status-mc" role="alert"></div>
+
     <div class="aviso aviso-info aviso-link">
-      <strong>Esqueceu o e-mail ou não informou um?</strong>
-      <p>Peça o link de acesso ao seu cadastro à equipe de Comunicação pelo WhatsApp: <a href="https://wa.me/5521966709417?text=Ol%C3%A1%2C%20gostaria%20de%20receber%20o%20link%20de%20acesso%20ao%20meu%20cadastro%20de%20membro." target="_blank" rel="noopener">+55 21 96670-9417</a></p>
+      <strong>Não tem e-mail ou prefere não criar senha?</strong>
+      <p>Peça um código de acesso à equipe de Comunicação pelo WhatsApp, informando seu nome completo e celular: <a href="https://wa.me/5521966709417?text=Ol%C3%A1%2C%20gostaria%20de%20receber%20um%20c%C3%B3digo%20de%20acesso%20ao%20meu%20cadastro%20de%20membro." target="_blank" rel="noopener">+55 21 96670-9417</a></p>
     </div>
   </section>
   <section id="mcCadastro" hidden></section>
@@ -844,7 +889,10 @@ function irParaAba(nome){
   };
   document.getElementById("tituloTopo").textContent=textos[nome][0];
   document.getElementById("subtituloTopo").textContent=textos[nome][1];
-  if(nome==="meu"&&sessaoMembro&&!cadastroAtual&&!carregandoMeuCadastro)carregarMeuCadastro();
+  if(nome==="meu"&&!cadastroAtual&&!carregandoMeuCadastro&&!reentrando){
+    if(sessaoMembro)carregarMeuCadastro();
+    else if(lerAparelho())entrarPorAparelho();
+  }
   if(nome==="equipe")abrirEquipe();
   window.scrollTo({top:0,behavior:"smooth"});
 }
@@ -856,45 +904,160 @@ document.querySelectorAll(".menu-inferior button").forEach(b=>
 document.getElementById("irMeuCadastro").addEventListener("click",()=>irParaAba("meu"));
 
 /* ---------- entrada ---------- */
-function mostrarEntrada(mensagem){
+function mostrarEntrada(mensagem,tipo){
   mcEntrada.hidden=false;
   mcCadastro.hidden=true;
   mcCadastro.replaceChildren();
   mcStatusEntrada.textContent=mensagem||"";
-  mcStatusEntrada.className=mensagem?"status-mc erro":"status-mc";
+  mcStatusEntrada.className=mensagem?"status-mc "+(tipo||"erro"):"status-mc";
   mcStatusEntrada.style.display=mensagem?"block":"none";
 }
 
-const mcNascimento=document.getElementById("mcNascimento");
-mcNascimento.addEventListener("input",()=>mascaraData(mcNascimento));
+const formEntrar=document.getElementById("formEntrar");
+const formCodigo=document.getElementById("formCodigo");
+const formCriar=document.getElementById("formCriar");
 
-document.getElementById("formEntrar").addEventListener("submit",async e=>{
-  e.preventDefault();
-  const email=document.getElementById("mcEmail").value.trim();
-  const d=dataValida(mcNascimento.value);
-  if(!d||d>new Date()){
-    mostrarEntrada("Confira a data de nascimento no formato DD/MM/AAAA.");
-    return;
-  }
-  const botaoEntrar=document.getElementById("mcBotaoEntrar");
-  botaoEntrar.disabled=true;
-  botaoEntrar.textContent="Verificando...";
+function modoEntrada(m){
+  formEntrar.hidden=m!=="senha";
+  formCodigo.hidden=m!=="codigo";
+  formCriar.hidden=m!=="criar";
+  document.getElementById("mcModoBotoes").hidden=m==="criar";
+  document.querySelectorAll("#mcModoBotoes button").forEach(b=>b.classList.toggle("ativo",b.dataset.modo===m));
+  document.getElementById("mcTituloEntrada").textContent=m==="criar"?"Criar ou redefinir minha senha":"Consultar meu cadastro";
+  mostrarEntrada("");
+}
+document.querySelectorAll("#mcModoBotoes button").forEach(b=>b.addEventListener("click",()=>modoEntrada(b.dataset.modo)));
+document.getElementById("mcPrimeiro").addEventListener("click",()=>{
+  document.getElementById("mcCriarEmail").value=document.getElementById("mcEmail").value;
+  modoEntrada("criar");
+});
+document.getElementById("mcVoltarEntrar").addEventListener("click",()=>modoEntrada("senha"));
+document.getElementById("mcJaTenhoCodigo").addEventListener("click",()=>{
+  document.getElementById("mcPassoSenha").hidden=false;
+  document.getElementById("mcCriarCodigo").focus();
+});
+document.querySelectorAll(".ver-senha").forEach(c=>c.addEventListener("change",()=>{
+  c.dataset.alvo.split(",").forEach(id=>{document.getElementById(id).type=c.checked?"text":"password";});
+}));
+
+const mcCriarNasc=document.getElementById("mcCriarNasc");
+mcCriarNasc.addEventListener("input",()=>mascaraData(mcCriarNasc));
+
+function guardarAparelho(token){
+  if(!token)return;
+  try{localStorage.setItem("pibvl_aparelho",token);}catch(e){}
+}
+function lerAparelho(){
+  try{return localStorage.getItem("pibvl_aparelho")||"";}catch(e){return "";}
+}
+function apagarAparelho(){
+  try{localStorage.removeItem("pibvl_aparelho");}catch(e){}
+}
+
+async function concluirEntrada(r){
+  salvarSessao(r.sessao);
+  guardarAparelho(r.aparelho);
+  [formEntrar,formCodigo,formCriar].forEach(f=>f.reset());
+  document.querySelectorAll(".ver-senha").forEach(c=>c.dispatchEvent(new Event("change")));
+  document.getElementById("mcPassoSenha").hidden=true;
+  await carregarMeuCadastro();
+}
+
+async function enviarEntrada(botao,textoOcupado,textoNormal,acao,params){
+  botao.disabled=true;
+  botao.textContent=textoOcupado;
   try{
-    const r=await chamarServidor("membroEntrar",{email:email,nascimento:paraISO(mcNascimento.value)});
+    const r=await chamarServidor(acao,params);
     if(!r||!r.ok){
       mostrarEntrada((r&&r.mensagem)||"Não foi possível entrar. Tente novamente.");
     }else{
-      salvarSessao(r.sessao);
-      document.getElementById("formEntrar").reset();
-      await carregarMeuCadastro();
+      await concluirEntrada(r);
     }
   }catch(err){
     mostrarEntrada(err.message);
   }finally{
-    botaoEntrar.disabled=false;
-    botaoEntrar.textContent="Entrar";
+    botao.disabled=false;
+    botao.textContent=textoNormal;
   }
+}
+
+formEntrar.addEventListener("submit",e=>{
+  e.preventDefault();
+  enviarEntrada(document.getElementById("mcBotaoEntrar"),"Verificando...","Entrar","membroEntrar",{
+    email:document.getElementById("mcEmail").value.trim(),
+    senha:document.getElementById("mcSenha").value,
+    lembrar:document.getElementById("mcLembrar").checked?"1":"0"
+  });
 });
+
+formCodigo.addEventListener("submit",e=>{
+  e.preventDefault();
+  enviarEntrada(document.getElementById("mcBotaoCodigo"),"Verificando...","Entrar com o código","membroEntrarCodigo",{
+    celular:document.getElementById("mcCelular").value.trim(),
+    codigo:document.getElementById("mcCodigo").value.trim()
+  });
+});
+
+document.getElementById("mcEnviarCodigo").addEventListener("click",async()=>{
+  const email=document.getElementById("mcCriarEmail").value.trim();
+  const d=dataValida(mcCriarNasc.value);
+  if(!email||!document.getElementById("mcCriarEmail").checkValidity()){mostrarEntrada("Informe o e-mail do cadastro.");return;}
+  if(!d||d>new Date()){mostrarEntrada("Confira a data de nascimento no formato DD/MM/AAAA.");return;}
+  const botao=document.getElementById("mcEnviarCodigo");
+  botao.disabled=true;botao.textContent="Enviando...";
+  try{
+    const r=await chamarServidor("membroPedirCodigo",{email:email,nascimento:paraISO(mcCriarNasc.value)});
+    if(!r||!r.ok){mostrarEntrada((r&&r.mensagem)||"Não foi possível enviar o código.");}
+    else{
+      mostrarEntrada(r.mensagem,"ok");
+      document.getElementById("mcPassoSenha").hidden=false;
+      document.getElementById("mcCriarCodigo").focus();
+    }
+  }catch(err){mostrarEntrada(err.message);}
+  finally{botao.disabled=false;botao.textContent="Enviar código para o meu e-mail";}
+});
+
+formCriar.addEventListener("submit",e=>{
+  e.preventDefault();
+  const s1=document.getElementById("mcNovaSenha").value,s2=document.getElementById("mcNovaSenha2").value;
+  const d=dataValida(mcCriarNasc.value);
+  if(!d||d>new Date()){mostrarEntrada("Confira a data de nascimento no formato DD/MM/AAAA.");return;}
+  if(s1.length<6){mostrarEntrada("A senha precisa ter pelo menos 6 caracteres.");return;}
+  if(s1!==s2){mostrarEntrada("As duas senhas não são iguais. Digite novamente.");return;}
+  enviarEntrada(document.getElementById("mcBotaoCriar"),"Salvando...","Criar senha e entrar","membroCriarSenha",{
+    email:document.getElementById("mcCriarEmail").value.trim(),
+    nascimento:paraISO(mcCriarNasc.value),
+    codigo:document.getElementById("mcCriarCodigo").value.trim(),
+    senha:s1,
+    lembrar:document.getElementById("mcCriarLembrar").checked?"1":"0"
+  });
+});
+
+let reentrando=false;
+async function entrarPorAparelho(){
+  const ap=lerAparelho();
+  if(!ap||reentrando)return false;
+  reentrando=true;
+  mcEntrada.hidden=true;
+  mcCadastro.hidden=false;
+  mcCadastro.replaceChildren(el("p",{class:"ajuda",texto:"Abrindo seu cadastro..."}));
+  try{
+    const r=await chamarServidor("membroEntrarAparelho",{aparelho:ap});
+    if(r&&r.ok){
+      salvarSessao(r.sessao);
+      carregandoMeuCadastro=false;
+      await carregarMeuCadastro();
+      return true;
+    }
+    apagarAparelho();
+    mostrarEntrada("");
+  }catch(err){
+    mostrarEntrada(err.message);
+  }finally{
+    reentrando=false;
+  }
+  return false;
+}
 
 async function entrarPorLink(token){
   mcEntrada.hidden=true;
@@ -914,8 +1077,11 @@ async function entrarPorLink(token){
 }
 
 function sair(){
+  const ap=lerAparelho();
+  apagarAparelho();
+  if(ap)chamarServidor("membroSair",{aparelho:ap}).catch(()=>{});
   limparSessao();
-  mostrarEntrada("");
+  modoEntrada("senha");
   window.scrollTo({top:0,behavior:"smooth"});
 }
 
@@ -929,6 +1095,8 @@ async function carregarMeuCadastro(){
     const r=await chamarServidor("membroCadastro",{sessao:sessaoMembro});
     if(!r||!r.ok){
       limparSessao();
+      carregandoMeuCadastro=false;
+      if(await entrarPorAparelho())return;
       mostrarEntrada((r&&r.mensagem)||"Sua sessão expirou. Entre novamente.");
       return;
     }
@@ -1452,12 +1620,12 @@ async function verCadastroEquipe(id){
 
 /* ---------- link de acesso ---------- */
 function gerarLinkEquipe(idCadastro,nome,celular){
-  abrirModal("Gerar link de acesso",[
-    el("p",{texto:"Vamos gerar um link individual para "+nome+"."}),
-    el("p",{texto:"Ele abre somente o cadastro dessa pessoa e vale por 7 dias. Se já existir um link, o anterior deixa de valer."})
+  abrirModal("Link e código de acesso",[
+    el("p",{texto:"Vamos gerar um link e um código individuais para "+nome+"."}),
+    el("p",{texto:"Os dois abrem somente o cadastro dessa pessoa e valem por 7 dias. O código serve também para criar uma nova senha. Se já existirem, os anteriores deixam de valer."})
   ],[
     {texto:"Cancelar",acao:fecharModal},
-    {texto:"Gerar link",principal:true,acao:async ev=>{
+    {texto:"Gerar",principal:true,acao:async ev=>{
       const btn=ev.currentTarget;btn.disabled=true;btn.textContent="Gerando...";
       try{
         const r=await chamarEquipe("equipeGerarLink",{idCadastro:idCadastro});
@@ -1465,7 +1633,7 @@ function gerarLinkEquipe(idCadastro,nome,celular){
         mostrarLinkGerado(r,celular);
       }catch(err){
         if(err.sessaoExpirada)return;
-        abrirModal("Gerar link de acesso",[el("div",{class:"aviso aviso-erro",texto:err.message})],[{texto:"Fechar",principal:true,acao:fecharModal}]);
+        abrirModal("Link e código de acesso",[el("div",{class:"aviso aviso-erro",texto:err.message})],[{texto:"Fechar",principal:true,acao:fecharModal}]);
       }
     }}
   ]);
@@ -1476,14 +1644,23 @@ function mostrarLinkGerado(r,celular){
   campo.value=r.link;
   const aviso=el("p",{class:"ajuda"});
   const primeiro=String(r.nome||"").split(" ")[0];
-  const texto="Olá, "+primeiro+"! Segue o link de acesso ao seu cadastro de membro da Primeira Igreja Batista em Vaz Lobo:\n\n"+r.link+"\n\nO link vale até "+r.validoAte+".";
+  const texto="Olá, "+primeiro+"! Para ver o seu cadastro de membro da Primeira Igreja Batista em Vaz Lobo:\n\n"+
+    "1) Toque neste link:\n"+r.link+"\n\n"+
+    "ou 2) Abra "+URL_SITE_EQUIPE+" , toque em Meu Cadastro, depois em Código da Comunicação, e digite seu celular e o código: "+r.codigo+"\n\n"+
+    "Vale até "+r.validoAte+".";
   const wa=linkWhatsApp(celular,texto);
-  abrirModal("Link de acesso gerado",[
-    el("p",{texto:"Link de "+r.nome+" (válido até "+r.validoAte+"):"}),
+  abrirModal("Link e código gerados",[
+    el("p",{texto:"Código de "+r.nome+" (válido até "+r.validoAte+"):"}),
+    el("div",{class:"codigo-grande",texto:r.codigo}),
+    el("p",{texto:"Link:"}),
     campo,aviso,
     wa?el("a",{class:"botao",href:wa,target:"_blank",rel:"noopener",texto:"Enviar pelo WhatsApp"}):el("p",{class:"ajuda",texto:"Este cadastro não tem celular para envio pelo WhatsApp."}),
-    el("p",{class:"ajuda",texto:"Envie o link só para a própria pessoa."})
+    el("p",{class:"ajuda",texto:"Envie somente para a própria pessoa. Este código não aparece de novo depois que você fechar esta janela."})
   ],[
+    {texto:"Copiar código",acao:async()=>{
+      try{await navigator.clipboard.writeText(r.codigo);aviso.textContent="Código copiado.";}
+      catch(e){aviso.textContent="Anote o código mostrado acima.";}
+    }},
     {texto:"Copiar link",acao:async()=>{
       try{await navigator.clipboard.writeText(r.link);aviso.textContent="Link copiado.";}
       catch(e){campo.focus();campo.select();aviso.textContent="Selecione e copie o link acima.";}
@@ -1550,7 +1727,7 @@ function cartaoSolicitacao(s){
     const wa=linkWhatsApp(s.celular,aviso);
     if(wa)acoes.push(el("a",{class:"botao-peq",href:wa,target:"_blank",rel:"noopener",texto:"Avisar pelo WhatsApp"}));
   }
-  acoes.push(el("button",{type:"button",class:"botao-peq",texto:"Gerar link de acesso",onclick:()=>gerarLinkEquipe(s.idCadastro,s.nome,s.celular)}));
+  acoes.push(el("button",{type:"button",class:"botao-peq",texto:"Link e código de acesso",onclick:()=>gerarLinkEquipe(s.idCadastro,s.nome,s.celular)}));
   return el("article",{class:"cartao-sol"},
     el("div",{class:"cartao-sol-topo"},el("strong",{texto:s.nome}),badgeSituacao(s.situacao)),
     el("p",{class:"ajuda",texto:"Pedido em "+s.data+(s.celular?" · "+s.celular:"")}),
@@ -1765,7 +1942,7 @@ function renderListaMembros(){
         el("div",{class:"acoes"},
           wa?el("a",{class:"botao-peq principal",href:wa,target:"_blank",rel:"noopener",texto:"WhatsApp"}):null,
           el("button",{type:"button",class:"botao-peq",texto:"Ver cadastro",onclick:()=>verCadastroEquipe(x.id)}),
-          el("button",{type:"button",class:"botao-peq",texto:"Gerar link",onclick:()=>gerarLinkEquipe(x.id,x.nome,x.celular)})
+          el("button",{type:"button",class:"botao-peq",texto:"Link e código",onclick:()=>gerarLinkEquipe(x.id,x.nome,x.celular)})
         ));
     }),
     lista.length>mostrar.length?el("button",{type:"button",class:"botao secundario",texto:"Mostrar mais",onclick:()=>{limiteLista+=50;renderListaMembros();}}):null,
