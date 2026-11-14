@@ -22,44 +22,72 @@ input:focus,select:focus{outline:2px solid #12a7d455;border-color:var(--claro)}i
 #status{display:none;margin-top:17px;padding:13px;border-radius:8px;font-size:14px;line-height:1.5;text-align:center}#status.sucesso{display:block;background:#e9f8ef;color:#17633a}#status.erro{display:block;background:#fff0f0;color:#9d2020}
 .rodape{text-align:center;padding:17px;color:#64748b;font-size:12px;border-top:1px solid #e8eef6}
 @media(max-width:560px){body{padding:10px 7px}.topo{padding:23px 14px}form{padding:20px 15px}.grade{grid-template-columns:1fr;gap:15px}.completo{grid-column:auto}}
+
+[hidden]{display:none!important}
+body{padding-bottom:104px}
+.menu-inferior{position:fixed;left:0;right:0;bottom:0;display:flex;justify-content:center;gap:8px;background:#fff;border-top:1px solid #e1e8f3;padding:8px 10px calc(8px + env(safe-area-inset-bottom));z-index:20;box-shadow:0 -4px 18px #12357914}
+.menu-inferior button{flex:1;max-width:260px;display:flex;flex-direction:column;align-items:center;gap:3px;border:0;background:transparent;color:#64748b;font:bold 12px Arial,Helvetica,sans-serif;padding:8px 6px;border-radius:12px;cursor:pointer}
+.menu-inferior button.ativo{background:#e8f0fc;color:var(--azul)}
+.menu-inferior svg{width:24px;height:24px}
+#abaMeuCadastro{padding:25px}
+form.formmc{padding:0}
+.status-mc{display:none;margin:12px 0;padding:12px;border-radius:8px;font-size:14px;line-height:1.5;text-align:center}.status-mc.erro{background:#fff0f0;color:#9d2020}
+.mc-topo{display:flex;gap:16px;align-items:center;margin-bottom:18px}
+.mc-foto{width:96px;height:96px;flex:none;border-radius:50%;object-fit:cover;border:3px solid #dce9f9;background:#eef3fa}
+.mc-sem-foto{display:flex;align-items:center;justify-content:center;font-size:12px;color:#64748b;text-align:center}
+.mc-nome{margin:0 0 6px;font-size:20px;color:var(--azul)}
+.aviso{margin:14px 0;padding:14px 16px;border-radius:10px;line-height:1.6;font-size:14px}.aviso p{margin:6px 0}
+.aviso-info{background:#eef5ff;border:1px solid #d3e3fb}.aviso-ok{background:#e9f8ef;border:1px solid #bfe6cf;color:#17633a}.aviso-espera{background:#fff8e6;border:1px solid #f1deaa;color:#6b5210}.aviso-erro{background:#fff0f0;border:1px solid #f3c6c6;color:#9d2020}
+.aviso .botao{margin-top:10px}.aviso a,.modal-corpo a{color:var(--azul);font-weight:bold}
+.dados{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px 16px;margin:0 0 20px}.dado{min-width:0}.dado dt{font-size:12px;color:#64748b;font-weight:bold;margin-bottom:3px}.dado dd{margin:0;font-size:15px;word-break:break-word}
+.filho-lido{padding:12px;border:1px solid #e4ecf7;border-radius:10px;margin-bottom:10px}
+.mc-motivo{width:100%;min-height:90px;padding:10px;border:1px solid var(--borda);border-radius:8px;font:inherit;font-size:15px;resize:vertical}
+.mc-filho{padding:14px;border:1px solid #e4ecf7;border-radius:10px}
+.aviso-link{margin-top:22px}
+#modalFundo{position:fixed;inset:0;background:#0b1b3a99;display:flex;align-items:center;justify-content:center;padding:16px;z-index:50}
+#modalCaixa{background:#fff;border-radius:14px;max-width:480px;width:100%;max-height:88vh;overflow:auto;padding:22px;box-shadow:0 12px 40px #00000040}
+#modalCaixa h3{margin:0 0 12px;color:var(--azul)}.modal-corpo{font-size:15px;line-height:1.6}.modal-corpo p{margin:8px 0}
+.modal-botoes{display:flex;gap:10px;margin-top:16px}.modal-botoes .botao{margin-top:0}
+@media(max-width:560px){#abaMeuCadastro{padding:20px 15px}.dados{grid-template-columns:1fr}.mc-topo{flex-direction:column;text-align:center}.modal-botoes{flex-direction:column-reverse}}
 </style>
 </head>
 <body>
 <main class="container">
 <header class="topo">
 <img class="logo" src="logo-pibvl.png" alt="Logo da Primeira Igreja Batista em Vaz Lobo">
-<h1>Cadastro de Membros</h1><p>Primeira Igreja Batista em Vaz Lobo</p><p>Preencha os dados abaixo com atenção.</p>
+<h1 id="tituloTopo">Cadastro de Membros</h1><p>Primeira Igreja Batista em Vaz Lobo</p><p id="subtituloTopo">Preencha os dados abaixo com atenção.</p>
 </header>
 
+<div id="abaCadastro">
 <form id="formCadastro">
 <h2 class="secao-titulo">Dados pessoais</h2>
 <div class="grade">
-<div class="campo completo"><label for="nome">Nome completo *</label><input id="nome" required autocomplete="name"></div>
-<div class="campo"><label for="sexo">Sexo *</label><select id="sexo" required><option value="">Selecione</option><option>Feminino</option><option>Masculino</option></select></div>
-<div class="campo"><label for="nascimento">Data de nascimento * (DD/MM/AAAA)</label><input id="nascimento" type="text" inputmode="numeric" placeholder="DD/MM/AAAA" maxlength="10" required><p id="idadeInfo" class="ajuda">Sua idade aparecerá após informar a data de nascimento.</p></div>
-<div class="campo"><label for="estadoCivil">Estado civil *</label><select id="estadoCivil" required><option value="">Selecione</option><option>Solteiro(a)</option><option>Casado(a)</option><option>Divorciado(a)</option><option>Viúvo(a)</option><option>União estável</option><option>Outro</option></select></div>
+<div class="campo completo"><label for="nome">Nome completo</label><input id="nome" required autocomplete="name"></div>
+<div class="campo"><label for="sexo">Sexo</label><select id="sexo" required><option value="">Selecione</option><option>Feminino</option><option>Masculino</option></select></div>
+<div class="campo"><label for="nascimento">Data de nascimento (DD/MM/AAAA)</label><input id="nascimento" type="text" inputmode="numeric" placeholder="DD/MM/AAAA" maxlength="10" required><p id="idadeInfo" class="ajuda">Sua idade aparecerá após informar a data de nascimento.</p></div>
+<div class="campo"><label for="estadoCivil">Estado civil</label><select id="estadoCivil" required><option value="">Selecione</option><option>Solteiro(a)</option><option>Casado(a)</option><option>Divorciado(a)</option><option>Viúvo(a)</option><option>União estável</option><option>Outro</option></select></div>
 </div>
 
 <section class="bloco"><h2 class="secao-titulo">Contato e endereço</h2><div class="grade">
-<div class="campo completo"><label for="endereco">Endereço *</label><input id="endereco" autocomplete="street-address" required></div>
-<div class="campo"><label for="bairro">Bairro *</label><input id="bairro" required></div>
-<div class="campo"><label for="celular">Celular / WhatsApp *</label><input id="celular" type="tel" autocomplete="tel" placeholder="(21) 99999-9999" required></div>
-<div class="campo completo"><label for="email">E-mail</label><input id="email" type="email" autocomplete="email"></div>
+<div class="campo completo"><label for="endereco">Endereço</label><input id="endereco" autocomplete="street-address" required></div>
+<div class="campo"><label for="bairro">Bairro</label><input id="bairro" required></div>
+<div class="campo"><label for="celular">Celular / WhatsApp</label><input id="celular" type="tel" autocomplete="tel" placeholder="(21) 99999-9999" required></div>
+<div class="campo completo"><label for="email">E-mail</label><input id="email" type="email" autocomplete="email"><p class="ajuda">Opcional. Com este e-mail e a sua data de nascimento você poderá consultar seu cadastro depois, na aba Meu Cadastro.</p></div>
 </div></section>
 
 <section class="bloco"><h2 class="secao-titulo">Informações da igreja</h2><div class="grade">
 <div class="campo"><label for="dataBatismo">Data de batismo (DD/MM/AAAA)</label><input id="dataBatismo" type="text" inputmode="numeric" placeholder="DD/MM/AAAA" maxlength="10"><p id="ajudaBatismo" class="ajuda">Digite seu nome completo. Se houver um registro na relação de batismos, a data será preenchida automaticamente. Confira a data antes de enviar.</p></div>
-<div class="campo"><label for="atuaMinisterio">Atua em algum ministério? *</label><select id="atuaMinisterio" required><option value="">Selecione</option><option>Sim</option><option>Não</option></select></div>
-<div class="campo completo" id="campoQualMinisterio" hidden><label for="qualMinisterio">Qual ministério? *</label><input id="qualMinisterio" placeholder="Informe o ministério" disabled></div>
-<div class="campo"><label for="trabalha">Você trabalha atualmente? *</label><select id="trabalha" required><option value="">Selecione</option><option>Sim</option><option>Não</option><option>Aposentado(a)</option></select></div>
+<div class="campo"><label for="atuaMinisterio">Atua em algum ministério?</label><select id="atuaMinisterio" required><option value="">Selecione</option><option>Sim</option><option>Não</option></select></div>
+<div class="campo completo" id="campoQualMinisterio" hidden><label for="qualMinisterio">Qual ministério?</label><input id="qualMinisterio" placeholder="Informe o ministério" disabled></div>
+<div class="campo"><label for="trabalha">Você trabalha atualmente?</label><select id="trabalha" required><option value="">Selecione</option><option>Sim</option><option>Não</option><option>Aposentado(a)</option></select></div>
 </div></section>
 
 <section class="bloco"><h2 class="secao-titulo">Informações dos filhos que frequentam a igreja</h2>
-<div class="campo"><label for="temFilhos">Possui filho que frequenta a igreja, mas ainda não é batizado? *</label><select id="temFilhos" required><option value="">Selecione</option><option>Sim</option><option>Não</option></select></div>
+<div class="campo"><label for="temFilhos">Possui filho que frequenta a igreja, mas ainda não é batizado?</label><select id="temFilhos" required><option value="">Selecione</option><option>Sim</option><option>Não</option></select></div>
 <div id="filhosContainer" hidden></div><button type="button" id="adicionarFilho" class="botao secundario" style="display:none">+ Adicionar outro filho</button>
 </section>
 
-<section class="bloco"><h2 class="secao-titulo">Foto individual</h2><div class="campo"><label for="foto">Foto do membro *</label><input id="foto" type="file" accept="image/jpeg,image/png,image/webp" required><p class="ajuda">Obrigatória. A equipe de Comunicação poderá utilizar a foto em publicações de aniversário. JPG, PNG ou WebP, até 4 MB.</p><img id="preview" class="preview" alt="Prévia da foto selecionada"></div></section>
+<section class="bloco"><h2 class="secao-titulo">Foto do membro</h2><div class="campo"><label for="foto">Foto do membro</label><input id="foto" type="file" accept="image/jpeg,image/png,image/webp" required><p class="ajuda">Obrigatória. Envie uma foto em que o seu rosto apareça por completo e com boa iluminação. Ela será usada no dia do seu aniversário, na arte dos aniversariantes. JPG, PNG ou WebP, até 4 MB.</p><img id="preview" class="preview" alt="Prévia da foto selecionada"></div></section>
 
 <button class="botao" id="botaoEnviar" type="submit">Enviar cadastro</button>
 <div id="status" role="status" aria-live="polite"></div>
@@ -67,20 +95,43 @@ input:focus,select:focus{outline:2px solid #12a7d455;border-color:var(--claro)}i
 
 <section id="telaFinal" hidden style="padding:28px 25px 30px;text-align:center">
   <div style="width:62px;height:62px;margin:0 auto 16px;border-radius:50%;background:#e9f8ef;color:#17633a;display:flex;align-items:center;justify-content:center;font-size:32px;font-weight:bold">✓</div>
-  <h2 style="color:var(--azul);margin:0 0 12px">Cadastro encaminhado</h2>
-  <p id="mensagemFinal" style="line-height:1.6">Sua solicitação foi encaminhada para processamento. A equipe responsável fará a conferência dos dados.</p>
-  <div id="mensagemRevisao" hidden style="margin-top:18px;padding:16px;background:#eef5ff;border-radius:10px;text-align:left;line-height:1.6">
-    <strong>Solicitação de revisão de cadastro</strong>
-    <p>Por segurança, a revisão ou alteração dos dados depende de autorização da equipe de Comunicação ou da 1ª Secretaria da igreja.</p>
-    <p>Entre em contato pelo WhatsApp da Comunicação: <a href="https://wa.me/5521966709417?text=Ol%C3%A1%2C%20gostaria%20de%20solicitar%20autoriza%C3%A7%C3%A3o%20para%20revisar%20meu%20cadastro%20de%20membro." target="_blank" rel="noopener" style="font-weight:bold;color:var(--azul)">+55 21 96670-9417</a></p>
-    <p>Após a confirmação da sua identidade e a autorização, a equipe orientará como acessar o cadastro.</p>
-  </div>
-  <button type="button" class="botao secundario" id="revisarCadastro">Solicitar revisão das informações</button>
+  <h2 style="color:var(--azul);margin:0 0 12px">Cadastro concluído</h2>
+  <p id="mensagemFinal" style="line-height:1.6">Seu cadastro foi concluído com sucesso! Agradecemos por manter seus dados atualizados. Que Deus abençoe sua vida!</p>
+  <button type="button" class="botao secundario" id="irMeuCadastro">Ver Meu Cadastro</button>
   <button type="button" class="botao secundario" id="adicionarMembro">Cadastrar outro membro</button>
 </section>
 
+</div>
+
+<div id="abaMeuCadastro" hidden>
+  <section id="mcEntrada">
+    <h2 class="secao-titulo">Consultar meu cadastro</h2>
+    <p class="ajuda" style="font-size:14px">Entre com o e-mail e a data de nascimento que você informou no cadastro.</p>
+    <form id="formEntrar" class="formmc">
+      <div class="grade">
+        <div class="campo completo"><label for="mcEmail">E-mail</label><input id="mcEmail" type="email" autocomplete="email" required></div>
+        <div class="campo completo"><label for="mcNascimento">Data de nascimento (DD/MM/AAAA)</label><input id="mcNascimento" inputmode="numeric" maxlength="10" placeholder="DD/MM/AAAA" required></div>
+      </div>
+      <div id="mcStatusEntrada" class="status-mc" role="alert"></div>
+      <button class="botao" id="mcBotaoEntrar" type="submit">Entrar</button>
+    </form>
+    <div class="aviso aviso-info aviso-link">
+      <strong>Esqueceu o e-mail ou não informou um?</strong>
+      <p>Peça o link de acesso ao seu cadastro à equipe de Comunicação pelo WhatsApp: <a href="https://wa.me/5521966709417?text=Ol%C3%A1%2C%20gostaria%20de%20receber%20o%20link%20de%20acesso%20ao%20meu%20cadastro%20de%20membro." target="_blank" rel="noopener">+55 21 96670-9417</a></p>
+    </div>
+  </section>
+  <section id="mcCadastro" hidden></section>
+</div>
+
 <footer class="rodape">Primeira Igreja Batista em Vaz Lobo</footer>
 </main>
+
+<nav class="menu-inferior" aria-label="Navegação principal">
+  <button type="button" data-aba="cadastro" class="ativo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M19 8v6M16 11h6"/></svg><span>Cadastro de Membros</span></button>
+  <button type="button" data-aba="meu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="9" cy="11" r="2.5"/><path d="M5.5 17a3.5 3.5 0 0 1 7 0M15 9h3M15 13h3"/></svg><span>Meu Cadastro</span></button>
+</nav>
+
+<div id="modalFundo" hidden><div id="modalCaixa" role="dialog" aria-modal="true"></div></div>
 
 <script>
 const URL_SCRIPT= "https://script.google.com/macros/s/AKfycbxkBSvMMSjlP5plaexX2mPNmg0gGO05aDRiy73abTVz-z1VAYWzxHfA0-4Pwl4ObBMk3A/exec"
@@ -96,7 +147,6 @@ const filhosContainer=document.getElementById("filhosContainer");
 const temFilhos=document.getElementById("temFilhos");
 const adicionarFilho=document.getElementById("adicionarFilho");
 const telaFinal=document.getElementById("telaFinal");
-const mensagemRevisao=document.getElementById("mensagemRevisao");
 
 let contadorFilhos=0;
 let envioPendente=null;
@@ -116,6 +166,21 @@ function paraISO(texto){
   const d=dataValida(texto);
   return d?d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0"):"";
 }
+
+function formalizarTexto(valor){
+  const minusculas=["de","da","do","das","dos","e"];
+  return String(valor||"").trim().replace(/\s+/g," ").toLocaleLowerCase("pt-BR")
+    .split(" ").map((p,i)=>{
+      if(i>0&&minusculas.includes(p))return p;
+      return p.replace(/(^|[-'(\/.])(\p{L})/gu,(t,a,b)=>a+b.toLocaleUpperCase("pt-BR"));
+    }).join(" ");
+}
+
+function aplicarFormalizacao(el){
+  el.addEventListener("blur",()=>{el.value=formalizarTexto(el.value)});
+}
+
+["nome","endereco","bairro","qualMinisterio"].forEach(id=>aplicarFormalizacao(document.getElementById(id)));
 
 function mascaraData(el){
   let v=el.value.replace(/\D/g,"").slice(0,8);
@@ -142,7 +207,10 @@ function atualizarIdade(){
     return;
   }
   nascimento.setCustomValidity("");
-  idadeInfo.textContent="Data de nascimento válida.";
+  const hoje=new Date();
+  let idade=hoje.getFullYear()-d.getFullYear();
+  if(hoje<new Date(hoje.getFullYear(),d.getMonth(),d.getDate()))idade--;
+  idadeInfo.textContent="Atualmente você tem "+idade+(idade===1?" ano":" anos")+".";
 }
 
 [nascimento,document.getElementById("dataBatismo")].forEach(el=>
@@ -249,8 +317,9 @@ function criarCampoFilho(){
   const bloco=document.createElement("div");
   bloco.className="bloco filho";
 
-  bloco.innerHTML='<h3 class="secao-titulo">Filho '+contadorFilhos+'</h3><div class="grade"><div class="campo completo"><label>Nome completo *</label><input name="filhoNome" required></div><div class="campo"><label>Sexo</label><select name="filhoSexo"><option value="">Selecione</option><option>Feminino</option><option>Masculino</option></select></div><div class="campo"><label>Data de nascimento * (DD/MM/AAAA)</label><input name="filhoNascimento" inputmode="numeric" maxlength="10" placeholder="DD/MM/AAAA" required></div><div class="campo completo"><label>Foto do filho (opcional)</label><input name="filhoFoto" type="file" accept="image/jpeg,image/png,image/webp"><p class="ajuda">O nome do arquivo será anotado; o envio da foto do filho ainda não está habilitado.</p></div></div>';
+  bloco.innerHTML='<h3 class="secao-titulo">Filho '+contadorFilhos+'</h3><div class="grade"><div class="campo completo"><label>Nome completo</label><input name="filhoNome" required></div><div class="campo"><label>Sexo</label><select name="filhoSexo"><option value="">Selecione</option><option>Feminino</option><option>Masculino</option></select></div><div class="campo"><label>Data de nascimento (DD/MM/AAAA)</label><input name="filhoNascimento" inputmode="numeric" maxlength="10" placeholder="DD/MM/AAAA" required></div><div class="campo completo"><label>Foto do filho (opcional)</label><input name="filhoFoto" type="file" accept="image/jpeg,image/png,image/webp"><p class="ajuda">O nome do arquivo será anotado; o envio da foto do filho ainda não está habilitado.</p></div></div>';
 
+  aplicarFormalizacao(bloco.querySelector('[name="filhoNome"]'));
   const data=bloco.querySelector('[name="filhoNascimento"]');
   data.addEventListener("input",()=>mascaraData(data));
   filhosContainer.appendChild(bloco);
@@ -453,10 +522,15 @@ form.addEventListener("submit",async e=>{
     return;
   }
 
+  ["nome","endereco","bairro","qualMinisterio"].forEach(id=>{
+    const c=document.getElementById(id);
+    c.value=formalizarTexto(c.value);
+  });
+
   const filhos=Array.from(
     filhosContainer.querySelectorAll(".filho")
   ).map(b=>({
-    nome:b.querySelector('[name="filhoNome"]').value.trim(),
+    nome:formalizarTexto(b.querySelector('[name="filhoNome"]').value),
     sexo:b.querySelector('[name="filhoSexo"]').value,
     nascimento:paraISO(b.querySelector('[name="filhoNascimento"]').value),
     fotoNome:b.querySelector('[name="filhoFoto"]').files[0]?.name||""
@@ -511,7 +585,7 @@ form.addEventListener("submit",async e=>{
       telaFinal.hidden=false;
 
       document.getElementById("mensagemFinal").textContent=
-        "Seu cadastro foi registrado com sucesso! Agradecemos por atualizar suas informações com a Primeira Igreja Batista em Vaz Lobo.";
+        "Seu cadastro foi concluído com sucesso! Agradecemos por manter seus dados atualizados. Que Deus abençoe sua vida!";
 
       telaFinal.scrollIntoView({
         behavior:"smooth",
@@ -541,26 +615,10 @@ form.addEventListener("submit",async e=>{
   }
 });
 
-document.getElementById("revisarCadastro").addEventListener("click",()=>{
-  mensagemRevisao.hidden=false;
-
-  document.getElementById("mensagemFinal").textContent=
-    "Para revisar ou alterar um cadastro já enviado, é necessária autorização da equipe responsável.";
-
-  document.getElementById("revisarCadastro").textContent=
-    "Mensagem de autorização";
-
-  mensagemRevisao.scrollIntoView({
-    behavior:"smooth",
-    block:"center"
-  });
-});
-
 document.getElementById("adicionarMembro").addEventListener("click",()=>{
   form.reset();
   form.hidden=false;
   telaFinal.hidden=true;
-  mensagemRevisao.hidden=true;
 
   document.getElementById("mensagemFinal").textContent="";
 
@@ -578,9 +636,6 @@ document.getElementById("adicionarMembro").addEventListener("click",()=>{
   document.getElementById("qualMinisterio").required=false;
   document.getElementById("campoQualMinisterio").hidden=true;
 
-  document.getElementById("revisarCadastro").textContent=
-    "Solicitar revisão das informações";
-
   atualizarIdade();
 
   form.scrollIntoView({
@@ -588,6 +643,557 @@ document.getElementById("adicionarMembro").addEventListener("click",()=>{
     block:"start"
   });
 });
+
+/* =====================================================================
+   ABAS E MEU CADASTRO
+   ===================================================================== */
+const URL_WHATSAPP_REVISAO="https://wa.me/5521966709417?text=Ol%C3%A1%2C%20gostaria%20de%20solicitar%20autoriza%C3%A7%C3%A3o%20para%20revisar%20meu%20cadastro%20de%20membro.";
+const URL_WHATSAPP_LINK="https://wa.me/5521966709417?text=Ol%C3%A1%2C%20gostaria%20de%20receber%20o%20link%20de%20acesso%20ao%20meu%20cadastro%20de%20membro.";
+const TEL_COMUNICACAO="+55 21 96670-9417";
+
+const abaCadastro=document.getElementById("abaCadastro");
+const abaMeuCadastro=document.getElementById("abaMeuCadastro");
+const mcEntrada=document.getElementById("mcEntrada");
+const mcCadastro=document.getElementById("mcCadastro");
+const mcStatusEntrada=document.getElementById("mcStatusEntrada");
+let sessaoMembro="";
+let cadastroAtual=null;
+let carregandoMeuCadastro=false;
+
+function el(tag,props,...filhos){
+  const e=document.createElement(tag);
+  Object.entries(props||{}).forEach(([k,v])=>{
+    if(v===false||v===null||v===undefined)return;
+    if(k==="class")e.className=v;
+    else if(k==="texto")e.textContent=v;
+    else if(k.slice(0,2)==="on")e.addEventListener(k.slice(2),v);
+    else if(v===true)e.setAttribute(k,"");
+    else e.setAttribute(k,v);
+  });
+  filhos.flat().forEach(f=>{
+    if(f===null||f===undefined||f===false)return;
+    e.append(f.nodeType?f:document.createTextNode(String(f)));
+  });
+  return e;
+}
+
+function isoParaBR(iso){
+  const m=String(iso||"").match(/^(\d{4})-(\d{2})-(\d{2})$/);
+  return m?m[3]+"/"+m[2]+"/"+m[1]:String(iso||"");
+}
+
+function idadeDe(iso){
+  const m=String(iso||"").match(/^(\d{4})-(\d{2})-(\d{2})$/);
+  if(!m)return "";
+  const hoje=new Date();
+  let idade=hoje.getFullYear()-Number(m[1]);
+  if(hoje<new Date(hoje.getFullYear(),Number(m[2])-1,Number(m[3])))idade--;
+  return idade;
+}
+
+function salvarSessao(s){
+  sessaoMembro=s;
+  try{sessionStorage.setItem("pibvl_sessao",s);}catch(e){}
+}
+
+function limparSessao(){
+  sessaoMembro="";
+  cadastroAtual=null;
+  try{sessionStorage.removeItem("pibvl_sessao");}catch(e){}
+}
+
+function chamarServidor(acao,params){
+  return new Promise((resolve,reject)=>{
+    const cb="cbSrv_"+Date.now()+"_"+Math.random().toString(36).slice(2);
+    const script=document.createElement("script");
+    const url=new URL(URL_SCRIPT);
+    url.searchParams.set("acao",acao);
+    Object.keys(params||{}).forEach(k=>url.searchParams.set(k,params[k]));
+    url.searchParams.set("callback",cb);
+    const limpar=()=>{clearTimeout(t);delete window[cb];script.remove();};
+    const t=setTimeout(()=>{limpar();reject(new Error("O servidor demorou para responder. Tente novamente."));},25000);
+    window[cb]=r=>{limpar();resolve(r);};
+    script.onerror=()=>{limpar();reject(new Error("Não foi possível conectar. Verifique sua conexão."));};
+    script.src=url.toString();
+    document.head.appendChild(script);
+  });
+}
+
+/* ---------- janela de diálogo ---------- */
+function fecharModal(){
+  document.getElementById("modalFundo").hidden=true;
+  document.getElementById("modalCaixa").replaceChildren();
+}
+
+function abrirModal(titulo,corpo,botoes){
+  const caixa=document.getElementById("modalCaixa");
+  caixa.replaceChildren(
+    el("h3",{texto:titulo}),
+    el("div",{class:"modal-corpo"},corpo),
+    el("div",{class:"modal-botoes"},(botoes||[]).map(b=>
+      el("button",{type:"button",class:"botao "+(b.principal?"":"secundario"),texto:b.texto,onclick:b.acao})
+    ))
+  );
+  document.getElementById("modalFundo").hidden=false;
+}
+
+function caixaRevisao(){
+  return el("div",{class:"aviso aviso-info"},
+    el("strong",{texto:"Solicitação de revisão de cadastro"}),
+    el("p",{texto:"Por segurança, a revisão ou alteração dos dados depende de autorização da equipe de Comunicação ou da 1ª Secretaria da igreja."}),
+    el("p",{},"Entre em contato pelo WhatsApp da Comunicação: ",
+      el("a",{href:URL_WHATSAPP_REVISAO,target:"_blank",rel:"noopener",texto:TEL_COMUNICACAO})),
+    el("p",{texto:"Após a confirmação da sua identidade e a autorização, a equipe orientará como acessar o cadastro."})
+  );
+}
+
+/* ---------- abas ---------- */
+function irParaAba(nome){
+  const meu=nome==="meu";
+  abaCadastro.hidden=meu;
+  abaMeuCadastro.hidden=!meu;
+  document.querySelectorAll(".menu-inferior button").forEach(b=>
+    b.classList.toggle("ativo",b.dataset.aba===nome)
+  );
+  document.getElementById("tituloTopo").textContent=meu?"Meu Cadastro":"Cadastro de Membros";
+  document.getElementById("subtituloTopo").textContent=meu
+    ?"Consulte os dados que você preencheu."
+    :"Preencha os dados abaixo com atenção.";
+  if(meu&&sessaoMembro&&!cadastroAtual&&!carregandoMeuCadastro)carregarMeuCadastro();
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+
+document.querySelectorAll(".menu-inferior button").forEach(b=>
+  b.addEventListener("click",()=>irParaAba(b.dataset.aba))
+);
+
+document.getElementById("irMeuCadastro").addEventListener("click",()=>irParaAba("meu"));
+
+/* ---------- entrada ---------- */
+function mostrarEntrada(mensagem){
+  mcEntrada.hidden=false;
+  mcCadastro.hidden=true;
+  mcCadastro.replaceChildren();
+  mcStatusEntrada.textContent=mensagem||"";
+  mcStatusEntrada.className=mensagem?"status-mc erro":"status-mc";
+  mcStatusEntrada.style.display=mensagem?"block":"none";
+}
+
+const mcNascimento=document.getElementById("mcNascimento");
+mcNascimento.addEventListener("input",()=>mascaraData(mcNascimento));
+
+document.getElementById("formEntrar").addEventListener("submit",async e=>{
+  e.preventDefault();
+  const email=document.getElementById("mcEmail").value.trim();
+  const d=dataValida(mcNascimento.value);
+  if(!d||d>new Date()){
+    mostrarEntrada("Confira a data de nascimento no formato DD/MM/AAAA.");
+    return;
+  }
+  const botaoEntrar=document.getElementById("mcBotaoEntrar");
+  botaoEntrar.disabled=true;
+  botaoEntrar.textContent="Verificando...";
+  try{
+    const r=await chamarServidor("membroEntrar",{email:email,nascimento:paraISO(mcNascimento.value)});
+    if(!r||!r.ok){
+      mostrarEntrada((r&&r.mensagem)||"Não foi possível entrar. Tente novamente.");
+    }else{
+      salvarSessao(r.sessao);
+      document.getElementById("formEntrar").reset();
+      await carregarMeuCadastro();
+    }
+  }catch(err){
+    mostrarEntrada(err.message);
+  }finally{
+    botaoEntrar.disabled=false;
+    botaoEntrar.textContent="Entrar";
+  }
+});
+
+async function entrarPorLink(token){
+  mcEntrada.hidden=true;
+  mcCadastro.hidden=false;
+  mcCadastro.replaceChildren(el("p",{class:"ajuda",texto:"Abrindo seu cadastro..."}));
+  try{
+    const r=await chamarServidor("membroEntrarLink",{token:token});
+    if(!r||!r.ok){
+      mostrarEntrada((r&&r.mensagem)||"Link inválido ou expirado. Peça um novo link à equipe de Comunicação.");
+      return;
+    }
+    salvarSessao(r.sessao);
+    await carregarMeuCadastro();
+  }catch(err){
+    mostrarEntrada(err.message);
+  }
+}
+
+function sair(){
+  limparSessao();
+  mostrarEntrada("");
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+
+async function carregarMeuCadastro(){
+  if(carregandoMeuCadastro)return;
+  carregandoMeuCadastro=true;
+  mcEntrada.hidden=true;
+  mcCadastro.hidden=false;
+  mcCadastro.replaceChildren(el("p",{class:"ajuda",texto:"Carregando seu cadastro..."}));
+  try{
+    const r=await chamarServidor("membroCadastro",{sessao:sessaoMembro});
+    if(!r||!r.ok){
+      limparSessao();
+      mostrarEntrada((r&&r.mensagem)||"Sua sessão expirou. Entre novamente.");
+      return;
+    }
+    renderizarCadastro(r.cadastro);
+  }catch(err){
+    mcCadastro.replaceChildren(
+      el("div",{class:"aviso aviso-erro",texto:err.message}),
+      el("button",{type:"button",class:"botao secundario",texto:"Tentar de novo",onclick:()=>carregarMeuCadastro()})
+    );
+  }finally{
+    carregandoMeuCadastro=false;
+  }
+}
+
+/* ---------- cadastro congelado (somente leitura) ---------- */
+function linhaDado(rotulo,valor){
+  return el("div",{class:"dado"},el("dt",{texto:rotulo}),el("dd",{texto:valor||"—"}));
+}
+
+function renderizarCadastro(c){
+  cadastroAtual=c;
+  mcEntrada.hidden=true;
+  mcCadastro.hidden=false;
+
+  const foto=c.foto
+    ?el("img",{class:"mc-foto",src:c.foto,alt:"Sua foto"})
+    :el("div",{class:"mc-foto mc-sem-foto",texto:"Sem foto"});
+
+  const topo=el("div",{class:"mc-topo"},foto,
+    el("div",{},
+      el("h2",{class:"mc-nome",texto:"Meu cadastro: "+c.nome}),
+      el("p",{class:"ajuda",texto:"Cadastro realizado em "+(c.dataCadastro||"—")}),
+      (c.ultimaAtualizacao&&c.ultimaAtualizacao!==c.dataCadastro)
+        ?el("p",{class:"ajuda",texto:"Última atualização em "+c.ultimaAtualizacao}):null
+    )
+  );
+
+  const sol=c.solicitacao;
+  let faixa;
+  if(c.situacao==="Liberado"){
+    faixa=el("div",{class:"aviso aviso-ok"},
+      el("strong",{texto:"Edição liberada pela equipe"}),
+      el("p",{texto:"Você pode corrigir os dados"+(sol&&sol.motivo?" que pediu para revisar":"")+" e enviar o cadastro novamente."}),
+      sol&&sol.motivo?el("p",{class:"ajuda",texto:"Motivo do pedido: "+sol.motivo}):null,
+      el("button",{type:"button",class:"botao",texto:"Editar meu cadastro",onclick:()=>renderizarEdicao(c)})
+    );
+  }else if(sol&&sol.situacao==="Pendente"){
+    faixa=el("div",{},
+      el("div",{class:"aviso aviso-espera"},
+        el("strong",{texto:"Aguardando confirmação do pedido"}),
+        el("p",{texto:"Seu pedido de revisão foi enviado em "+sol.data+". Assim que a equipe autorizar, você poderá editar o cadastro."}),
+        el("p",{class:"ajuda",texto:"Motivo informado: "+sol.motivo})
+      ),
+      caixaRevisao()
+    );
+  }else{
+    const recusada=sol&&sol.situacao==="Recusada";
+    faixa=el("div",{class:"aviso aviso-info"},
+      el("strong",{texto:recusada?"Seu último pedido de revisão não foi autorizado":"Cadastro protegido"}),
+      el("p",{texto:recusada
+        ?"Fale com a equipe de Comunicação ou com a 1ª Secretaria para entender o motivo. Se necessário, você pode fazer um novo pedido."
+        :"Para evitar alterações acidentais, seu cadastro fica bloqueado. Se notar alguma informação errada, solicite a revisão."}),
+      el("button",{type:"button",class:"botao",texto:"Solicitar revisão do cadastro",onclick:abrirPedidoRevisao})
+    );
+  }
+
+  const idade=idadeDe(c.nascimento);
+  const dados=el("div",{},
+    el("h3",{class:"secao-titulo",texto:"Dados pessoais"}),
+    el("dl",{class:"dados"},
+      linhaDado("Nome completo",c.nome),
+      linhaDado("Sexo",c.sexo),
+      linhaDado("Data de nascimento",isoParaBR(c.nascimento)+(idade!==""?" ("+idade+" anos)":"")),
+      linhaDado("Estado civil",c.estadoCivil)
+    ),
+    el("h3",{class:"secao-titulo",texto:"Contato e endereço"}),
+    el("dl",{class:"dados"},
+      linhaDado("Endereço",c.endereco),
+      linhaDado("Bairro",c.bairro),
+      linhaDado("Celular / WhatsApp",c.celular),
+      linhaDado("E-mail",c.email)
+    ),
+    el("h3",{class:"secao-titulo",texto:"Informações da igreja"}),
+    el("dl",{class:"dados"},
+      linhaDado("Data de batismo",isoParaBR(c.dataBatismo)),
+      linhaDado("Atua em algum ministério?",c.atuaMinisterio),
+      c.atuaMinisterio==="Sim"?linhaDado("Qual ministério?",c.qualMinisterio):null,
+      linhaDado("Trabalha atualmente?",c.trabalha)
+    ),
+    el("h3",{class:"secao-titulo",texto:"Filhos que frequentam a igreja"}),
+    c.filhos.length
+      ?el("div",{},c.filhos.map(f=>
+          el("dl",{class:"dados filho-lido"},
+            linhaDado("Nome do filho",f.nome),
+            linhaDado("Sexo",f.sexo),
+            linhaDado("Data de nascimento",isoParaBR(f.nascimento))
+          )))
+      :el("p",{class:"ajuda",texto:"Nenhum filho cadastrado."})
+  );
+
+  mcCadastro.replaceChildren(topo,faixa,dados,
+    el("button",{type:"button",class:"botao secundario",texto:"Sair",onclick:sair})
+  );
+}
+
+/* ---------- pedido de revisão ---------- */
+function abrirPedidoRevisao(){
+  const caixaTexto=el("textarea",{id:"mcMotivo",rows:"4",maxlength:"500",placeholder:"Ex.: preciso anexar uma nova foto",class:"mc-motivo"});
+  const aviso=el("p",{class:"status-mc erro",style:"display:none"});
+  abrirModal("Solicitar revisão do cadastro",[
+    el("p",{texto:"Por qual motivo você quer revisar o seu cadastro?"}),
+    caixaTexto,aviso
+  ],[
+    {texto:"Cancelar",acao:fecharModal},
+    {texto:"Enviar pedido",principal:true,acao:async ev=>{
+      const btn=ev.currentTarget;
+      const motivo=caixaTexto.value.trim();
+      if(motivo.length<5){
+        aviso.textContent="Escreva o motivo do pedido.";aviso.style.display="block";return;
+      }
+      btn.disabled=true;btn.textContent="Enviando...";
+      try{
+        const r=await chamarServidor("membroSolicitarRevisao",{sessao:sessaoMembro,motivo:motivo});
+        if(!r||!r.ok){
+          aviso.textContent=(r&&r.mensagem)||"Não foi possível enviar o pedido.";
+          aviso.style.display="block";btn.disabled=false;btn.textContent="Enviar pedido";return;
+        }
+        abrirModal("Pedido enviado",[caixaRevisao()],[
+          {texto:"Fechar",principal:true,acao:()=>{fecharModal();cadastroAtual=null;carregarMeuCadastro();}}
+        ]);
+      }catch(err){
+        aviso.textContent=err.message;aviso.style.display="block";
+        btn.disabled=false;btn.textContent="Enviar pedido";
+      }
+    }}
+  ]);
+}
+
+/* ---------- edição (somente com autorização) ---------- */
+function campoMc(rotulo,controle,classe){
+  return el("div",{class:"campo "+(classe||"")},el("label",{texto:rotulo}),controle);
+}
+
+function selectMc(opcoes,valor,obrigatorio){
+  const s=el("select",{required:obrigatorio},
+    el("option",{value:"",texto:"Selecione"}),
+    opcoes.map(o=>el("option",{value:o,texto:o}))
+  );
+  s.value=valor||"";
+  return s;
+}
+
+function inputMc(valor,props){
+  const i=el("input",props||{});
+  i.value=valor||"";
+  return i;
+}
+
+function criarBlocoFilhoEdicao(container,f){
+  const nome=inputMc(f&&f.nome,{name:"n",required:true});
+  const sexo=selectMc(["Feminino","Masculino"],f&&f.sexo,false);sexo.name="s";
+  const nasc=inputMc(f&&f.nascimento?isoParaBR(f.nascimento):"",{name:"d",required:true,inputmode:"numeric",maxlength:"10",placeholder:"DD/MM/AAAA"});
+  nasc.addEventListener("input",()=>mascaraData(nasc));
+  nome.addEventListener("blur",()=>{nome.value=formalizarTexto(nome.value);});
+  const bloco=el("div",{class:"bloco mc-filho"},
+    el("div",{class:"grade"},
+      campoMc("Nome do filho",nome,"completo"),
+      campoMc("Sexo do filho",sexo),
+      campoMc("Data de nascimento do filho (DD/MM/AAAA)",nasc)
+    ),
+    el("button",{type:"button",class:"botao secundario",texto:"Remover este filho",onclick:()=>bloco.remove()})
+  );
+  bloco.dataset.fotoNome=(f&&f.fotoNome)||"";
+  container.appendChild(bloco);
+}
+
+function renderizarEdicao(c){
+  const f_nome=inputMc(c.nome,{required:true,autocomplete:"name"});
+  const f_sexo=selectMc(["Feminino","Masculino"],c.sexo,true);
+  const f_nasc=inputMc(isoParaBR(c.nascimento),{required:true,inputmode:"numeric",maxlength:"10",placeholder:"DD/MM/AAAA"});
+  const f_civil=selectMc(["Solteiro(a)","Casado(a)","Divorciado(a)","Viúvo(a)","União estável","Outro"],c.estadoCivil,true);
+  const f_end=inputMc(c.endereco,{required:true});
+  const f_bairro=inputMc(c.bairro,{required:true});
+  const f_cel=inputMc(c.celular,{required:true,type:"tel",placeholder:"(21) 99999-9999"});
+  const f_email=inputMc(c.email,{type:"email"});
+  const f_batismo=inputMc(isoParaBR(c.dataBatismo),{inputmode:"numeric",maxlength:"10",placeholder:"DD/MM/AAAA"});
+  const f_atua=selectMc(["Sim","Não"],c.atuaMinisterio,true);
+  const f_qual=inputMc(c.qualMinisterio,{placeholder:"Informe o ministério"});
+  const f_trab=selectMc(["Sim","Não","Aposentado(a)"],c.trabalha,true);
+  const f_tem=selectMc(["Sim","Não"],c.filhos.length?"Sim":"Não",true);
+  const f_foto=el("input",{type:"file",accept:"image/jpeg,image/png,image/webp"});
+  const idadeInfoMc=el("p",{class:"ajuda"});
+  const filhosBox=el("div",{});
+  const btnAdd=el("button",{type:"button",class:"botao secundario",texto:"+ Adicionar outro filho",onclick:()=>criarBlocoFilhoEdicao(filhosBox)});
+  const status=el("div",{class:"status-mc erro",style:"display:none"});
+
+  [f_nasc,f_batismo].forEach(i=>i.addEventListener("input",()=>mascaraData(i)));
+  [f_nome,f_end,f_bairro,f_qual].forEach(i=>i.addEventListener("blur",()=>{i.value=formalizarTexto(i.value);}));
+
+  const campoQual=campoMc("Qual ministério?",f_qual,"completo");
+  function ajustarMinisterio(){
+    const sim=f_atua.value==="Sim";
+    campoQual.hidden=!sim;f_qual.required=sim;f_qual.disabled=!sim;
+    if(!sim)f_qual.value="";
+  }
+  f_atua.addEventListener("change",ajustarMinisterio);
+
+  function ajustarFilhos(){
+    const sim=f_tem.value==="Sim";
+    filhosBox.hidden=!sim;btnAdd.hidden=!sim;
+    if(sim&&!filhosBox.children.length)criarBlocoFilhoEdicao(filhosBox);
+    if(!sim)filhosBox.replaceChildren();
+  }
+  c.filhos.forEach(f=>criarBlocoFilhoEdicao(filhosBox,f));
+  f_tem.addEventListener("change",ajustarFilhos);
+
+  function atualizarIdadeMc(){
+    const d=dataValida(f_nasc.value);
+    if(!d||d>new Date()){idadeInfoMc.textContent="Digite uma data válida no formato DD/MM/AAAA.";return;}
+    const i=idadeDe(paraISO(f_nasc.value));
+    idadeInfoMc.textContent="Atualmente você tem "+i+(i===1?" ano.":" anos.");
+  }
+  f_nasc.addEventListener("input",atualizarIdadeMc);
+  atualizarIdadeMc();
+
+  const form=el("form",{class:"formmc",novalidate:false},
+    el("div",{class:"aviso aviso-ok"},
+      el("strong",{texto:"Edição liberada"}),
+      el("p",{texto:"Corrija o que for necessário. Ao enviar, o cadastro volta a ficar protegido."}),
+      c.solicitacao&&c.solicitacao.motivo?el("p",{class:"ajuda",texto:"Motivo do pedido: "+c.solicitacao.motivo}):null
+    ),
+    el("h3",{class:"secao-titulo",texto:"Dados pessoais"}),
+    el("div",{class:"grade"},
+      campoMc("Nome completo",f_nome,"completo"),
+      campoMc("Sexo",f_sexo),
+      el("div",{class:"campo"},el("label",{texto:"Data de nascimento (DD/MM/AAAA)"}),f_nasc,idadeInfoMc),
+      campoMc("Estado civil",f_civil)
+    ),
+    el("h3",{class:"secao-titulo bloco",texto:"Contato e endereço"}),
+    el("div",{class:"grade"},
+      campoMc("Endereço",f_end,"completo"),
+      campoMc("Bairro",f_bairro),
+      campoMc("Celular / WhatsApp",f_cel),
+      campoMc("E-mail",f_email,"completo")
+    ),
+    el("h3",{class:"secao-titulo bloco",texto:"Informações da igreja"}),
+    el("div",{class:"grade"},
+      campoMc("Data de batismo (DD/MM/AAAA)",f_batismo),
+      campoMc("Atua em algum ministério?",f_atua),
+      campoQual,
+      campoMc("Você trabalha atualmente?",f_trab)
+    ),
+    el("h3",{class:"secao-titulo bloco",texto:"Filhos que frequentam a igreja"}),
+    campoMc("Possui filho que frequenta a igreja, mas ainda não é batizado?",f_tem),
+    filhosBox,btnAdd,
+    el("h3",{class:"secao-titulo bloco",texto:"Foto do membro"}),
+    el("div",{class:"campo"},
+      el("label",{texto:"Enviar uma nova foto (opcional)"}),f_foto,
+      el("p",{class:"ajuda",texto:"Se não enviar uma nova foto, a foto atual será mantida. O rosto deve aparecer por completo, pois a foto é usada na arte dos aniversariantes. JPG, PNG ou WebP, até 4 MB."})
+    ),
+    el("button",{class:"botao",type:"submit",id:"mcBotaoReenviar",texto:"Enviar cadastro revisado"}),
+    el("button",{class:"botao secundario",type:"button",texto:"Cancelar",onclick:()=>renderizarCadastro(c)}),
+    status
+  );
+  ajustarMinisterio();
+  ajustarFilhos();
+
+  function erro(msg){status.textContent=msg;status.style.display="block";status.scrollIntoView({behavior:"smooth",block:"center"});}
+
+  form.addEventListener("submit",e=>{
+    e.preventDefault();
+    status.style.display="none";
+    [f_nome,f_end,f_bairro,f_qual].forEach(i=>{i.value=formalizarTexto(i.value);});
+    if(!form.reportValidity())return;
+    const dn=dataValida(f_nasc.value);
+    if(!dn||dn>new Date()){erro("Confira a data de nascimento no formato DD/MM/AAAA.");return;}
+    if(f_batismo.value.trim()&&!dataValida(f_batismo.value)){erro("Confira a data de batismo ou deixe o campo em branco.");return;}
+    const arq=f_foto.files[0];
+    if(arq&&(!["image/jpeg","image/png","image/webp"].includes(arq.type)||arq.size>4*1024*1024)){
+      erro("Escolha uma imagem JPG, PNG ou WebP de até 4 MB.");return;
+    }
+    const filhos=[...filhosBox.querySelectorAll(".mc-filho")].map(b=>({
+      nome:formalizarTexto(b.querySelector('[name="n"]').value),
+      sexo:b.querySelector('[name="s"]').value,
+      nascimento:paraISO(b.querySelector('[name="d"]').value),
+      fotoNome:b.dataset.fotoNome||""
+    }));
+    if(f_tem.value==="Sim"&&!filhos.length){erro("Informe os dados do filho ou escolha Não.");return;}
+    if(filhos.some(f=>!f.nome||!f.nascimento)){erro("Confira o nome e a data de nascimento de cada filho.");return;}
+
+    const motivo=c.solicitacao&&c.solicitacao.motivo?c.solicitacao.motivo:"";
+    abrirModal("Enviar o cadastro novamente?",[
+      el("p",{texto:motivo
+        ?"Você pediu a revisão pelo seguinte motivo: “"+motivo+"”."
+        :"Você pediu autorização para revisar o seu cadastro."}),
+      el("p",{texto:"Você já fez essa alteração? Se for anexar uma nova foto, ela já foi escolhida? Depois do envio, o cadastro volta a ficar protegido."})
+    ],[
+      {texto:"Voltar e conferir",acao:fecharModal},
+      {texto:"Sim, enviar",principal:true,acao:async ev=>{
+        const btn=ev.currentTarget;
+        btn.disabled=true;btn.textContent="Enviando...";
+        const dados={
+          acao:"editar",sessao:sessaoMembro,
+          nome:f_nome.value.trim(),sexo:f_sexo.value,nascimento:paraISO(f_nasc.value),
+          estadoCivil:f_civil.value,endereco:f_end.value.trim(),bairro:f_bairro.value.trim(),
+          celular:f_cel.value.trim(),email:f_email.value.trim(),
+          dataBatismo:paraISO(f_batismo.value),atuaMinisterio:f_atua.value,
+          qualMinisterio:f_qual.value.trim(),trabalha:f_trab.value,
+          temFilhos:f_tem.value,filhos:filhos,fotoData:"",fotoMime:"",fotoNome:""
+        };
+        try{
+          if(arq){dados.fotoData=await arquivoBase64(arq);dados.fotoMime=arq.type;dados.fotoNome=arq.name;}
+          const r=await enviarAoServidor(dados);
+          fecharModal();
+          if(r.resultado==="sucesso"){
+            cadastroAtual=null;
+            await carregarMeuCadastro();
+            mcCadastro.prepend(el("div",{class:"aviso aviso-ok"},
+              el("strong",{texto:"Cadastro atualizado com sucesso!"}),
+              el("p",{texto:"Agradecemos por manter seus dados atualizados. Que Deus abençoe sua vida!"})));
+            window.scrollTo({top:0,behavior:"smooth"});
+          }else{
+            erro(r.mensagem||"Não foi possível enviar o cadastro. Tente novamente.");
+          }
+        }catch(err){
+          fecharModal();
+          erro(err.message||"Não foi possível confirmar o envio. Tente novamente.");
+        }
+      }}
+    ]);
+  });
+
+  mcCadastro.replaceChildren(
+    el("h2",{class:"mc-nome",texto:"Editar meu cadastro"}),
+    form
+  );
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+
+/* ---------- início: link de acesso ou sessão guardada ---------- */
+(function iniciarMeuCadastro(){
+  const p=new URLSearchParams(location.search);
+  const token=p.get("acesso");
+  if(token&&/^[a-f0-9]{64}$/.test(token)){
+    history.replaceState(null,"",location.pathname);
+    irParaAba("meu");
+    entrarPorLink(token);
+    return;
+  }
+  try{sessaoMembro=sessionStorage.getItem("pibvl_sessao")||"";}catch(e){}
+})();
 </script>
 </body>
 </html>
