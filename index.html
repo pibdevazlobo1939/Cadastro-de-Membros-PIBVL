@@ -141,6 +141,12 @@ body:has(#abaMeuCadastro:not([hidden]) #mcCadastro:not([hidden])) .topo{display:
 .cartao h3{font-size:16px;gap:8px;margin-bottom:12px;padding-bottom:10px}.cartao h3 svg{width:22px;height:22px}
 .mc-itens{gap:14px 10px}.mc-item{gap:7px}.mc-item .ico{width:30px;height:30px}.mc-item .ico svg{width:16px;height:16px}.mc-item small{font-size:11px;margin-bottom:2px}.mc-item b{font-size:11.5px;word-break:normal;overflow-wrap:anywhere}
 }
+.link-mini{border:0;background:transparent;color:var(--azul);font:inherit;text-decoration:underline;cursor:pointer;padding:0}
+.foto-ajuste{display:block;width:100%;max-width:300px;aspect-ratio:1;margin:10px auto;border-radius:16px;background:#e8eef7;touch-action:none;cursor:grab}
+.foto-ajuste:active{cursor:grabbing}
+.foto-ctl{display:flex;gap:10px;align-items:center;margin:6px 0}.foto-ctl input[type=range]{flex:1}
+.formmc.congelado input:disabled,.formmc.congelado select:disabled,.formmc.congelado textarea:disabled{background:#f1f5fb;color:#0e2459;-webkit-text-fill-color:#0e2459;opacity:1;border-color:#d7e2f1}
+.miniatura{display:block;width:96px;height:96px;object-fit:cover;border-radius:12px;margin:8px 0;border:2px solid #dce9f9}
 #abaEquipe{padding:25px}@media(max-width:560px){#abaEquipe{padding:20px 15px}}
 </style>
 </head>
@@ -174,7 +180,7 @@ body:has(#abaMeuCadastro:not([hidden]) #mcCadastro:not([hidden])) .topo{display:
 </div></section>
 
 <section class="bloco"><h2 class="secao-titulo">Informações da igreja</h2><div class="grade">
-<div class="campo"><label for="dataBatismo">Data de batismo (DD/MM/AAAA)</label><input id="dataBatismo" type="text" inputmode="numeric" placeholder="DD/MM/AAAA" maxlength="10"><p id="ajudaBatismo" class="ajuda">Digite seu nome completo. Se houver um registro na relação de batismos, a data será preenchida automaticamente. Confira a data antes de enviar.</p></div>
+<div class="campo"><label for="dataBatismo">Data de batismo (DD/MM/AAAA)</label><input id="dataBatismo" type="text" inputmode="numeric" placeholder="DD/MM/AAAA" maxlength="10"><p id="ajudaBatismo" class="ajuda">Ao digitar seu nome completo, se houver um registro na relação de batizados do cadastro de membros do ano passado, a data será preenchida automaticamente. Confira a data antes de enviar.</p></div>
 <div class="campo"><label for="atuaMinisterio">Atua em algum ministério?</label><select id="atuaMinisterio" required><option value="">Selecione</option><option>Sim</option><option>Não</option></select></div>
 <div class="campo completo" id="campoQualMinisterio" hidden><label for="qualMinisterio">Qual ministério?</label><input id="qualMinisterio" placeholder="Informe o ministério" disabled></div>
 <div class="campo"><label for="trabalha">Você trabalha atualmente?</label><select id="trabalha" required><option value="">Selecione</option><option>Sim</option><option>Não</option><option>Aposentado(a)</option></select></div>
@@ -185,7 +191,7 @@ body:has(#abaMeuCadastro:not([hidden]) #mcCadastro:not([hidden])) .topo{display:
 <div id="filhosContainer" hidden></div><button type="button" id="adicionarFilho" class="botao secundario" style="display:none">+ Adicionar outro filho</button>
 </section>
 
-<section class="bloco"><h2 class="secao-titulo">Foto do membro</h2><div class="campo"><label for="foto">Foto do membro</label><input id="foto" type="file" accept="image/jpeg,image/png,image/webp" required><p class="ajuda">Obrigatória. Envie uma foto em que o seu rosto apareça por completo e com boa iluminação. Ela será usada no dia do seu aniversário, na arte dos aniversariantes. JPG, PNG ou WebP, até 4 MB.</p><img id="preview" class="preview" alt="Prévia da foto selecionada"></div></section>
+<section class="bloco"><h2 class="secao-titulo">Foto do membro</h2><div class="campo"><label for="foto">Foto do membro</label><input id="foto" type="file" accept="image/jpeg,image/png,image/webp" required><p class="ajuda">Envie uma foto em que o seu rosto apareça por completo e com boa iluminação. A equipe de Comunicação utilizará a foto que for anexada no dia do seu aniversário, na arte dos aniversariantes. JPG, PNG ou WebP, até 4 MB.</p><img id="preview" class="preview" alt="Prévia da foto selecionada"><button type="button" class="botao-peq" id="ajustarFoto" hidden>Ajustar enquadramento da foto</button></div></section>
 
 <button class="botao" id="botaoEnviar" type="submit">Enviar cadastro</button>
 <div id="status" role="status" aria-live="polite"></div>
@@ -207,7 +213,7 @@ body:has(#abaMeuCadastro:not([hidden]) #mcCadastro:not([hidden])) .topo{display:
     <h2 class="secao-titulo" id="mcTituloEntrada">Consultar meu cadastro</h2>
     <div class="segmentado" id="mcModoBotoes" role="tablist">
       <button type="button" class="ativo" data-modo="senha">E-mail e senha</button>
-      <button type="button" data-modo="codigo">Código da Comunicação</button>
+      <button type="button" data-modo="codigo">Entrar com o código</button>
     </div>
 
     <form id="formEntrar" class="formmc">
@@ -233,10 +239,9 @@ body:has(#abaMeuCadastro:not([hidden]) #mcCadastro:not([hidden])) .topo{display:
     </form>
 
     <form id="formCodigo" class="formmc" hidden>
-      <p class="ajuda" style="font-size:14px">Use o celular do seu cadastro e o código de 6 letras e números que a equipe de Comunicação enviou para você.</p>
+      <p class="ajuda" style="font-size:14px">Digite o código de 6 letras e números que a equipe de Comunicação enviou para você pelo WhatsApp.</p>
       <div class="grade">
-        <div class="campo completo"><label for="mcCelular">Celular com DDD</label><input id="mcCelular" type="tel" inputmode="tel" autocomplete="tel" placeholder="(21) 90000-0000" required></div>
-        <div class="campo completo"><label for="mcCodigo">Código da Comunicação</label><input id="mcCodigo" autocomplete="off" autocapitalize="characters" maxlength="9" placeholder="Ex.: K7M4PX" required></div>
+        <div class="campo completo"><label for="mcCodigo">Código de acesso</label><input id="mcCodigo" autocomplete="off" autocapitalize="characters" maxlength="9" placeholder="Ex.: K7M4PX" required></div>
       </div>
       <button class="botao" id="mcBotaoCodigo" type="submit">Entrar com o código</button>
     </form>
@@ -253,10 +258,9 @@ body:has(#abaMeuCadastro:not([hidden]) #mcCadastro:not([hidden])) .topo{display:
         <label class="verbox"><input type="checkbox" class="ver-senha" data-alvo="mcNovaSenha,mcNovaSenha2"><span>Mostrar senha</span></label>
         <label class="verbox"><input type="checkbox" id="mcCriarLembrar" checked><span>Manter conectado neste aparelho por 30 dias<small class="ajuda" style="display:block">Não use em aparelho de outras pessoas.</small></span></label>
         <button class="botao" id="mcContinuar" type="submit">Continuar</button>
-        <p class="link-texto"><button type="button" id="mcJaTenhoCodigo">Já tenho um código da Comunicação</button></p>
       </div>
       <div id="mcPasso2" hidden>
-        <p class="ajuda" style="font-size:14px">Para confirmar que o cadastro é seu, digite o <strong>código de 6 números</strong> que enviamos para o seu e-mail (veja também o spam). Se a Comunicação lhe passou um código, digite esse código.</p>
+        <p class="ajuda" style="font-size:14px">Para confirmar que o cadastro é seu, digite o <strong>código de 6 números</strong> que enviamos para o seu e-mail (veja também o spam).</p>
         <div class="grade">
           <div class="campo completo"><label for="mcCriarCodigo">Código recebido</label><input id="mcCriarCodigo" inputmode="text" autocomplete="one-time-code" autocapitalize="characters" maxlength="9" placeholder="Código"></div>
         </div>
@@ -265,14 +269,18 @@ body:has(#abaMeuCadastro:not([hidden]) #mcCadastro:not([hidden])) .topo{display:
         <p class="link-texto"><button type="button" id="mcVoltarPasso1">Corrigir meus dados</button></p>
       </div>
       <p class="link-texto"><button type="button" id="mcVoltarEntrar">Já tenho senha: entrar</button></p>
-      <p class="link-texto"><button type="button" id="mcSemEmail">Não tenho e-mail: entrar com código da Comunicação</button></p>
+      <p class="link-texto"><button type="button" id="mcSemEmail">Entrar com o código</button></p>
     </form>
 
     <div id="mcStatusEntrada" class="status-mc" role="alert"></div>
 
-    <div class="aviso aviso-info aviso-link">
-      <strong>Não tem e-mail ou prefere não criar senha?</strong>
-      <p>Peça um código de acesso à equipe de Comunicação pelo WhatsApp, informando seu nome completo e celular: <a href="https://wa.me/5521966709417?text=Ol%C3%A1%2C%20gostaria%20de%20receber%20um%20c%C3%B3digo%20de%20acesso%20ao%20meu%20cadastro%20de%20membro." target="_blank" rel="noopener">+55 21 96670-9417</a></p>
+    <div class="aviso aviso-info aviso-link" id="mcPedirCodigo">
+      <strong>Deseja entrar com código para acessar seu cadastro?</strong>
+      <p>Entre em contato com a equipe de Comunicação clicando no botão abaixo.</p>
+      <p class="ajuda" id="mcQuemE" hidden>Cadastro de <strong id="mcNomeConhecido"></strong> · <button type="button" class="link-mini" id="mcNaoSouEu">Não sou eu</button></p>
+      <div class="campo completo" id="mcCampoNome" hidden><label for="mcNomeWhats">Digite seu nome completo, como está no seu cadastro</label><input id="mcNomeWhats" autocomplete="name" placeholder="Ex.: Lucas Silva de Oliveira"></div>
+      <a class="botao" id="mcBotaoWhats" href="#" target="_blank" rel="noopener" style="margin-top:12px;display:block;text-align:center;text-decoration:none;color:#fff">Solicitar código pelo WhatsApp</a>
+      <p class="ajuda" id="mcAvisoWhats" style="display:none;color:#b00020"></p>
     </div>
   </section>
   <section id="mcCadastro" hidden></section>
@@ -415,7 +423,7 @@ function consultarDataBatismo(){
   const partes=nome.split(" ").filter(Boolean);
 
   if(partes.length<2 || nome.length<8){
-    ajudaBatismo.textContent="Digite seu nome completo. Se houver um registro na relação de batismos, a data será preenchida automaticamente.";
+    ajudaBatismo.textContent="Ao digitar seu nome completo, se houver um registro na relação de batizados do cadastro de membros do ano passado, a data será preenchida automaticamente. Confira a data antes de enviar.";
     if(dataBatismoInput.dataset.preenchidoConsulta==="sim"){
       dataBatismoInput.value="";
       dataBatismoInput.dataset.preenchidoConsulta="";
@@ -438,7 +446,7 @@ function consultarDataBatismo(){
 
     if(id!==sequenciaConsultaBatismo)return;
 
-    if(resposta && resposta.resultado==="sucesso" && resposta.dataBatismo){
+    if(resposta && resposta.resultado==="sucesso" && resposta.dataBatismo && dataValida(resposta.dataBatismo)){
       if(!dataBatismoInput.value.trim() || dataBatismoInput.dataset.preenchidoConsulta==="sim"){
         dataBatismoInput.value=resposta.dataBatismo;
         dataBatismoInput.dataset.preenchidoConsulta="sim";
@@ -535,10 +543,127 @@ function arquivoBase64(arq){
   });
 }
 
+/* ---------- ajuste do enquadramento da foto ---------- */
+// Abre uma janela para arrastar, aproximar e girar a foto antes de enviar.
+// Devolve a foto quadrada já ajustada (JPG) ou null se a pessoa cancelar.
+function ajustarFoto(arquivo){
+  return new Promise(resolve=>{
+    const img=new Image();
+    const url=URL.createObjectURL(arquivo);
+    img.onerror=()=>{URL.revokeObjectURL(url);resolve(arquivo);};
+    img.onload=()=>{
+      const TAM=300,SAIDA=900;
+      const cv=document.createElement("canvas");
+      cv.width=TAM;cv.height=TAM;cv.className="foto-ajuste";
+      const ctx=cv.getContext("2d");
+      let rot=0,zoom=1,ox=0,oy=0;
+      const nw=img.naturalWidth,nh=img.naturalHeight;
+      function escala(){
+        const w=rot%2?nh:nw,h=rot%2?nw:nh;
+        return Math.max(TAM/w,TAM/h)*zoom;
+      }
+      function limites(){
+        const w=rot%2?nh:nw,h=rot%2?nw:nh,e=escala();
+        return {x:Math.max(0,(w*e-TAM)/2),y:Math.max(0,(h*e-TAM)/2)};
+      }
+      function prender(){
+        const l=limites();
+        ox=Math.max(-l.x,Math.min(l.x,ox));
+        oy=Math.max(-l.y,Math.min(l.y,oy));
+      }
+      function pintar(c,tam,guia){
+        const k=tam/TAM,e=escala()*k;
+        c.fillStyle="#e8eef7";c.fillRect(0,0,tam,tam);
+        c.save();
+        c.translate((TAM/2+ox)*k,(TAM/2+oy)*k);
+        c.rotate(rot*Math.PI/2);
+        c.drawImage(img,-nw*e/2,-nh*e/2,nw*e,nh*e);
+        c.restore();
+        if(guia){
+          c.save();c.strokeStyle="rgba(255,255,255,.95)";c.lineWidth=2;c.setLineDash([7,6]);
+          c.shadowColor="rgba(0,0,0,.45)";c.shadowBlur=3;
+          c.beginPath();c.ellipse(tam/2,tam*0.46,tam*0.27,tam*0.36,0,0,Math.PI*2);c.stroke();c.restore();
+        }
+      }
+      function desenhar(){prender();pintar(ctx,TAM,true);}
+      // começa mostrando a parte de cima da foto, onde costuma estar o rosto
+      oy=limites().y*0.6;
+      desenhar();
+
+      let arrasto=null;
+      cv.addEventListener("pointerdown",e=>{
+        arrasto={x:e.clientX,y:e.clientY,ox:ox,oy:oy};
+        try{cv.setPointerCapture(e.pointerId);}catch(_){}
+      });
+      cv.addEventListener("pointermove",e=>{
+        if(!arrasto)return;
+        const f=TAM/cv.getBoundingClientRect().width;
+        ox=arrasto.ox+(e.clientX-arrasto.x)*f;
+        oy=arrasto.oy+(e.clientY-arrasto.y)*f;
+        desenhar();
+      });
+      const soltar=()=>{arrasto=null;};
+      cv.addEventListener("pointerup",soltar);
+      cv.addEventListener("pointercancel",soltar);
+
+      const barra=el("input",{type:"range",min:"1",max:"4",step:"0.01",value:"1","aria-label":"Aproximar ou afastar"});
+      barra.addEventListener("input",()=>{zoom=Number(barra.value);desenhar();});
+      cv.addEventListener("wheel",e=>{
+        e.preventDefault();
+        zoom=Math.max(1,Math.min(4,zoom+(e.deltaY<0?0.1:-0.1)));
+        barra.value=String(zoom);desenhar();
+      },{passive:false});
+
+      const girar=el("button",{type:"button",class:"botao-peq",texto:"Girar",onclick:()=>{
+        rot=(rot+1)%4;ox=0;oy=0;oy=limites().y*0.6;desenhar();
+      }});
+
+      function terminar(valor){
+        URL.revokeObjectURL(url);
+        fecharModal();
+        resolve(valor);
+      }
+      abrirModal("Ajuste a sua foto",[
+        el("p",{class:"ajuda",texto:"Arraste a foto para deixar o rosto dentro do desenho tracejado. Use a barra para aproximar ou afastar, e “Girar” se a foto estiver de lado."}),
+        cv,
+        el("div",{class:"foto-ctl"},el("span",{class:"ajuda",texto:"Afastar"}),barra,el("span",{class:"ajuda",texto:"Aproximar"})),
+        el("div",{class:"foto-ctl"},girar)
+      ],[
+        {texto:"Cancelar",acao:()=>terminar(null)},
+        {texto:"Usar esta foto",principal:true,acao:()=>{
+          const saida=document.createElement("canvas");
+          saida.width=SAIDA;saida.height=SAIDA;
+          pintar(saida.getContext("2d"),SAIDA,false);
+          saida.toBlob(b=>{
+            if(!b){terminar(arquivo);return;}
+            terminar(new File([b],"foto.jpg",{type:"image/jpeg"}));
+          },"image/jpeg",0.9);
+        }}
+      ]);
+    };
+    img.src=url;
+  });
+}
+
+let fotoFinal=null,fotoOriginal=null;
+const botaoAjustarFoto=document.getElementById("ajustarFoto");
+form.addEventListener("reset",()=>{
+  fotoFinal=null;fotoOriginal=null;
+  preview.style.display="none";preview.removeAttribute("src");
+  botaoAjustarFoto.hidden=true;
+});
+botaoAjustarFoto.addEventListener("click",async()=>{
+  if(!fotoOriginal)return;
+  const r=await ajustarFoto(fotoOriginal);
+  if(r){fotoFinal=r;preview.src=URL.createObjectURL(r);}
+});
+
 fotoInput.addEventListener("change",()=>{
   const f=fotoInput.files[0];
   preview.style.display="none";
   preview.removeAttribute("src");
+  fotoFinal=null;fotoOriginal=null;
+  botaoAjustarFoto.hidden=true;
 
   fotoInput.setCustomValidity(
     f?"":"Envie uma foto do membro para continuar."
@@ -554,8 +679,18 @@ fotoInput.addEventListener("change",()=>{
   }
 
   fotoInput.setCustomValidity("");
-  preview.src=URL.createObjectURL(f);
-  preview.style.display="block";
+  fotoOriginal=f;
+  ajustarFoto(f).then(r=>{
+    if(!r){
+      fotoInput.value="";fotoOriginal=null;
+      fotoInput.setCustomValidity("Envie uma foto do membro para continuar.");
+      return;
+    }
+    fotoFinal=r;
+    preview.src=URL.createObjectURL(r);
+    preview.style.display="block";
+    botaoAjustarFoto.hidden=false;
+  });
 });
 
 /*
@@ -721,7 +856,7 @@ form.addEventListener("submit",async e=>{
     return;
   }
 
-  const arq=fotoInput.files[0];
+  const arq=fotoFinal||fotoInput.files[0];
 
   const dados={
     nome:document.getElementById("nome").value.trim(),
@@ -778,6 +913,7 @@ form.addEventListener("submit",async e=>{
       }
       form.hidden=true;
       telaFinal.hidden=false;
+      if(!resposta.vinculado&&!resposta.porEquipe){guardarNomeAparelho(dados.nome);pedirCodigo();}
       document.getElementById("irMeuCadastro").hidden=!!resposta.porEquipe;
       document.getElementById("voltarEquipe").hidden=!resposta.porEquipe;
 
@@ -1111,6 +1247,8 @@ function apagarAparelho(){
 async function concluirEntrada(r,comSenha){
   salvarSessao(r.sessao);
   guardarAparelho(r.aparelho);
+  guardarNomeAparelho(r.nome);
+  pedirCodigo();
   if(comSenha)marcarTemSenha();
   [formEntrar,formCodigo,formCriar,formPasse].forEach(f=>f.reset());
   document.querySelectorAll(".ver-senha").forEach(c=>c.dispatchEvent(new Event("change")));
@@ -1148,7 +1286,6 @@ formEntrar.addEventListener("submit",e=>{
 formCodigo.addEventListener("submit",e=>{
   e.preventDefault();
   enviarEntrada(document.getElementById("mcBotaoCodigo"),"Verificando...","Entrar com o código","membroEntrarCodigo",{
-    celular:document.getElementById("mcCelular").value.trim(),
     codigo:document.getElementById("mcCodigo").value.trim()
   });
 });
@@ -1182,12 +1319,6 @@ async function enviarCodigoEmail(botao){
 }
 
 document.getElementById("mcReenviar").addEventListener("click",e=>enviarCodigoEmail(e.currentTarget));
-document.getElementById("mcJaTenhoCodigo").addEventListener("click",()=>{
-  if(!dadosPasso1())return;
-  passoCriar(2);
-  mostrarEntrada("");
-  document.getElementById("mcCriarCodigo").focus();
-});
 
 formCriar.addEventListener("submit",e=>{
   e.preventDefault();
@@ -1373,9 +1504,8 @@ function blocoCadastro(c,ehProprio){
 
   const aoEditar=()=>{
     alvoAtual=ehProprio?"":c.id;
-    if(c.situacao==="Liberado")renderizarEdicao(c);
-    else if(sol&&sol.situacao==="Pendente"&&faixa)faixa.scrollIntoView({behavior:"smooth",block:"center"});
-    else abrirPedidoRevisao();
+    renderizarEdicao(c,c.situacao!=="Liberado");
+    window.scrollTo({top:0,behavior:"smooth"});
   };
 
   const perfil=el("section",{class:"cartao mc-perfil"},
@@ -1489,7 +1619,7 @@ function criarBlocoFilhoEdicao(container,f){
   container.appendChild(bloco);
 }
 
-function renderizarEdicao(c){
+function renderizarEdicao(c,congelado){
   const f_nome=inputMc(c.nome,{required:true,autocomplete:"name"});
   const f_sexo=selectMc(["Feminino","Masculino"],c.sexo,true);
   const f_nasc=inputMc(isoParaBR(c.nascimento),{required:true,inputmode:"numeric",maxlength:"10",placeholder:"DD/MM/AAAA"});
@@ -1504,6 +1634,27 @@ function renderizarEdicao(c){
   const f_trab=selectMc(["Sim","Não","Aposentado(a)"],c.trabalha,true);
   const f_tem=selectMc(["Sim","Não"],c.filhos.length?"Sim":"Não",true);
   const f_foto=el("input",{type:"file",accept:"image/jpeg,image/png,image/webp"});
+  let fotoNova=null,fotoNovaOrig=null;
+  const miniatura=el("img",{class:"miniatura",alt:"Prévia da nova foto",style:"display:none"});
+  const botaoAjuste=el("button",{type:"button",class:"botao-peq",texto:"Ajustar enquadramento da foto",style:"display:none",onclick:async()=>{
+    if(!fotoNovaOrig)return;
+    const r=await ajustarFoto(fotoNovaOrig);
+    if(r){fotoNova=r;miniatura.src=URL.createObjectURL(r);}
+  }});
+  f_foto.addEventListener("change",async()=>{
+    fotoNova=null;fotoNovaOrig=null;miniatura.style.display="none";botaoAjuste.style.display="none";
+    const f=f_foto.files[0];
+    if(!f)return;
+    if(!["image/jpeg","image/png","image/webp"].includes(f.type)||f.size>4*1024*1024){
+      f_foto.value="";
+      status.textContent="Escolha uma imagem JPG, PNG ou WebP de até 4 MB.";status.style.display="block";return;
+    }
+    status.style.display="none";
+    fotoNovaOrig=f;
+    const r=await ajustarFoto(f);
+    if(!r){f_foto.value="";fotoNovaOrig=null;return;}
+    fotoNova=r;miniatura.src=URL.createObjectURL(r);miniatura.style.display="block";botaoAjuste.style.display="";
+  });
   const idadeInfoMc=el("p",{class:"ajuda"});
   const filhosBox=el("div",{});
   const btnAdd=el("button",{type:"button",class:"botao secundario",texto:"+ Adicionar outro filho",onclick:()=>criarBlocoFilhoEdicao(filhosBox)});
@@ -1538,12 +1689,40 @@ function renderizarEdicao(c){
   f_nasc.addEventListener("input",atualizarIdadeMc);
   atualizarIdadeMc();
 
-  const form=el("form",{class:"formmc",novalidate:false},
-    el("div",{class:"aviso aviso-ok"},
-      el("strong",{texto:"Edição liberada"}),
-      el("p",{texto:"Corrija o que for necessário. Ao enviar, o cadastro volta a ficar protegido."}),
-      c.solicitacao&&c.solicitacao.motivo?el("p",{class:"ajuda",texto:"Motivo do pedido: "+c.solicitacao.motivo}):null
-    ),
+  const pendente=!!(c.solicitacao&&c.solicitacao.situacao==="Pendente");
+  const avisoTopo=congelado
+    ?el("div",{class:"aviso aviso-info"},
+        el("strong",{texto:"Cadastro protegido"}),
+        el("p",{texto:pendente
+          ?"Estes são os dados que você enviou. Seu pedido de edição está aguardando a autorização da equipe."
+          :"Estes são os dados que você enviou. Para alterar alguma informação, vá até o final da página e toque em “Solicitar edição do cadastro”."})
+      )
+    :el("div",{class:"aviso aviso-ok"},
+        el("strong",{texto:"Edição liberada"}),
+        el("p",{texto:"Corrija o que for necessário. Ao enviar, o cadastro volta a ficar protegido."}),
+        c.solicitacao&&c.solicitacao.motivo?el("p",{class:"ajuda",texto:"Motivo do pedido: "+c.solicitacao.motivo}):null
+      );
+  const blocoFoto=congelado
+    ?el("div",{class:"campo"},
+        c.foto?el("img",{class:"miniatura",src:c.foto,alt:"Foto atual"}):el("p",{class:"ajuda",texto:"Sem foto."}))
+    :el("div",{class:"campo"},
+        el("label",{texto:"Enviar uma nova foto (opcional)"}),f_foto,
+        miniatura,botaoAjuste,
+        el("p",{class:"ajuda",texto:"Se não enviar uma nova foto, a foto atual será mantida. Envie uma foto em que o seu rosto apareça por completo e com boa iluminação. A equipe de Comunicação utilizará a foto que for anexada no dia do seu aniversário, na arte dos aniversariantes. JPG, PNG ou WebP, até 4 MB."})
+      );
+  const voltar=()=>{cadastroAtual=null;carregarMeuCadastro();};
+  const botoesFim=congelado
+    ?[
+        pendente?caixaRevisao():el("button",{class:"botao",type:"button",texto:"Solicitar edição do cadastro",onclick:()=>abrirPedidoRevisao()}),
+        el("button",{class:"botao secundario",type:"button",texto:"Voltar",onclick:voltar})
+      ]
+    :[
+        el("button",{class:"botao",type:"submit",id:"mcBotaoReenviar",texto:"Enviar cadastro revisado"}),
+        el("button",{class:"botao secundario",type:"button",texto:"Cancelar",onclick:voltar})
+      ];
+
+  const form=el("form",{class:"formmc"+(congelado?" congelado":""),novalidate:false},
+    avisoTopo,
     el("h3",{class:"secao-titulo",texto:"Dados pessoais"}),
     el("div",{class:"grade"},
       campoMc("Nome completo",f_nome,"completo"),
@@ -1569,16 +1748,17 @@ function renderizarEdicao(c){
     campoMc("Possui filho que frequenta a igreja, mas ainda não é batizado?",f_tem),
     filhosBox,btnAdd,
     el("h3",{class:"secao-titulo bloco",texto:"Foto do membro"}),
-    el("div",{class:"campo"},
-      el("label",{texto:"Enviar uma nova foto (opcional)"}),f_foto,
-      el("p",{class:"ajuda",texto:"Se não enviar uma nova foto, a foto atual será mantida. O rosto deve aparecer por completo, pois a foto é usada na arte dos aniversariantes. JPG, PNG ou WebP, até 4 MB."})
-    ),
-    el("button",{class:"botao",type:"submit",id:"mcBotaoReenviar",texto:"Enviar cadastro revisado"}),
-    el("button",{class:"botao secundario",type:"button",texto:"Cancelar",onclick:()=>renderizarCadastro(c)}),
+    blocoFoto,
+    ...botoesFim,
     status
   );
   ajustarMinisterio();
   ajustarFilhos();
+  if(congelado){
+    form.querySelectorAll(".mc-filho button").forEach(x=>x.remove());
+    btnAdd.remove();
+    form.querySelectorAll("input,select,textarea").forEach(x=>{x.disabled=true;});
+  }
 
   function erro(msg){status.textContent=msg;status.style.display="block";status.scrollIntoView({behavior:"smooth",block:"center"});}
 
@@ -1590,7 +1770,7 @@ function renderizarEdicao(c){
     const dn=dataValida(f_nasc.value);
     if(!dn||dn>new Date()){erro("Confira a data de nascimento no formato DD/MM/AAAA.");return;}
     if(f_batismo.value.trim()&&!dataValida(f_batismo.value)){erro("Confira a data de batismo ou deixe o campo em branco.");return;}
-    const arq=f_foto.files[0];
+    const arq=fotoNova||f_foto.files[0];
     if(arq&&(!["image/jpeg","image/png","image/webp"].includes(arq.type)||arq.size>4*1024*1024)){
       erro("Escolha uma imagem JPG, PNG ou WebP de até 4 MB.");return;
     }
@@ -1608,7 +1788,7 @@ function renderizarEdicao(c){
       el("p",{texto:motivo
         ?"Você pediu a revisão pelo seguinte motivo: “"+motivo+"”."
         :"Você pediu autorização para revisar o seu cadastro."}),
-      el("p",{texto:"Você já fez essa alteração? Se for anexar uma nova foto, ela já foi escolhida? Depois do envio, o cadastro volta a ficar protegido."})
+      el("p",{texto:"Você já fez essa alteração? Depois do envio, o cadastro volta a ficar protegido novamente."})
     ],[
       {texto:"Voltar e conferir",acao:fecharModal},
       {texto:"Sim, enviar",principal:true,acao:async ev=>{
@@ -1655,8 +1835,56 @@ function renderizarEdicao(c){
 
 /* ---------- início: link de acesso ou sessão guardada ---------- */
 modoEntrada(lerTemSenha()?"senha":"criar");
+// Nome do cadastro neste aparelho (guardado ao enviar o cadastro ou entrar).
+function lerNomeAparelho(){try{return localStorage.getItem("pibvl_nome")||"";}catch(e){return "";}}
+function guardarNomeAparelho(n){try{if(n)localStorage.setItem("pibvl_nome",String(n));}catch(e){}}
+
+// Pedido de código pelo WhatsApp: usa o nome do cadastro; se o aparelho não
+// o conhece (ou não é a pessoa), pede o nome completo.
+const pedirCodigo=(function(){
+  const campo=document.getElementById("mcNomeWhats"),botao=document.getElementById("mcBotaoWhats");
+  const aviso=document.getElementById("mcAvisoWhats");
+  let nomeConhecido="";
+  function nomeAtual(){return nomeConhecido||formalizarTexto(campo.value).trim();}
+  function montar(){
+    const nome=nomeAtual();
+    const msg="A paz! Meu nome é "+nome+". Solicito um código para acessar meu cadastro.";
+    botao.href="https://wa.me/5521966709417?text="+encodeURIComponent(msg);
+  }
+  function atualizar(){
+    nomeConhecido=formalizarTexto(lerNomeAparelho()).trim();
+    document.getElementById("mcQuemE").hidden=!nomeConhecido;
+    document.getElementById("mcCampoNome").hidden=!!nomeConhecido;
+    document.getElementById("mcNomeConhecido").textContent=nomeConhecido;
+    aviso.style.display="none";
+    montar();
+  }
+  document.getElementById("mcNaoSouEu").addEventListener("click",()=>{
+    nomeConhecido="";
+    document.getElementById("mcQuemE").hidden=true;
+    document.getElementById("mcCampoNome").hidden=false;
+    campo.focus();montar();
+  });
+  campo.addEventListener("input",()=>{montar();aviso.style.display="none";});
+  campo.addEventListener("blur",()=>{campo.value=formalizarTexto(campo.value);});
+  botao.addEventListener("click",e=>{
+    if(nomeAtual().split(" ").filter(Boolean).length<2){
+      e.preventDefault();
+      aviso.textContent="Digite seu nome completo para a Comunicação saber quem você é.";
+      aviso.style.display="block";campo.focus();
+    }
+  });
+  atualizar();
+  return atualizar;
+})();
+
 (function iniciarMeuCadastro(){
   const p=new URLSearchParams(location.search);
+  if(p.get("aba")==="meu"&&!p.get("acesso")){
+    history.replaceState(null,"",location.pathname);
+    irParaAba("meu");
+    if(p.get("modo")==="codigo")modoEntrada("codigo");
+  }
   const token=p.get("acesso");
   if(token&&/^[a-f0-9]{64}$/.test(token)){
     history.replaceState(null,"",location.pathname);
@@ -1838,9 +2066,9 @@ async function verCadastroEquipe(id){
 
 /* ---------- link de acesso ---------- */
 function gerarLinkEquipe(idCadastro,nome,celular){
-  abrirModal("Link e código de acesso",[
-    el("p",{texto:"Vamos gerar um link e um código individuais para "+nome+"."}),
-    el("p",{texto:"Os dois abrem somente o cadastro dessa pessoa e valem por 7 dias. O código serve também para criar uma nova senha. Se já existirem, os anteriores deixam de valer."})
+  abrirModal("Código de acesso",[
+    el("p",{texto:"Vamos gerar um código de acesso individual para "+nome+"."}),
+    el("p",{texto:"O código abre somente o cadastro dessa pessoa e vale por 7 dias. Se já existir um código, o anterior deixa de valer."})
   ],[
     {texto:"Cancelar",acao:fecharModal},
     {texto:"Gerar",principal:true,acao:async ev=>{
@@ -1851,37 +2079,31 @@ function gerarLinkEquipe(idCadastro,nome,celular){
         mostrarLinkGerado(r,celular);
       }catch(err){
         if(err.sessaoExpirada)return;
-        abrirModal("Link e código de acesso",[el("div",{class:"aviso aviso-erro",texto:err.message})],[{texto:"Fechar",principal:true,acao:fecharModal}]);
+        abrirModal("Código de acesso",[el("div",{class:"aviso aviso-erro",texto:err.message})],[{texto:"Fechar",principal:true,acao:fecharModal}]);
       }
     }}
   ]);
 }
 
 function mostrarLinkGerado(r,celular){
-  const campo=el("input",{class:"campo-link",readonly:true,"aria-label":"Link de acesso"});
-  campo.value=r.link;
   const aviso=el("p",{class:"ajuda"});
   const primeiro=String(r.nome||"").split(" ")[0];
-  const texto="Olá, "+primeiro+"! Para ver o seu cadastro de membro da Primeira Igreja Batista em Vaz Lobo:\n\n"+
-    "1) Toque neste link:\n"+r.link+"\n\n"+
-    "ou 2) Abra "+URL_SITE_EQUIPE+" , toque em Meu Cadastro, depois em Código da Comunicação, e digite seu celular e o código: "+r.codigo+"\n\n"+
-    "Vale até "+r.validoAte+".";
+  const linkMeu=URL_SITE_EQUIPE+"?aba=meu&modo=codigo";
+  const texto="A paz, "+primeiro+"! Seu código de acesso ao Meu Cadastro da Primeira Igreja Batista em Vaz Lobo é:\n\n"+
+    r.codigo+"\n\n"+
+    "Válido até "+r.validoAte+".\n\n"+
+    "Para usar, abra o link abaixo e digite o código:\n"+linkMeu;
   const wa=linkWhatsApp(celular,texto);
-  abrirModal("Link e código gerados",[
+  abrirModal("Código gerado",[
     el("p",{texto:"Código de "+r.nome+" (válido até "+r.validoAte+"):"}),
     el("div",{class:"codigo-grande",texto:r.codigo}),
-    el("p",{texto:"Link:"}),
-    campo,aviso,
+    aviso,
     wa?el("a",{class:"botao",href:wa,target:"_blank",rel:"noopener",texto:"Enviar pelo WhatsApp"}):el("p",{class:"ajuda",texto:"Este cadastro não tem celular para envio pelo WhatsApp."}),
     el("p",{class:"ajuda",texto:"Envie somente para a própria pessoa. Este código não aparece de novo depois que você fechar esta janela."})
   ],[
     {texto:"Copiar código",acao:async()=>{
       try{await navigator.clipboard.writeText(r.codigo);aviso.textContent="Código copiado.";}
       catch(e){aviso.textContent="Anote o código mostrado acima.";}
-    }},
-    {texto:"Copiar link",acao:async()=>{
-      try{await navigator.clipboard.writeText(r.link);aviso.textContent="Link copiado.";}
-      catch(e){campo.focus();campo.select();aviso.textContent="Selecione e copie o link acima.";}
     }},
     {texto:"Fechar",principal:true,acao:fecharModal}
   ]);
@@ -1945,7 +2167,7 @@ function cartaoSolicitacao(s){
     const wa=linkWhatsApp(s.celular,aviso);
     if(wa)acoes.push(el("a",{class:"botao-peq",href:wa,target:"_blank",rel:"noopener",texto:"Avisar pelo WhatsApp"}));
   }
-  acoes.push(el("button",{type:"button",class:"botao-peq",texto:"Link e código de acesso",onclick:()=>gerarLinkEquipe(s.idCadastro,s.nome,s.celular)}));
+  acoes.push(el("button",{type:"button",class:"botao-peq",texto:"Gerar código de acesso",onclick:()=>gerarLinkEquipe(s.idCadastro,s.nome,s.celular)}));
   return el("article",{class:"cartao-sol"},
     el("div",{class:"cartao-sol-topo"},el("strong",{texto:s.nome}),badgeSituacao(s.situacao)),
     el("p",{class:"ajuda",texto:"Pedido em "+s.data+(s.celular?" · "+s.celular:"")}),
@@ -2088,7 +2310,6 @@ function renderMembros(){
       el("tbody",{},[
         ["Total de membros",total],["Mulheres",fem],["Homens",mas],["Filhos cadastrados",eqFilhos.length],
         ["Atuam em ministério",atua],["Não atuam em ministério",total-atua],
-        ["Com data de batismo",bat],["Sem data de batismo",total-bat],
         ["Trabalham",t1],["Não trabalham",t2],["Aposentados",t3],
         ...civil.map(([n,v])=>["Estado civil: "+n,v]),
         ...mesesN.map((v,i)=>["Aniversário em "+meses[i],v])
@@ -2111,7 +2332,6 @@ function renderMembros(){
     el("div",{class:"graficos"},
       barraSegmentada("Sexo",sexoPartes),
       barraSegmentada("Atuação em ministério",[{nome:"Atuam em ministério",valor:atua,cor:COR_1},{nome:"Não atuam",valor:total-atua,cor:COR_2}]),
-      barraSegmentada("Data de batismo no cadastro",[{nome:"Com data de batismo",valor:bat,cor:COR_1},{nome:"Sem data de batismo",valor:total-bat,cor:COR_2}]),
       barraSegmentada("Situação de trabalho",t4>0?trabPartes.concat([{nome:"Não informado",valor:t4,cor:"#898781"}]):trabPartes),
       barrasOrdenadas("Estado civil",civil),
       colunasMeses(mesesN)),
@@ -2160,7 +2380,7 @@ function renderListaMembros(){
         el("div",{class:"acoes"},
           wa?el("a",{class:"botao-peq principal",href:wa,target:"_blank",rel:"noopener",texto:"WhatsApp"}):null,
           el("button",{type:"button",class:"botao-peq",texto:"Ver cadastro",onclick:()=>verCadastroEquipe(x.id)}),
-          el("button",{type:"button",class:"botao-peq",texto:"Link e código",onclick:()=>gerarLinkEquipe(x.id,x.nome,x.celular)})
+          el("button",{type:"button",class:"botao-peq",texto:"Gerar código",onclick:()=>gerarLinkEquipe(x.id,x.nome,x.celular)})
         ));
     }),
     lista.length>mostrar.length?el("button",{type:"button",class:"botao secundario",texto:"Mostrar mais",onclick:()=>{limiteLista+=50;renderListaMembros();}}):null,
