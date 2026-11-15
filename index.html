@@ -1,0 +1,2393 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#1246a0">
+<meta name="description" content="Cadastro de membros da Primeira Igreja Batista em Vaz Lobo.">
+<title>Cadastro de Membros — Primeira Igreja Batista em Vaz Lobo</title>
+<style>
+:root{--azul:#1746a2;--escuro:#123579;--claro:#12a7d4;--texto:#24344d;--borda:#d6e0ee}
+*{box-sizing:border-box}body{margin:0;padding:22px 12px;font-family:Arial,Helvetica,sans-serif;color:var(--texto);background:linear-gradient(135deg,#123579,#1746a2 55%,#12a7d4) fixed;min-height:100vh}
+.container{max-width:760px;margin:auto;background:white;border-radius:18px;overflow:hidden;box-shadow:0 10px 36px #0a1f4d59}
+.topo{text-align:center;padding:28px 20px;color:white;background:linear-gradient(120deg,var(--escuro),var(--azul),var(--claro))}
+.logo{width:112px;height:112px;padding:19px;object-fit:contain;background:#fff;border-radius:50%;margin:0 auto 14px;display:block;box-shadow:0 6px 18px #0a1f4d55}.topo h1{font-size:clamp(22px,4vw,29px);margin:0 0 8px}.topo p{margin:5px 0;font-size:14px}
+form{padding:25px}.secao-titulo{font-size:17px;color:var(--azul);margin:5px 0 17px;padding-bottom:9px;border-bottom:2px solid #e6eef9}
+.grade{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}.campo{min-width:0}.completo{grid-column:1/-1}label{display:block;font-size:14px;font-weight:bold;margin-bottom:7px}
+input,select{width:100%;min-height:44px;padding:10px 11px;border:1px solid var(--borda);border-radius:8px;background:white;color:var(--texto);font-size:15px}
+input:focus,select:focus{outline:2px solid #12a7d455;border-color:var(--claro)}input:disabled{background:#f3f7fc;color:#778}
+.ajuda{font-size:12px;color:#64748b;line-height:1.5;margin:6px 0 0}.bloco{margin-top:27px}.preview{display:none;width:110px;height:110px;object-fit:cover;border-radius:50%;margin-top:12px;border:3px solid #dce9f9}
+.botao{width:100%;margin-top:24px;padding:14px;border:0;border-radius:9px;background:var(--azul);color:white;font-size:16px;font-weight:bold;cursor:pointer}.botao:disabled{opacity:.6;cursor:wait}.secundario{background:#eaf1fb;color:var(--azul);margin-top:10px}
+#status{display:none;margin-top:17px;padding:13px;border-radius:8px;font-size:14px;line-height:1.5;text-align:center}#status.sucesso{display:block;background:#e9f8ef;color:#17633a}#status.erro{display:block;background:#fff0f0;color:#9d2020}
+.rodape{text-align:center;padding:17px;color:#64748b;font-size:12px;border-top:1px solid #e8eef6}
+@media(max-width:560px){body{padding:10px 7px}.topo{padding:23px 14px}form{padding:20px 15px}.grade{grid-template-columns:1fr;gap:15px}.completo{grid-column:auto}}
+
+[hidden]{display:none!important}
+body{padding-bottom:104px}
+.menu-inferior{position:fixed;left:0;right:0;bottom:0;display:flex;justify-content:center;gap:8px;background:#fff;border-top:1px solid #e1e8f3;padding:8px 10px calc(8px + env(safe-area-inset-bottom));z-index:20;box-shadow:0 -4px 18px #12357914}
+.menu-inferior button{flex:1;max-width:260px;display:flex;flex-direction:column;align-items:center;gap:3px;border:0;background:transparent;color:#64748b;font:bold 12px Arial,Helvetica,sans-serif;padding:8px 6px;border-radius:12px;cursor:pointer}
+.menu-inferior button.ativo{background:#e8f0fc;color:var(--azul)}
+.menu-inferior svg{width:24px;height:24px}
+#abaMeuCadastro{padding:25px}
+form.formmc{padding:0}
+.status-mc{display:none;margin:12px 0;padding:12px;border-radius:8px;font-size:14px;line-height:1.5;text-align:center}.status-mc.erro{background:#fff0f0;color:#9d2020}
+.mc-topo{display:flex;gap:16px;align-items:center;margin-bottom:18px}
+.mc-foto{width:96px;height:96px;flex:none;border-radius:50%;object-fit:cover;border:3px solid #dce9f9;background:#eef3fa}
+.mc-sem-foto{display:flex;align-items:center;justify-content:center;font-size:12px;color:#64748b;text-align:center}
+.mc-nome{margin:0 0 6px;font-size:20px;color:var(--azul)}
+.aviso{margin:14px 0;padding:14px 16px;border-radius:10px;line-height:1.6;font-size:14px}.aviso p{margin:6px 0}
+.aviso-info{background:#eef5ff;border:1px solid #d3e3fb}.aviso-ok{background:#e9f8ef;border:1px solid #bfe6cf;color:#17633a}.aviso-espera{background:#fff8e6;border:1px solid #f1deaa;color:#6b5210}.aviso-erro{background:#fff0f0;border:1px solid #f3c6c6;color:#9d2020}
+.aviso .botao{margin-top:10px}.aviso a,.modal-corpo a{color:var(--azul);font-weight:bold}
+.dados{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px 16px;margin:0 0 20px}.dado{min-width:0}.dado dt{font-size:12px;color:#64748b;font-weight:bold;margin-bottom:3px}.dado dd{margin:0;font-size:15px;word-break:break-word}
+.filho-lido{padding:12px;border:1px solid #e4ecf7;border-radius:10px;margin-bottom:10px}
+.mc-motivo{width:100%;min-height:90px;padding:10px;border:1px solid var(--borda);border-radius:8px;font:inherit;font-size:15px;resize:vertical}
+.mc-filho{padding:14px;border:1px solid #e4ecf7;border-radius:10px}
+.aviso-link{margin-top:22px}
+#modalFundo{position:fixed;inset:0;background:#0b1b3a99;display:flex;align-items:center;justify-content:center;padding:16px;z-index:50}
+#modalCaixa{background:#fff;border-radius:14px;max-width:480px;width:100%;max-height:88vh;overflow:auto;padding:22px;box-shadow:0 12px 40px #00000040}
+#modalCaixa h3{margin:0 0 12px;color:var(--azul)}.modal-corpo{font-size:15px;line-height:1.6}.modal-corpo p{margin:8px 0}
+.modal-botoes{display:flex;gap:10px;margin-top:16px}.modal-botoes .botao{margin-top:0}
+@media(max-width:560px){#abaMeuCadastro{padding:20px 15px}.dados{grid-template-columns:1fr}.mc-topo{flex-direction:column;text-align:center}.modal-botoes{flex-direction:column-reverse}}
+a.botao{display:block;text-align:center;text-decoration:none}
+.menu-inferior button{text-align:center;line-height:1.2}
+.segmentado{display:flex;gap:6px;background:#eef3fa;border-radius:12px;padding:4px;margin:14px 0}
+.segmentado button{flex:1;border:0;background:transparent;color:#4b5b76;font:bold 14px Arial,Helvetica,sans-serif;padding:11px 8px;border-radius:9px;cursor:pointer}
+.segmentado button.ativo{background:#fff;color:var(--azul);box-shadow:0 1px 4px #12357926}
+.eq-topo{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.eq-topo strong{word-break:break-all}
+.eq-barra{display:flex;align-items:center;justify-content:space-between;gap:10px}.eq-barra p{margin:0}
+.botao-peq{display:inline-block;border:1px solid var(--borda);background:#fff;color:var(--azul);font:bold 13px Arial,Helvetica,sans-serif;padding:9px 12px;border-radius:8px;cursor:pointer;text-decoration:none;text-align:center}
+.botao-peq.principal{background:var(--azul);border-color:var(--azul);color:#fff}
+.botao-peq:disabled{opacity:.6;cursor:wait}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin:14px 0}
+.chip{border:1px solid var(--borda);background:#fff;color:#4b5b76;font:bold 13px Arial,Helvetica,sans-serif;padding:8px 12px;border-radius:999px;cursor:pointer}
+.chip.ativo{background:var(--azul);border-color:var(--azul);color:#fff}
+.cartao-sol,.membro{border:1px solid #e4ecf7;border-radius:12px;padding:14px;margin-bottom:12px;background:#fff}
+.cartao-sol-topo{display:flex;justify-content:space-between;align-items:center;gap:10px}
+.cartao-sol p{margin:6px 0}.motivo{font-size:15px;line-height:1.5;color:#24344d}
+.acoes{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+.badge{font-size:12px;font-weight:bold;padding:4px 10px;border-radius:999px;white-space:nowrap}
+.badge-pendente{background:#fff3d6;color:#6b5210}.badge-autorizada{background:#e3eefc;color:#184f95}.badge-concluida{background:#e1f5e8;color:#17633a}.badge-recusada{background:#fde8e8;color:#9d2020}
+.vazio{text-align:center;padding:18px 0}
+.campo-link{width:100%;margin:10px 0;font-size:13px}
+.kpis{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin:16px 0}
+.tile{border:1px solid #e4ecf7;border-radius:12px;padding:14px;display:flex;flex-direction:column;gap:4px;background:#fff}
+.tile.heroi{grid-column:1/-1}
+.tile-rotulo{font-size:13px;color:#52514e}.tile-valor{font-size:30px;font-weight:bold;color:#0b0b0b;line-height:1.1}.tile.heroi .tile-valor{font-size:48px}
+.tile-nota{font-size:12px;color:#898781}
+.graficos{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.cartao-graf{border:1px solid #e4ecf7;border-radius:12px;padding:14px;background:#fff;min-width:0}.cartao-graf.largo{grid-column:1/-1}
+.cartao-graf h4{margin:0 0 12px;font-size:14px;color:#24344d}
+.segbar{display:flex;gap:2px;height:28px}
+.segbloco{display:flex;align-items:center;min-width:0;border-radius:4px;outline-offset:2px}
+.segbloco span{color:#fff;font-size:12px;font-weight:bold;padding-left:8px;white-space:nowrap}
+.segbloco:focus-visible,.coluna:focus-visible,.ranked-linha:focus-visible{outline:2px solid #123579}
+.legenda{display:flex;gap:6px 14px;flex-wrap:wrap;margin-top:10px;font-size:13px;color:#52514e}
+.leg-item{display:inline-flex;align-items:center;gap:6px}.leg-item i{width:10px;height:10px;border-radius:2px;display:inline-block}
+.ranked{display:grid;gap:10px}
+.ranked-linha{display:grid;grid-template-columns:minmax(80px,32%) 1fr 28px;gap:8px;align-items:center;font-size:13px}
+.ranked-nome{color:#52514e}.ranked-valor{text-align:right;color:#0b0b0b;font-weight:bold}
+.ranked-trilho{height:14px}.ranked-trilho i{display:block;height:100%;background:#2a78d6;border-radius:0 4px 4px 0}
+.colunas{display:grid;grid-template-columns:repeat(12,1fr);gap:2px;align-items:end;border-bottom:1px solid #c3c2b7}
+.coluna{display:flex;flex-direction:column;align-items:center;justify-content:flex-end;gap:3px;height:150px;border:0;background:transparent;padding:0 0 4px;cursor:pointer;min-width:0}
+.coluna-valor{font-size:12px;font-weight:bold;color:#0b0b0b;height:14px}
+.coluna-barra{display:block;width:min(24px,70%);background:#2a78d6;border-radius:4px 4px 0 0}
+.coluna.ativa .coluna-barra{background:#184f95;outline:2px solid #123579;outline-offset:1px}
+.coluna:hover .coluna-barra{background:#3987e5}
+.coluna-mes{font-size:10px;color:#898781;position:relative;top:22px;height:0}.coluna-mes.atual{color:#0b0b0b;font-weight:bold}
+.colunas+.ajuda{margin-top:28px}
+.tabela-num{margin:16px 0}.tabela-num summary{cursor:pointer;color:var(--azul);font-weight:bold;font-size:14px}
+.tabela-num table{width:100%;border-collapse:collapse;margin-top:10px;font-size:13px}.tabela-num td,.tabela-num th{text-align:left;padding:6px 8px;border-bottom:1px solid #e1e0d9}.tabela-num td:last-child,.tabela-num th:last-child{text-align:right}
+.filtros{display:grid;grid-template-columns:1fr;gap:10px;margin:10px 0 14px}
+.filtros input,.filtros select{width:100%}
+.membro{display:flex;flex-direction:column;gap:6px}.membro-info{display:flex;flex-direction:column;gap:3px}.membro-info .ajuda{margin:0}
+#dica{position:fixed;z-index:60;background:#0b0b0b;color:#fff;font-size:13px;padding:7px 10px;border-radius:8px;pointer-events:none;max-width:260px}
+@media(min-width:620px){.filtros{grid-template-columns:2fr 1fr 1fr}.membro{flex-direction:row;align-items:center;justify-content:space-between}.membro .acoes{margin-top:0;justify-content:flex-end}}
+@media(max-width:560px){.graficos{grid-template-columns:1fr}.cartao-graf.largo{grid-column:auto}.ranked-linha{grid-template-columns:minmax(70px,34%) 1fr 26px}.menu-inferior button{font-size:11px;padding:8px 3px}}
+.verbox{display:flex;gap:10px;align-items:flex-start;margin:12px 0 0;font-size:14px;line-height:1.4;cursor:pointer}.verbox input{width:20px;min-height:20px;height:20px;flex:none;margin:1px 0 0;accent-color:var(--azul)}
+.link-texto{text-align:center;margin:14px 0 0}.link-texto button{border:0;background:none;color:var(--azul);font:bold 14px Arial,Helvetica,sans-serif;text-decoration:underline;cursor:pointer;padding:8px}
+.status-mc.ok{background:#e9f8ef;color:#17633a}.status-mc.info{background:#eef5ff;color:#1746a2}.mc-pessoas{display:flex;gap:8px;flex-wrap:wrap;margin:4px 0 16px}
+.codigo-grande{font:bold 34px/1.2 "Courier New",monospace;letter-spacing:6px;text-align:center;background:#eef5ff;border:1px dashed #9db9e6;border-radius:12px;padding:14px;margin:12px 0;color:var(--escuro);word-break:break-all}
+.formmc>p.ajuda,#mcPasso1>p.ajuda,#mcPasso2>p.ajuda{margin:0 0 14px}#mcPassoSenha{margin-top:12px}.modal-corpo a.botao{color:#fff;text-decoration:none;margin-top:14px}
+#formCriar .botao.secundario,#formEntrar .botao,#formCodigo .botao{margin-top:18px}
+body:has(#abaMeuCadastro:not([hidden]) #mcCadastro:not([hidden])) .topo{display:none}
+#abaMeuCadastro:has(#mcCadastro:not([hidden])){background:#eaf3fd radial-gradient(ellipse 60% 30% at 0% 0%,#d6e7fb 0,transparent 70%),radial-gradient(ellipse 40% 40% at 100% 25%,#cfe2f9 0,transparent 70%)}
+.mc-cab{display:flex;align-items:center;gap:16px;padding-bottom:16px;border-bottom:1.5px solid #b9cfe8;margin-bottom:22px}
+.mc-cab img{width:56px;height:56px;padding:7px;border-radius:50%;background:#fff;object-fit:contain;box-shadow:0 3px 10px #1746a233;flex:none}
+.mc-cab .igreja{font-weight:bold;color:var(--azul);font-size:17px;padding-right:16px;border-right:1.5px solid #9db4d6;line-height:1.1;white-space:nowrap}
+.mc-cab h2{margin:0;font-size:32px;color:#0e2459;white-space:nowrap}
+.cartao{background:#fff;border-radius:22px;box-shadow:0 6px 24px #1746a21c;padding:20px;margin-bottom:20px}
+.mc-perfil{display:flex;gap:22px;align-items:center}
+.mc-perfil .mc-foto{width:140px;height:140px;border-radius:18px;border:0;flex:none}
+.mc-perfil .info{flex:1;min-width:0;border-left:1.5px solid #cdd9ea;padding-left:22px}
+.mc-perfil .mc-nome{font-size:34px;color:#0e2459;margin:0;line-height:1.1}
+.mc-selo{display:inline-block;background:#cfe3fb;color:#0e2459;font-weight:bold;font-size:16px;padding:9px 20px;border-radius:999px;margin-top:14px}
+.botao-rev{display:inline-flex;gap:8px;align-items:center;justify-content:center;border:2px solid var(--azul);background:#fff;color:var(--azul);border-radius:12px;padding:13px 18px;font:bold 15px Arial,Helvetica,sans-serif;cursor:pointer;white-space:nowrap}
+.cartao h3{display:flex;gap:12px;align-items:center;margin:0 0 16px;padding-bottom:12px;border-bottom:1.5px solid #dbe5f2;font-size:22px;color:#0e2459}
+.cartao h3 .ico{color:var(--azul);display:flex}
+.mc-itens{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px 24px}
+.mc-item{display:flex;gap:12px;align-items:center;min-width:0}
+.mc-item .ico{flex:none;width:46px;height:46px;border-radius:50%;background:#e3effd;color:var(--azul);display:flex;align-items:center;justify-content:center}
+.mc-item small{display:block;color:#5d7090;font-size:14px;margin-bottom:3px}.mc-item b{font-size:17px;word-break:break-word;color:#0e2459}
+.mc-bloco+.mc-bloco{margin-top:30px;padding-top:6px}
+.mc-links{display:flex;justify-content:center;gap:26px;margin:10px 0 4px;flex-wrap:wrap}
+.mc-links button{border:0;background:transparent;color:var(--azul);font:bold 14px Arial,Helvetica,sans-serif;text-decoration:underline;cursor:pointer;padding:8px}
+@media(max-width:640px){
+.mc-cab{gap:10px;padding-bottom:12px;margin-bottom:16px}.mc-cab img{width:44px;height:44px;padding:6px}.mc-cab .igreja{font-size:12px;padding-right:10px}.mc-cab h2{font-size:22px}
+.cartao{padding:12px;border-radius:18px;margin-bottom:14px}.mc-perfil{gap:10px}.mc-perfil .mc-foto{width:76px;height:76px;border-radius:14px}
+.mc-perfil .info{padding-left:10px}.mc-perfil .mc-nome{font-size:19px}.mc-selo{font-size:11px;padding:6px 10px;margin-top:8px}
+.botao-rev{flex-direction:column;gap:4px;white-space:normal;text-align:center;font-size:11px;padding:8px;width:76px;border-width:1.5px;border-radius:10px;line-height:1.15}.botao-rev svg{width:18px;height:18px}
+.cartao h3{font-size:16px;gap:8px;margin-bottom:12px;padding-bottom:10px}.cartao h3 svg{width:22px;height:22px}
+.mc-itens{gap:14px 10px}.mc-item{gap:7px}.mc-item .ico{width:30px;height:30px}.mc-item .ico svg{width:16px;height:16px}.mc-item small{font-size:11px;margin-bottom:2px}.mc-item b{font-size:11.5px;word-break:normal;overflow-wrap:anywhere}
+}
+.link-mini{border:0;background:transparent;color:var(--azul);font:inherit;text-decoration:underline;cursor:pointer;padding:0}
+.foto-ajuste{display:block;width:100%;max-width:300px;aspect-ratio:1;margin:10px auto;border-radius:16px;background:#e8eef7;touch-action:none;cursor:grab}
+.foto-ajuste:active{cursor:grabbing}
+.foto-ctl{display:flex;gap:10px;align-items:center;margin:6px 0}.foto-ctl input[type=range]{flex:1}
+.formmc.congelado input:disabled,.formmc.congelado select:disabled,.formmc.congelado textarea:disabled{background:#f1f5fb;color:#0e2459;-webkit-text-fill-color:#0e2459;opacity:1;border-color:#d7e2f1}
+.miniatura{display:block;width:96px;height:96px;object-fit:cover;border-radius:12px;margin:8px 0;border:2px solid #dce9f9}
+#abaEquipe{padding:25px}@media(max-width:560px){#abaEquipe{padding:20px 15px}}
+</style>
+</head>
+<body>
+<main class="container">
+<header class="topo">
+<img class="logo" src="logo-pibvl-transparente.png" alt="Logo da Primeira Igreja Batista em Vaz Lobo">
+<h1 id="tituloTopo">Cadastro de Membros</h1><p>Primeira Igreja Batista em Vaz Lobo</p><p id="subtituloTopo">Preencha os dados abaixo com atenção.</p>
+</header>
+
+<div id="abaCadastro">
+<div id="avisoOutraPessoa" class="aviso aviso-info" hidden style="margin:18px 25px 0">
+  <strong id="avisoTitulo">Cadastrando outro membro</strong>
+  <p id="avisoTexto"></p>
+  <button type="button" class="botao-peq" id="cancelarOutraPessoa">Cancelar</button>
+</div>
+<form id="formCadastro">
+<h2 class="secao-titulo">Dados pessoais</h2>
+<div class="grade">
+<div class="campo completo"><label for="nome">Nome completo</label><input id="nome" required autocomplete="name"></div>
+<div class="campo"><label for="sexo">Sexo</label><select id="sexo" required><option value="">Selecione</option><option>Feminino</option><option>Masculino</option></select></div>
+<div class="campo"><label for="nascimento">Data de nascimento (DD/MM/AAAA)</label><input id="nascimento" type="text" inputmode="numeric" placeholder="DD/MM/AAAA" maxlength="10" required><p id="idadeInfo" class="ajuda">Sua idade aparecerá após informar a data de nascimento.</p></div>
+<div class="campo"><label for="estadoCivil">Estado civil</label><select id="estadoCivil" required><option value="">Selecione</option><option>Solteiro(a)</option><option>Casado(a)</option><option>Divorciado(a)</option><option>Viúvo(a)</option><option>União estável</option><option>Outro</option></select></div>
+</div>
+
+<section class="bloco"><h2 class="secao-titulo">Contato e endereço</h2><div class="grade">
+<div class="campo completo"><label for="endereco">Endereço</label><input id="endereco" autocomplete="street-address" required></div>
+<div class="campo"><label for="bairro">Bairro</label><input id="bairro" required></div>
+<div class="campo"><label for="celular">Celular / WhatsApp</label><input id="celular" type="tel" autocomplete="tel" placeholder="(21) 99999-9999" required></div>
+<div class="campo completo"><label for="email">E-mail</label><input id="email" type="email" autocomplete="email"><p class="ajuda">Opcional. Com este e-mail e a sua data de nascimento você poderá consultar seu cadastro depois, na aba Meu Cadastro.</p></div>
+</div></section>
+
+<section class="bloco"><h2 class="secao-titulo">Informações da igreja</h2><div class="grade">
+<div class="campo"><label for="dataBatismo">Data de batismo (DD/MM/AAAA)</label><input id="dataBatismo" type="text" inputmode="numeric" placeholder="DD/MM/AAAA" maxlength="10"><p id="ajudaBatismo" class="ajuda">Ao digitar seu nome completo, se houver um registro na relação de batizados do cadastro de membros do ano passado, a data será preenchida automaticamente. Confira a data antes de enviar.</p></div>
+<div class="campo"><label for="atuaMinisterio">Atua em algum ministério?</label><select id="atuaMinisterio" required><option value="">Selecione</option><option>Sim</option><option>Não</option></select></div>
+<div class="campo completo" id="campoQualMinisterio" hidden><label for="qualMinisterio">Qual ministério?</label><input id="qualMinisterio" placeholder="Informe o ministério" disabled></div>
+<div class="campo"><label for="trabalha">Você trabalha atualmente?</label><select id="trabalha" required><option value="">Selecione</option><option>Sim</option><option>Não</option><option>Aposentado(a)</option></select></div>
+</div></section>
+
+<section class="bloco"><h2 class="secao-titulo">Informações dos filhos que frequentam a igreja</h2>
+<div class="campo"><label for="temFilhos">Possui filho que frequenta a igreja, mas ainda não é batizado?</label><select id="temFilhos" required><option value="">Selecione</option><option>Sim</option><option>Não</option></select></div>
+<div id="filhosContainer" hidden></div><button type="button" id="adicionarFilho" class="botao secundario" style="display:none">+ Adicionar outro filho</button>
+</section>
+
+<section class="bloco"><h2 class="secao-titulo">Foto do membro</h2><div class="campo"><label for="foto">Foto do membro</label><input id="foto" type="file" accept="image/jpeg,image/png,image/webp" required><p class="ajuda">Envie uma foto em que o seu rosto apareça por completo e com boa iluminação. A equipe de Comunicação utilizará a foto que for anexada no dia do seu aniversário, na arte dos aniversariantes. JPG, PNG ou WebP, até 4 MB.</p><img id="preview" class="preview" alt="Prévia da foto selecionada"><button type="button" class="botao-peq" id="ajustarFoto" hidden>Ajustar enquadramento da foto</button></div></section>
+
+<button class="botao" id="botaoEnviar" type="submit">Enviar cadastro</button>
+<div id="status" role="status" aria-live="polite"></div>
+</form>
+
+<section id="telaFinal" hidden style="padding:28px 25px 30px;text-align:center">
+  <div style="width:62px;height:62px;margin:0 auto 16px;border-radius:50%;background:#e9f8ef;color:#17633a;display:flex;align-items:center;justify-content:center;font-size:32px;font-weight:bold">✓</div>
+  <h2 style="color:var(--azul);margin:0 0 12px">Cadastro concluído</h2>
+  <p id="mensagemFinal" style="line-height:1.6">Seu cadastro foi concluído com sucesso! Agradecemos por manter seus dados atualizados. Que Deus abençoe sua vida!</p>
+  <button type="button" class="botao secundario" id="irMeuCadastro">Ver Meu Cadastro</button>
+  <button type="button" class="botao secundario" id="adicionarMembro">Cadastrar outro membro</button>
+  <button type="button" class="botao secundario" id="voltarEquipe" hidden>Voltar à Área da Equipe</button>
+</section>
+
+</div>
+
+<div id="abaMeuCadastro" hidden>
+  <section id="mcEntrada">
+    <h2 class="secao-titulo" id="mcTituloEntrada">Consultar meu cadastro</h2>
+    <div class="segmentado" id="mcModoBotoes" role="tablist">
+      <button type="button" class="ativo" data-modo="senha">E-mail e senha</button>
+      <button type="button" data-modo="codigo">Entrar com o código</button>
+    </div>
+
+    <form id="formEntrar" class="formmc">
+      <div class="grade">
+        <div class="campo completo"><label for="mcEmail">E-mail</label><input id="mcEmail" type="email" autocomplete="username" required></div>
+        <div class="campo completo"><label for="mcSenha">Senha</label><input id="mcSenha" type="password" inputmode="numeric" autocomplete="current-password" required></div>
+      </div>
+      <label class="verbox"><input type="checkbox" class="ver-senha" data-alvo="mcSenha"><span>Mostrar senha</span></label>
+      <label class="verbox"><input type="checkbox" id="mcLembrar" checked> <span>Manter conectado neste aparelho por 30 dias<small class="ajuda" style="display:block">Não use em aparelho de outras pessoas.</small></span></label>
+      <button class="botao" id="mcBotaoEntrar" type="submit">Entrar</button>
+      <p class="link-texto"><button type="button" id="mcPrimeiro">Esqueci minha senha</button></p>
+    </form>
+
+    <form id="formPasse" class="formmc" hidden>
+      <p class="ajuda" style="font-size:14px">Seu cadastro foi enviado. Para consultá-lo depois, crie uma senha de <strong>4 números</strong>. Seu e-mail de acesso: <strong id="mcPasseEmail"></strong></p>
+      <div class="grade">
+        <div class="campo"><label for="mcPasseSenha">Crie sua senha (4 números)</label><input id="mcPasseSenha" type="password" inputmode="numeric" autocomplete="new-password" maxlength="4" placeholder="••••" required></div>
+        <div class="campo"><label for="mcPasseSenha2">Confirme a senha</label><input id="mcPasseSenha2" type="password" inputmode="numeric" autocomplete="new-password" maxlength="4" placeholder="••••" required></div>
+      </div>
+      <label class="verbox"><input type="checkbox" class="ver-senha" data-alvo="mcPasseSenha,mcPasseSenha2"><span>Mostrar senha</span></label>
+      <label class="verbox"><input type="checkbox" id="mcPasseLembrar" checked><span>Manter conectado neste aparelho por 30 dias<small class="ajuda" style="display:block">Não use em aparelho de outras pessoas.</small></span></label>
+      <button class="botao" id="mcBotaoPasse" type="submit">Criar senha e ver meu cadastro</button>
+    </form>
+
+    <form id="formCodigo" class="formmc" hidden>
+      <p class="ajuda" style="font-size:14px">Digite o código de 6 letras e números que a equipe de Comunicação enviou para você pelo WhatsApp.</p>
+      <div class="grade">
+        <div class="campo completo"><label for="mcCodigo">Código de acesso</label><input id="mcCodigo" autocomplete="off" autocapitalize="characters" maxlength="9" placeholder="Ex.: K7M4PX" required></div>
+      </div>
+      <button class="botao" id="mcBotaoCodigo" type="submit">Entrar com o código</button>
+    </form>
+
+    <form id="formCriar" class="formmc" hidden>
+      <div id="mcPasso1">
+        <p class="ajuda" style="font-size:14px">Informe o e-mail e a data de nascimento do seu cadastro e crie uma senha de <strong>4 números</strong>.</p>
+        <div class="grade">
+          <div class="campo completo"><label for="mcCriarEmail">E-mail do cadastro</label><input id="mcCriarEmail" type="email" autocomplete="username" required></div>
+          <div class="campo completo"><label for="mcCriarNasc">Data de nascimento (DD/MM/AAAA)</label><input id="mcCriarNasc" inputmode="numeric" maxlength="10" placeholder="DD/MM/AAAA" required></div>
+          <div class="campo"><label for="mcNovaSenha">Crie sua senha (4 números)</label><input id="mcNovaSenha" type="password" inputmode="numeric" autocomplete="new-password" maxlength="4" placeholder="••••" required></div>
+          <div class="campo"><label for="mcNovaSenha2">Confirme a senha</label><input id="mcNovaSenha2" type="password" inputmode="numeric" autocomplete="new-password" maxlength="4" placeholder="••••" required></div>
+        </div>
+        <label class="verbox"><input type="checkbox" class="ver-senha" data-alvo="mcNovaSenha,mcNovaSenha2"><span>Mostrar senha</span></label>
+        <label class="verbox"><input type="checkbox" id="mcCriarLembrar" checked><span>Manter conectado neste aparelho por 30 dias<small class="ajuda" style="display:block">Não use em aparelho de outras pessoas.</small></span></label>
+        <button class="botao" id="mcContinuar" type="submit">Continuar</button>
+      </div>
+      <div id="mcPasso2" hidden>
+        <p class="ajuda" style="font-size:14px">Para confirmar que o cadastro é seu, digite o <strong>código de 6 números</strong> que enviamos para o seu e-mail (veja também o spam).</p>
+        <div class="grade">
+          <div class="campo completo"><label for="mcCriarCodigo">Código recebido</label><input id="mcCriarCodigo" inputmode="text" autocomplete="one-time-code" autocapitalize="characters" maxlength="9" placeholder="Código"></div>
+        </div>
+        <button class="botao" id="mcBotaoCriar" type="submit">Confirmar e ver meu cadastro</button>
+        <p class="link-texto"><button type="button" id="mcReenviar">Enviar o código de novo</button></p>
+        <p class="link-texto"><button type="button" id="mcVoltarPasso1">Corrigir meus dados</button></p>
+      </div>
+      <p class="link-texto"><button type="button" id="mcVoltarEntrar">Já tenho senha: entrar</button></p>
+      <p class="link-texto"><button type="button" id="mcSemEmail">Entrar com o código</button></p>
+    </form>
+
+    <div id="mcStatusEntrada" class="status-mc" role="alert"></div>
+
+    <div class="aviso aviso-info aviso-link" id="mcPedirCodigo">
+      <strong>Deseja entrar com código para acessar seu cadastro?</strong>
+      <p>Entre em contato com a equipe de Comunicação clicando no botão abaixo.</p>
+      <p class="ajuda" id="mcQuemE" hidden>Cadastro de <strong id="mcNomeConhecido"></strong> · <button type="button" class="link-mini" id="mcNaoSouEu">Não sou eu</button></p>
+      <div class="campo completo" id="mcCampoNome" hidden><label for="mcNomeWhats">Digite seu nome completo, como está no seu cadastro</label><input id="mcNomeWhats" autocomplete="name" placeholder="Ex.: Lucas Silva de Oliveira"></div>
+      <a class="botao" id="mcBotaoWhats" href="#" target="_blank" rel="noopener" style="margin-top:12px;display:block;text-align:center;text-decoration:none;color:#fff">Solicitar código pelo WhatsApp</a>
+      <p class="ajuda" id="mcAvisoWhats" style="display:none;color:#b00020"></p>
+    </div>
+  </section>
+  <section id="mcCadastro" hidden></section>
+</div>
+
+<div id="abaEquipe" hidden>
+  <div id="eqEntrada" hidden>
+    <div class="aviso aviso-info">
+      <strong>Área restrita</strong>
+      <p>Esta área é exclusiva da equipe autorizada da igreja. Entre com a sua conta Google.</p>
+    </div>
+    <div id="eqBotaoGoogle" style="display:flex;justify-content:center;margin:18px 0"></div>
+    <div id="eqStatus" class="status-mc" role="alert"></div>
+  </div>
+  <div id="eqPainel" hidden>
+    <div class="eq-topo">
+      <span class="ajuda">Conectado como <strong id="eqEmail"></strong></span>
+      <button type="button" class="botao-peq" id="eqCadastrar">Cadastrar outro membro</button>
+      <button type="button" class="botao-peq" id="eqSair">Sair</button>
+    </div>
+    <div class="segmentado" role="tablist">
+      <button type="button" class="ativo" data-sub="autorizacao">Autorização de Cadastros<span id="eqSubPend"></span></button>
+      <button type="button" data-sub="membros">Membros</button>
+    </div>
+    <div id="eqAutorizacao"></div>
+    <div id="eqMembros" hidden></div>
+  </div>
+</div>
+
+<footer class="rodape">Primeira Igreja Batista em Vaz Lobo</footer>
+</main>
+
+<nav class="menu-inferior" aria-label="Navegação principal">
+  <button type="button" data-aba="cadastro" class="ativo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M19 8v6M16 11h6"/></svg><span>Cadastro de Membros</span></button>
+  <button type="button" data-aba="meu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="9" cy="11" r="2.5"/><path d="M5.5 17a3.5 3.5 0 0 1 7 0M15 9h3M15 13h3"/></svg><span>Meu Cadastro</span></button>
+  <button type="button" data-aba="equipe"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l8 3v6c0 4.5-3.2 8-8 9-4.8-1-8-4.5-8-9V6l8-3z"/><path d="M9 12l2 2 4-4"/></svg><span>Área da Equipe</span></button>
+</nav>
+
+<div id="modalFundo" hidden><div id="modalCaixa" role="dialog" aria-modal="true"></div></div>
+
+<script>
+const URL_SCRIPT= "https://script.google.com/macros/s/AKfycbxkBSvMMSjlP5plaexX2mPNmg0gGO05aDRiy73abTVz-z1VAYWzxHfA0-4Pwl4ObBMk3A/exec"
+
+const form=document.getElementById("formCadastro");
+const nascimento=document.getElementById("nascimento");
+const idadeInfo=document.getElementById("idadeInfo");
+const fotoInput=document.getElementById("foto");
+const preview=document.getElementById("preview");
+const statusEl=document.getElementById("status");
+const botao=document.getElementById("botaoEnviar");
+const filhosContainer=document.getElementById("filhosContainer");
+const temFilhos=document.getElementById("temFilhos");
+const adicionarFilho=document.getElementById("adicionarFilho");
+const telaFinal=document.getElementById("telaFinal");
+
+let contadorFilhos=0;
+let envioPendente=null;
+
+const meses=["Janeiro","Fevereiro","Março","Abril","Maio","Junho","Julho","Agosto","Setembro","Outubro","Novembro","Dezembro"];
+
+function dataValida(texto){
+  const p=String(texto||"").trim().split("/");
+  if(p.length!==3||p.some(x=>!/^\d+$/.test(x)))return null;
+  const [dia,mes,ano]=p.map(Number);
+  const d=new Date(ano,mes-1,dia,12);
+  if(ano<1900||d.getFullYear()!==ano||d.getMonth()!==mes-1||d.getDate()!==dia)return null;
+  return d;
+}
+
+function paraISO(texto){
+  const d=dataValida(texto);
+  return d?d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0"):"";
+}
+
+function formalizarTexto(valor){
+  const minusculas=["de","da","do","das","dos","e"];
+  return String(valor||"").trim().replace(/\s+/g," ").toLocaleLowerCase("pt-BR")
+    .split(" ").map((p,i)=>{
+      if(i>0&&minusculas.includes(p))return p;
+      return p.replace(/(^|[-'(\/.])(\p{L})/gu,(t,a,b)=>a+b.toLocaleUpperCase("pt-BR"));
+    }).join(" ");
+}
+
+function aplicarFormalizacao(el){
+  el.addEventListener("blur",()=>{el.value=formalizarTexto(el.value)});
+}
+
+["nome","endereco","bairro","qualMinisterio"].forEach(id=>aplicarFormalizacao(document.getElementById(id)));
+
+function mascaraData(el){
+  let v=el.value.replace(/\D/g,"").slice(0,8);
+  if(v.length>4)v=v.slice(0,2)+"/"+v.slice(2,4)+"/"+v.slice(4);
+  else if(v.length>2)v=v.slice(0,2)+"/"+v.slice(2);
+  el.value=v;
+}
+
+function atualizarIdade(){
+  const d=dataValida(nascimento.value);
+  if(!nascimento.value.trim()){
+    idadeInfo.textContent="Informe a data no formato DD/MM/AAAA.";
+    nascimento.setCustomValidity("");
+    return;
+  }
+  if(!d){
+    idadeInfo.textContent="Digite uma data válida no formato DD/MM/AAAA.";
+    nascimento.setCustomValidity("Digite uma data válida no formato DD/MM/AAAA.");
+    return;
+  }
+  if(d>new Date()){
+    idadeInfo.textContent="A data não pode estar no futuro.";
+    nascimento.setCustomValidity("A data de nascimento não pode estar no futuro.");
+    return;
+  }
+  nascimento.setCustomValidity("");
+  const hoje=new Date();
+  let idade=hoje.getFullYear()-d.getFullYear();
+  if(hoje<new Date(hoje.getFullYear(),d.getMonth(),d.getDate()))idade--;
+  idadeInfo.textContent="Atualmente você tem "+idade+(idade===1?" ano":" anos")+".";
+}
+
+[nascimento,document.getElementById("dataBatismo")].forEach(el=>
+  el.addEventListener("input",()=>mascaraData(el))
+);
+
+nascimento.addEventListener("input",atualizarIdade);
+
+const nomeInput=document.getElementById("nome");
+const dataBatismoInput=document.getElementById("dataBatismo");
+const ajudaBatismo=document.getElementById("ajudaBatismo");
+
+let temporizadorBatismo=null;
+let sequenciaConsultaBatismo=0;
+
+dataBatismoInput.addEventListener("input",()=>{
+  dataBatismoInput.dataset.preenchidoConsulta="";
+});
+
+function consultarDataBatismo(){
+  const nome=nomeInput.value.trim().replace(/\s+/g," ");
+  const partes=nome.split(" ").filter(Boolean);
+
+  if(partes.length<2 || nome.length<8){
+    ajudaBatismo.textContent="Ao digitar seu nome completo, se houver um registro na relação de batizados do cadastro de membros do ano passado, a data será preenchida automaticamente. Confira a data antes de enviar.";
+    if(dataBatismoInput.dataset.preenchidoConsulta==="sim"){
+      dataBatismoInput.value="";
+      dataBatismoInput.dataset.preenchidoConsulta="";
+    }
+    return;
+  }
+
+  const id=++sequenciaConsultaBatismo;
+  const callbackNome="retornoBatismo_"+id;
+  const script=document.createElement("script");
+  const url=new URL(URL_SCRIPT);
+
+  url.searchParams.set("acao","consultarBatismo");
+  url.searchParams.set("nome",nome);
+  url.searchParams.set("callback",callbackNome);
+
+  window[callbackNome]=(resposta)=>{
+    delete window[callbackNome];
+    script.remove();
+
+    if(id!==sequenciaConsultaBatismo)return;
+
+    if(resposta && resposta.resultado==="sucesso" && resposta.dataBatismo && dataValida(resposta.dataBatismo)){
+      if(!dataBatismoInput.value.trim() || dataBatismoInput.dataset.preenchidoConsulta==="sim"){
+        dataBatismoInput.value=resposta.dataBatismo;
+        dataBatismoInput.dataset.preenchidoConsulta="sim";
+      }
+      ajudaBatismo.textContent="Encontramos uma data na relação de batismos: "+resposta.dataBatismo+". Confira antes de enviar.";
+    }else if(resposta && resposta.resultado==="nome_duplicado"){
+      ajudaBatismo.textContent="Encontramos mais de um registro com esse nome. Fale com a equipe para confirmar a data.";
+      if(dataBatismoInput.dataset.preenchidoConsulta==="sim"){
+        dataBatismoInput.value="";
+        dataBatismoInput.dataset.preenchidoConsulta="";
+      }
+    }else{
+      ajudaBatismo.textContent="Não encontramos uma data para esse nome. Confira a grafia ou preencha a data manualmente, se souber.";
+      if(dataBatismoInput.dataset.preenchidoConsulta==="sim"){
+        dataBatismoInput.value="";
+        dataBatismoInput.dataset.preenchidoConsulta="";
+      }
+    }
+  };
+
+  script.onerror=()=>{
+    delete window[callbackNome];
+    script.remove();
+    if(id===sequenciaConsultaBatismo){
+      ajudaBatismo.textContent="Não foi possível consultar a relação agora. Você pode preencher a data manualmente.";
+    }
+  };
+
+  script.src=url.toString();
+  document.head.appendChild(script);
+}
+
+nomeInput.addEventListener("input",()=>{
+  clearTimeout(temporizadorBatismo);
+  ajudaBatismo.textContent="Consultando a relação de batismos após você digitar o nome completo...";
+  temporizadorBatismo=setTimeout(consultarDataBatismo,700);
+});
+
+nomeInput.addEventListener("blur",()=>{
+  clearTimeout(temporizadorBatismo);
+  consultarDataBatismo();
+});
+
+document.getElementById("atuaMinisterio").addEventListener("change",e=>{
+  const c=document.getElementById("qualMinisterio");
+  const bloco=document.getElementById("campoQualMinisterio");
+  const mostrar=e.target.value==="Sim";
+  bloco.hidden=!mostrar;
+  c.disabled=!mostrar;
+  c.required=mostrar;
+  if(!mostrar)c.value="";
+});
+
+function criarCampoFilho(){
+  contadorFilhos++;
+  const bloco=document.createElement("div");
+  bloco.className="bloco filho";
+
+  bloco.innerHTML='<h3 class="secao-titulo">Filho '+contadorFilhos+'</h3><div class="grade"><div class="campo completo"><label>Nome completo</label><input name="filhoNome" required></div><div class="campo"><label>Sexo</label><select name="filhoSexo"><option value="">Selecione</option><option>Feminino</option><option>Masculino</option></select></div><div class="campo"><label>Data de nascimento (DD/MM/AAAA)</label><input name="filhoNascimento" inputmode="numeric" maxlength="10" placeholder="DD/MM/AAAA" required></div><div class="campo completo"><label>Foto do filho (opcional)</label><input name="filhoFoto" type="file" accept="image/jpeg,image/png,image/webp"><p class="ajuda">O nome do arquivo será anotado; o envio da foto do filho ainda não está habilitado.</p></div></div>';
+
+  aplicarFormalizacao(bloco.querySelector('[name="filhoNome"]'));
+  const data=bloco.querySelector('[name="filhoNascimento"]');
+  data.addEventListener("input",()=>mascaraData(data));
+  filhosContainer.appendChild(bloco);
+}
+
+temFilhos.addEventListener("change",()=>{
+  const mostrar=temFilhos.value==="Sim";
+  filhosContainer.hidden=!mostrar;
+  adicionarFilho.style.display=mostrar?"block":"none";
+
+  if(mostrar&&!filhosContainer.children.length)criarCampoFilho();
+
+  if(!mostrar){
+    filhosContainer.innerHTML="";
+    contadorFilhos=0;
+  }
+});
+
+adicionarFilho.addEventListener("click",criarCampoFilho);
+
+function mostrarStatus(msg,sucesso){
+  statusEl.textContent=msg;
+  statusEl.className=sucesso?"sucesso":"erro";
+  statusEl.style.display="block";
+}
+
+function arquivoBase64(arq){
+  return new Promise((resolve,reject)=>{
+    const r=new FileReader();
+    r.onload=()=>resolve(String(r.result).split(",")[1]);
+    r.onerror=()=>reject(new Error("Não foi possível ler a foto."));
+    r.readAsDataURL(arq);
+  });
+}
+
+/* ---------- ajuste do enquadramento da foto ---------- */
+// Abre uma janela para arrastar, aproximar e girar a foto antes de enviar.
+// Devolve a foto quadrada já ajustada (JPG) ou null se a pessoa cancelar.
+function ajustarFoto(arquivo){
+  return new Promise(resolve=>{
+    const img=new Image();
+    const url=URL.createObjectURL(arquivo);
+    img.onerror=()=>{URL.revokeObjectURL(url);resolve(arquivo);};
+    img.onload=()=>{
+      const TAM=300,SAIDA=900;
+      const cv=document.createElement("canvas");
+      cv.width=TAM;cv.height=TAM;cv.className="foto-ajuste";
+      const ctx=cv.getContext("2d");
+      let rot=0,zoom=1,ox=0,oy=0;
+      const nw=img.naturalWidth,nh=img.naturalHeight;
+      function escala(){
+        const w=rot%2?nh:nw,h=rot%2?nw:nh;
+        return Math.max(TAM/w,TAM/h)*zoom;
+      }
+      function limites(){
+        const w=rot%2?nh:nw,h=rot%2?nw:nh,e=escala();
+        return {x:Math.max(0,(w*e-TAM)/2),y:Math.max(0,(h*e-TAM)/2)};
+      }
+      function prender(){
+        const l=limites();
+        ox=Math.max(-l.x,Math.min(l.x,ox));
+        oy=Math.max(-l.y,Math.min(l.y,oy));
+      }
+      function pintar(c,tam,guia){
+        const k=tam/TAM,e=escala()*k;
+        c.fillStyle="#e8eef7";c.fillRect(0,0,tam,tam);
+        c.save();
+        c.translate((TAM/2+ox)*k,(TAM/2+oy)*k);
+        c.rotate(rot*Math.PI/2);
+        c.drawImage(img,-nw*e/2,-nh*e/2,nw*e,nh*e);
+        c.restore();
+        if(guia){
+          c.save();c.strokeStyle="rgba(255,255,255,.95)";c.lineWidth=2;c.setLineDash([7,6]);
+          c.shadowColor="rgba(0,0,0,.45)";c.shadowBlur=3;
+          c.beginPath();c.ellipse(tam/2,tam*0.46,tam*0.27,tam*0.36,0,0,Math.PI*2);c.stroke();c.restore();
+        }
+      }
+      function desenhar(){prender();pintar(ctx,TAM,true);}
+      // começa mostrando a parte de cima da foto, onde costuma estar o rosto
+      oy=limites().y*0.6;
+      desenhar();
+
+      let arrasto=null;
+      cv.addEventListener("pointerdown",e=>{
+        arrasto={x:e.clientX,y:e.clientY,ox:ox,oy:oy};
+        try{cv.setPointerCapture(e.pointerId);}catch(_){}
+      });
+      cv.addEventListener("pointermove",e=>{
+        if(!arrasto)return;
+        const f=TAM/cv.getBoundingClientRect().width;
+        ox=arrasto.ox+(e.clientX-arrasto.x)*f;
+        oy=arrasto.oy+(e.clientY-arrasto.y)*f;
+        desenhar();
+      });
+      const soltar=()=>{arrasto=null;};
+      cv.addEventListener("pointerup",soltar);
+      cv.addEventListener("pointercancel",soltar);
+
+      const barra=el("input",{type:"range",min:"1",max:"4",step:"0.01",value:"1","aria-label":"Aproximar ou afastar"});
+      barra.addEventListener("input",()=>{zoom=Number(barra.value);desenhar();});
+      cv.addEventListener("wheel",e=>{
+        e.preventDefault();
+        zoom=Math.max(1,Math.min(4,zoom+(e.deltaY<0?0.1:-0.1)));
+        barra.value=String(zoom);desenhar();
+      },{passive:false});
+
+      const girar=el("button",{type:"button",class:"botao-peq",texto:"Girar",onclick:()=>{
+        rot=(rot+1)%4;ox=0;oy=0;oy=limites().y*0.6;desenhar();
+      }});
+
+      function terminar(valor){
+        URL.revokeObjectURL(url);
+        fecharModal();
+        resolve(valor);
+      }
+      abrirModal("Ajuste a sua foto",[
+        el("p",{class:"ajuda",texto:"Arraste a foto para deixar o rosto dentro do desenho tracejado. Use a barra para aproximar ou afastar, e “Girar” se a foto estiver de lado."}),
+        cv,
+        el("div",{class:"foto-ctl"},el("span",{class:"ajuda",texto:"Afastar"}),barra,el("span",{class:"ajuda",texto:"Aproximar"})),
+        el("div",{class:"foto-ctl"},girar)
+      ],[
+        {texto:"Cancelar",acao:()=>terminar(null)},
+        {texto:"Usar esta foto",principal:true,acao:()=>{
+          const saida=document.createElement("canvas");
+          saida.width=SAIDA;saida.height=SAIDA;
+          pintar(saida.getContext("2d"),SAIDA,false);
+          saida.toBlob(b=>{
+            if(!b){terminar(arquivo);return;}
+            terminar(new File([b],"foto.jpg",{type:"image/jpeg"}));
+          },"image/jpeg",0.9);
+        }}
+      ]);
+    };
+    img.src=url;
+  });
+}
+
+let fotoFinal=null,fotoOriginal=null;
+const botaoAjustarFoto=document.getElementById("ajustarFoto");
+form.addEventListener("reset",()=>{
+  fotoFinal=null;fotoOriginal=null;
+  preview.style.display="none";preview.removeAttribute("src");
+  botaoAjustarFoto.hidden=true;
+});
+botaoAjustarFoto.addEventListener("click",async()=>{
+  if(!fotoOriginal)return;
+  const r=await ajustarFoto(fotoOriginal);
+  if(r){fotoFinal=r;preview.src=URL.createObjectURL(r);}
+});
+
+fotoInput.addEventListener("change",()=>{
+  const f=fotoInput.files[0];
+  preview.style.display="none";
+  preview.removeAttribute("src");
+  fotoFinal=null;fotoOriginal=null;
+  botaoAjustarFoto.hidden=true;
+
+  fotoInput.setCustomValidity(
+    f?"":"Envie uma foto do membro para continuar."
+  );
+
+  if(!f)return;
+
+  if(!["image/jpeg","image/png","image/webp"].includes(f.type)||f.size>4*1024*1024){
+    fotoInput.value="";
+    fotoInput.setCustomValidity("Escolha uma imagem JPG, PNG ou WebP de até 4 MB.");
+    mostrarStatus("A foto é obrigatória. Escolha uma imagem JPG, PNG ou WebP de até 4 MB.",false);
+    return;
+  }
+
+  fotoInput.setCustomValidity("");
+  fotoOriginal=f;
+  ajustarFoto(f).then(r=>{
+    if(!r){
+      fotoInput.value="";fotoOriginal=null;
+      fotoInput.setCustomValidity("Envie uma foto do membro para continuar.");
+      return;
+    }
+    fotoFinal=r;
+    preview.src=URL.createObjectURL(r);
+    preview.style.display="block";
+    botaoAjustarFoto.hidden=false;
+  });
+});
+
+/*
+ * Envio por formulário oculto e iframe.
+ * A resposta do Apps Script é recebida por postMessage.
+ */
+const iframeEnvio=document.createElement("iframe");
+iframeEnvio.name="iframeCadastroPIBVL";
+iframeEnvio.title="Envio do cadastro";
+iframeEnvio.style.display="none";
+document.body.appendChild(iframeEnvio);
+
+const formularioEnvio=document.createElement("form");
+formularioEnvio.method="POST";
+formularioEnvio.action=URL_SCRIPT;
+formularioEnvio.target=iframeEnvio.name;
+formularioEnvio.style.display="none";
+
+const campoPayload=document.createElement("input");
+campoPayload.type="hidden";
+campoPayload.name="payload";
+
+const campoIdentificador=document.createElement("input");
+campoIdentificador.type="hidden";
+campoIdentificador.name="identificador";
+
+formularioEnvio.appendChild(campoPayload);
+formularioEnvio.appendChild(campoIdentificador);
+document.body.appendChild(formularioEnvio);
+
+function gerarIdentificador(){
+  return "pibvl_"+Date.now()+"_"+Math.random().toString(36).slice(2);
+}
+
+function concluirEnvio(identificador,resultado){
+  if(!envioPendente||envioPendente.identificador!==identificador)return;
+  clearTimeout(envioPendente.temporizador);
+  const pendente=envioPendente;
+  envioPendente=null;
+  pendente.resolve(resultado);
+}
+
+function consultarStatusEnvio(identificador){
+  return new Promise(resolve=>{
+    const nomeCb="cbStatus_"+Date.now()+"_"+Math.random().toString(36).slice(2);
+    const script=document.createElement("script");
+    const limpar=()=>{delete window[nomeCb];script.remove();};
+    const t=setTimeout(()=>{limpar();resolve(null);},8000);
+    window[nomeCb]=dados=>{clearTimeout(t);limpar();resolve(dados);};
+    script.onerror=()=>{clearTimeout(t);limpar();resolve(null);};
+    script.src=URL_SCRIPT+"?acao=statusCadastro&identificador="+encodeURIComponent(identificador)+"&callback="+nomeCb+"&_="+Date.now();
+    document.body.appendChild(script);
+  });
+}
+
+async function verificarStatusEnvio(identificador){
+  await new Promise(r=>setTimeout(r,3000));
+  while(envioPendente&&envioPendente.identificador===identificador){
+    const resposta=await consultarStatusEnvio(identificador);
+    if(resposta&&resposta.encontrado&&resposta.dados){
+      concluirEnvio(identificador,resposta.dados);
+      return;
+    }
+    await new Promise(r=>setTimeout(r,2500));
+  }
+}
+
+function enviarAoServidor(dados){
+  return new Promise((resolve,reject)=>{
+    const identificador=gerarIdentificador();
+
+    const temporizador=setTimeout(()=>{
+      if(envioPendente && envioPendente.identificador===identificador){
+        envioPendente=null;
+        reject(new Error("O servidor não respondeu a tempo. Verifique sua conexão antes de tentar novamente."));
+      }
+    },45000);
+
+    envioPendente={
+      identificador,
+      resolve,
+      reject,
+      temporizador
+    };
+
+    campoPayload.value=JSON.stringify(dados);
+    campoIdentificador.value=identificador;
+
+    try{
+      formularioEnvio.submit();
+      verificarStatusEnvio(identificador);
+    }catch(erro){
+      clearTimeout(temporizador);
+      envioPendente=null;
+      reject(new Error("Não foi possível iniciar o envio. Tente novamente."));
+    }
+  });
+}
+
+window.addEventListener("message",evento=>{
+  if(!/^https:\/\/([a-z0-9-]+\.)*(script\.google\.com|googleusercontent\.com)$/.test(evento.origin))return;
+  if(!evento.data || typeof evento.data!=="string")return;
+
+  let mensagem;
+
+  try{
+    mensagem=JSON.parse(evento.data);
+  }catch(erro){
+    return;
+  }
+
+  if(!mensagem || mensagem.tipo!=="respostaCadastroPIBVL")return;
+  if(!envioPendente)return;
+  if(mensagem.identificador!==envioPendente.identificador)return;
+
+  clearTimeout(envioPendente.temporizador);
+
+  const pendente=envioPendente;
+  envioPendente=null;
+
+  pendente.resolve(mensagem.resultado);
+});
+
+form.addEventListener("submit",async e=>{
+  e.preventDefault();
+
+  statusEl.style.display="none";
+  telaFinal.hidden=true;
+
+  if(!form.reportValidity())return;
+
+  const dn=dataValida(nascimento.value);
+
+  if(!dn||dn>new Date()){
+    mostrarStatus("Confira a data de nascimento no formato DD/MM/AAAA.",false);
+    nascimento.focus();
+    return;
+  }
+
+  const db=document.getElementById("dataBatismo").value.trim();
+
+  if(db&&!dataValida(db)){
+    mostrarStatus("Confira a data de batismo ou deixe o campo em branco.",false);
+    return;
+  }
+
+  ["nome","endereco","bairro","qualMinisterio"].forEach(id=>{
+    const c=document.getElementById(id);
+    c.value=formalizarTexto(c.value);
+  });
+
+  const filhos=Array.from(
+    filhosContainer.querySelectorAll(".filho")
+  ).map(b=>({
+    nome:formalizarTexto(b.querySelector('[name="filhoNome"]').value),
+    sexo:b.querySelector('[name="filhoSexo"]').value,
+    nascimento:paraISO(b.querySelector('[name="filhoNascimento"]').value),
+    fotoNome:b.querySelector('[name="filhoFoto"]').files[0]?.name||""
+  }));
+
+  if(filhos.some(f=>!f.nome||!f.nascimento)){
+    mostrarStatus("Confira o nome e a data de nascimento de cada filho.",false);
+    return;
+  }
+
+  const arq=fotoFinal||fotoInput.files[0];
+
+  const dados={
+    nome:document.getElementById("nome").value.trim(),
+    sexo:document.getElementById("sexo").value,
+    nascimento:paraISO(nascimento.value),
+    idade:"",
+    mesAniversario:"",
+    estadoCivil:document.getElementById("estadoCivil").value,
+    endereco:document.getElementById("endereco").value.trim(),
+    bairro:document.getElementById("bairro").value.trim(),
+    celular:document.getElementById("celular").value.trim(),
+    email:document.getElementById("email").value.trim(),
+    batizado:"",
+    dataBatismo:paraISO(db),
+    atuaMinisterio:document.getElementById("atuaMinisterio").value,
+    qualMinisterio:document.getElementById("qualMinisterio").value.trim(),
+    trabalha:document.getElementById("trabalha").value,
+    temFilhos:temFilhos.value,
+    filhos:filhos,
+    fotoData:"",
+    fotoMime:"",
+    fotoNome:""
+  };
+
+  try{
+    botao.disabled=true;
+    botao.textContent="Enviando cadastro...";
+
+    if(arq){
+      dados.fotoData=await arquivoBase64(arq);
+      dados.fotoMime=arq.type;
+      dados.fotoNome=arq.name;
+    }
+
+    // Define a quem este cadastro fica vinculado.
+    if(modoEquipeCadastro){
+      dados.idTokenEquipe=tokenEquipe;
+    }else{
+      if(!sessaoMembro&&lerAparelho())await sessaoSilenciosa();
+      if(sessaoMembro)dados.sessao=sessaoMembro;
+      else if(ultimoEnvio&&ultimoEnvio.passe)dados.passe=ultimoEnvio.passe;
+    }
+
+    mostrarStatus("Enviando os dados. Aguarde a confirmação...",true);
+
+    const resposta=await enviarAoServidor(dados);
+
+    if(resposta.resultado==="sucesso"){
+      const viaPasse=!!(resposta.vinculado&&!dados.sessao&&dados.passe);
+      if(resposta.porEquipe||(viaPasse&&ultimoEnvio)){
+        /* mantém os dados do primeiro cadastro (para criar a senha dele depois) */
+      }else{
+        ultimoEnvio={email:dados.email,nascimento:isoParaBR(dados.nascimento),passe:resposta.passe||"",vinculado:!!resposta.vinculado};
+      }
+      form.hidden=true;
+      telaFinal.hidden=false;
+      if(!resposta.vinculado&&!resposta.porEquipe){guardarNomeAparelho(dados.nome);pedirCodigo();}
+      document.getElementById("irMeuCadastro").hidden=!!resposta.porEquipe;
+      document.getElementById("voltarEquipe").hidden=!resposta.porEquipe;
+
+      document.getElementById("mensagemFinal").textContent=resposta.porEquipe
+        ?"O cadastro de "+dados.nome+" foi registrado pela equipe com sucesso."
+        :resposta.vinculado
+        ?"O cadastro de "+dados.nome+" foi concluído com sucesso e ficará junto ao seu no Meu Cadastro. Que Deus abençoe sua vida!"
+        :"Seu cadastro foi concluído com sucesso! Agradecemos por manter seus dados atualizados. Que Deus abençoe sua vida!";
+      atualizarAvisoVinculo();
+
+      telaFinal.scrollIntoView({
+        behavior:"smooth",
+        block:"start"
+      });
+
+    }else if(resposta.resultado==="duplicado"){
+      mostrarStatus(
+        resposta.mensagem||"Já existe um cadastro com esses dados. Procure a equipe para conferir.",
+        false
+      );
+    }else{
+      mostrarStatus(
+        resposta.mensagem||"Não foi possível registrar o cadastro. Confira os dados e tente novamente.",
+        false
+      );
+    }
+
+  }catch(err){
+    mostrarStatus(
+      err.message||"Não foi possível confirmar o envio. Verifique sua conexão e tente novamente.",
+      false
+    );
+  }finally{
+    botao.disabled=false;
+    botao.textContent="Enviar cadastro";
+  }
+});
+
+document.getElementById("adicionarMembro").addEventListener("click",()=>{
+  atualizarAvisoVinculo();
+  form.reset();
+  form.hidden=false;
+  telaFinal.hidden=true;
+
+  document.getElementById("mensagemFinal").textContent="";
+
+  filhosContainer.innerHTML="";
+  filhosContainer.hidden=true;
+  contadorFilhos=0;
+
+  adicionarFilho.style.display="none";
+  statusEl.style.display="none";
+
+  preview.style.display="none";
+  preview.removeAttribute("src");
+
+  document.getElementById("qualMinisterio").disabled=true;
+  document.getElementById("qualMinisterio").required=false;
+  document.getElementById("campoQualMinisterio").hidden=true;
+
+  atualizarIdade();
+
+  atualizarAvisoVinculo();
+  form.scrollIntoView({
+    behavior:"smooth",
+    block:"start"
+  });
+});
+
+/* =====================================================================
+   ABAS E MEU CADASTRO
+   ===================================================================== */
+const URL_WHATSAPP_REVISAO="https://wa.me/5521966709417?text=Ol%C3%A1%2C%20gostaria%20de%20solicitar%20autoriza%C3%A7%C3%A3o%20para%20revisar%20meu%20cadastro%20de%20membro.";
+const URL_WHATSAPP_LINK="https://wa.me/5521966709417?text=Ol%C3%A1%2C%20gostaria%20de%20receber%20o%20link%20de%20acesso%20ao%20meu%20cadastro%20de%20membro.";
+const TEL_COMUNICACAO="+55 21 96670-9417";
+
+const abaCadastro=document.getElementById("abaCadastro");
+const abaMeuCadastro=document.getElementById("abaMeuCadastro");
+const abaEquipe=document.getElementById("abaEquipe");
+const mcEntrada=document.getElementById("mcEntrada");
+const mcCadastro=document.getElementById("mcCadastro");
+const mcStatusEntrada=document.getElementById("mcStatusEntrada");
+let sessaoMembro="";
+let cadastroAtual=null;
+let alvoAtual="";
+let carregandoMeuCadastro=false;
+
+function el(tag,props,...filhos){
+  const e=document.createElement(tag);
+  Object.entries(props||{}).forEach(([k,v])=>{
+    if(v===false||v===null||v===undefined)return;
+    if(k==="class")e.className=v;
+    else if(k==="texto")e.textContent=v;
+    else if(k.slice(0,2)==="on")e.addEventListener(k.slice(2),v);
+    else if(v===true)e.setAttribute(k,"");
+    else e.setAttribute(k,v);
+  });
+  filhos.flat().forEach(f=>{
+    if(f===null||f===undefined||f===false)return;
+    e.append(f.nodeType?f:document.createTextNode(String(f)));
+  });
+  return e;
+}
+
+function isoParaBR(iso){
+  const m=String(iso||"").match(/^(\d{4})-(\d{2})-(\d{2})$/);
+  return m?m[3]+"/"+m[2]+"/"+m[1]:String(iso||"");
+}
+
+function idadeDe(iso){
+  const m=String(iso||"").match(/^(\d{4})-(\d{2})-(\d{2})$/);
+  if(!m)return "";
+  const hoje=new Date();
+  let idade=hoje.getFullYear()-Number(m[1]);
+  if(hoje<new Date(hoje.getFullYear(),Number(m[2])-1,Number(m[3])))idade--;
+  return idade;
+}
+
+function salvarSessao(s){
+  sessaoMembro=s;
+  try{sessionStorage.setItem("pibvl_sessao",s);}catch(e){}
+}
+
+function limparSessao(){
+  sessaoMembro="";
+  cadastroAtual=null;
+  alvoAtual="";
+  definirModoOutraPessoa(false);
+  try{sessionStorage.removeItem("pibvl_sessao");}catch(e){}
+}
+
+function chamarServidor(acao,params){
+  return new Promise((resolve,reject)=>{
+    const cb="cbSrv_"+Date.now()+"_"+Math.random().toString(36).slice(2);
+    const script=document.createElement("script");
+    const url=new URL(URL_SCRIPT);
+    url.searchParams.set("acao",acao);
+    Object.keys(params||{}).forEach(k=>url.searchParams.set(k,params[k]));
+    url.searchParams.set("callback",cb);
+    const limpar=()=>{clearTimeout(t);delete window[cb];script.remove();};
+    const t=setTimeout(()=>{limpar();reject(new Error("O servidor demorou para responder. Tente novamente."));},25000);
+    window[cb]=r=>{limpar();resolve(r);};
+    script.onerror=()=>{limpar();reject(new Error("Não foi possível conectar. Verifique sua conexão."));};
+    script.src=url.toString();
+    document.head.appendChild(script);
+  });
+}
+
+/* ---------- janela de diálogo ---------- */
+function fecharModal(){
+  document.getElementById("modalFundo").hidden=true;
+  document.getElementById("modalCaixa").replaceChildren();
+}
+
+function abrirModal(titulo,corpo,botoes){
+  const caixa=document.getElementById("modalCaixa");
+  caixa.replaceChildren(
+    el("h3",{texto:titulo}),
+    el("div",{class:"modal-corpo"},corpo),
+    el("div",{class:"modal-botoes"},(botoes||[]).map(b=>
+      el("button",{type:"button",class:"botao "+(b.principal?"":"secundario"),texto:b.texto,onclick:b.acao})
+    ))
+  );
+  document.getElementById("modalFundo").hidden=false;
+}
+
+function caixaRevisao(){
+  return el("div",{class:"aviso aviso-info"},
+    el("strong",{texto:"Solicitação de revisão de cadastro"}),
+    el("p",{texto:"Por segurança, a revisão ou alteração dos dados depende de autorização da equipe de Comunicação ou da 1ª Secretaria da igreja."}),
+    el("p",{},"Entre em contato pelo WhatsApp da Comunicação: ",
+      el("a",{href:URL_WHATSAPP_REVISAO,target:"_blank",rel:"noopener",texto:TEL_COMUNICACAO})),
+    el("p",{texto:"Após a confirmação da sua identidade e a autorização, a equipe orientará como acessar o cadastro."})
+  );
+}
+
+/* ---------- abas ---------- */
+function irParaAba(nome){
+  if(nome!=="cadastro"&&modoEquipeCadastro){modoEquipeCadastro=false;}
+  abaCadastro.hidden=nome!=="cadastro";
+  abaMeuCadastro.hidden=nome!=="meu";
+  abaEquipe.hidden=nome!=="equipe";
+  document.querySelectorAll(".menu-inferior button").forEach(b=>
+    b.classList.toggle("ativo",b.dataset.aba===nome)
+  );
+  const textos={
+    cadastro:["Cadastro de Membros","Preencha os dados abaixo com atenção."],
+    meu:["Meu Cadastro","Consulte os dados que você preencheu."],
+    equipe:["Área da Equipe","Acesso restrito à equipe autorizada."]
+  };
+  document.getElementById("tituloTopo").textContent=textos[nome][0];
+  document.getElementById("subtituloTopo").textContent=textos[nome][1];
+  if(nome==="meu"&&!cadastroAtual&&!carregandoMeuCadastro&&!reentrando){
+    if(sessaoMembro)carregarMeuCadastro();
+    else if(lerAparelho())entrarPorAparelho();
+  }
+  if(nome==="equipe")abrirEquipe();
+  atualizarAvisoVinculo();
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+
+document.querySelectorAll(".menu-inferior button").forEach(b=>
+  b.addEventListener("click",()=>irParaAba(b.dataset.aba))
+);
+
+let modoOutraPessoa=false;
+let modoEquipeCadastro=false;
+let ultimoEnvio=null;
+function definirModoOutraPessoa(ativo){
+  modoOutraPessoa=ativo;
+  atualizarAvisoVinculo();
+}
+function podeVincular(){
+  return !modoEquipeCadastro&&!!(sessaoMembro||(ultimoEnvio&&ultimoEnvio.passe)||lerAparelho());
+}
+// Mostra, acima do formulário, para quem o cadastro será registrado.
+function atualizarAvisoVinculo(){
+  const aviso=document.getElementById("avisoOutraPessoa");
+  const titulo=document.getElementById("avisoTitulo"),texto=document.getElementById("avisoTexto");
+  const cancelar=document.getElementById("cancelarOutraPessoa");
+  const mostrar=!telaFinal.hidden?false:(modoEquipeCadastro||podeVincular());
+  aviso.hidden=!mostrar;
+  if(!mostrar)return;
+  if(modoEquipeCadastro){
+    titulo.textContent="Cadastro feito pela equipe";
+    texto.textContent="Preencha os dados do membro. Este cadastro não ficará vinculado a nenhum acesso; depois você pode gerar o código ou o link de acesso dele na Área da Equipe.";
+    cancelar.textContent="Voltar à Área da Equipe";cancelar.hidden=false;
+  }else{
+    titulo.textContent="Cadastrando outro membro";
+    texto.textContent="Você já tem um cadastro conectado a este aparelho. Se estes dados forem de outra pessoa, o cadastro dela ficará junto ao seu no Meu Cadastro, para você acompanhar e pedir revisões por ela.";
+    cancelar.textContent="Cancelar";cancelar.hidden=!modoOutraPessoa;
+  }
+}
+document.getElementById("cancelarOutraPessoa").addEventListener("click",()=>{
+  if(modoEquipeCadastro){irParaAba("equipe");return;}
+  definirModoOutraPessoa(false);
+  document.getElementById("irMeuCadastro").click();
+});
+document.getElementById("voltarEquipe").addEventListener("click",()=>irParaAba("equipe"));
+document.getElementById("eqCadastrar").addEventListener("click",()=>{
+  modoEquipeCadastro=true;
+  modoOutraPessoa=false;
+  document.getElementById("adicionarMembro").click();
+  irParaAba("cadastro");
+});
+document.getElementById("irMeuCadastro").addEventListener("click",()=>{
+  if(ultimoEnvio&&ultimoEnvio.vinculado){cadastroAtual=null;definirModoOutraPessoa(false);}
+  if(!sessaoMembro&&!lerAparelho()&&ultimoEnvio&&!ultimoEnvio.vinculado){
+    if(ultimoEnvio.passe&&ultimoEnvio.email){
+      document.getElementById("mcPasseEmail").textContent=ultimoEnvio.email;
+      modoEntrada("passe");
+    }else if(!ultimoEnvio.email){
+      modoEntrada("codigo");
+      mostrarEntrada("Você não informou e-mail no cadastro. Para consultar seus dados, peça um código de acesso à equipe de Comunicação.","info");
+    }else{
+      document.getElementById("mcCriarEmail").value=ultimoEnvio.email;
+      document.getElementById("mcCriarNasc").value=ultimoEnvio.nascimento||"";
+      modoEntrada("criar");
+    }
+  }
+  irParaAba("meu");
+});
+
+/* ---------- entrada ---------- */
+function mostrarEntrada(mensagem,tipo){
+  mcEntrada.hidden=false;
+  mcCadastro.hidden=true;
+  mcCadastro.replaceChildren();
+  mcStatusEntrada.textContent=mensagem||"";
+  mcStatusEntrada.className=mensagem?"status-mc "+(tipo||"erro"):"status-mc";
+  mcStatusEntrada.style.display=mensagem?"block":"none";
+}
+
+const formEntrar=document.getElementById("formEntrar");
+const formCodigo=document.getElementById("formCodigo");
+const formCriar=document.getElementById("formCriar");
+const formPasse=document.getElementById("formPasse");
+
+function lerTemSenha(){
+  try{return localStorage.getItem("pibvl_tem_senha")==="1";}catch(e){return false;}
+}
+function marcarTemSenha(){
+  try{localStorage.setItem("pibvl_tem_senha","1");}catch(e){}
+}
+
+function modoEntrada(m){
+  formEntrar.hidden=m!=="senha";
+  formCodigo.hidden=m!=="codigo";
+  formCriar.hidden=m!=="criar";
+  formPasse.hidden=m!=="passe";
+  document.getElementById("mcModoBotoes").hidden=m==="criar"||m==="passe";
+  document.querySelectorAll("#mcModoBotoes button").forEach(b=>b.classList.toggle("ativo",b.dataset.modo===m));
+  document.getElementById("mcTituloEntrada").textContent=m==="criar"?"Primeiro acesso: crie sua senha":m==="passe"?"Quase pronto: crie sua senha":"Consultar meu cadastro";
+  if(m==="criar")passoCriar(1);
+  mostrarEntrada("");
+}
+function passoCriar(n){
+  document.getElementById("mcPasso1").hidden=n!==1;
+  document.getElementById("mcPasso2").hidden=n!==2;
+}
+document.querySelectorAll("#mcModoBotoes button").forEach(b=>b.addEventListener("click",()=>modoEntrada(b.dataset.modo)));
+document.getElementById("mcPrimeiro").addEventListener("click",()=>{
+  document.getElementById("mcCriarEmail").value=document.getElementById("mcEmail").value;
+  modoEntrada("criar");
+});
+document.getElementById("mcVoltarEntrar").addEventListener("click",()=>modoEntrada("senha"));
+document.getElementById("mcSemEmail").addEventListener("click",()=>modoEntrada("codigo"));
+document.getElementById("mcVoltarPasso1").addEventListener("click",()=>{passoCriar(1);mostrarEntrada("");});
+document.querySelectorAll(".ver-senha").forEach(c=>c.addEventListener("change",()=>{
+  c.dataset.alvo.split(",").forEach(id=>{document.getElementById(id).type=c.checked?"text":"password";});
+}));
+
+const mcCriarNasc=document.getElementById("mcCriarNasc");
+mcCriarNasc.addEventListener("input",()=>mascaraData(mcCriarNasc));
+["mcNovaSenha","mcNovaSenha2","mcSenha","mcPasseSenha","mcPasseSenha2"].forEach(id=>{
+  const c=document.getElementById(id);
+  c.addEventListener("input",()=>{c.value=c.value.replace(/\D/g,"");});
+});
+
+function guardarAparelho(token){
+  if(!token)return;
+  try{localStorage.setItem("pibvl_aparelho",token);}catch(e){}
+}
+function lerAparelho(){
+  try{return localStorage.getItem("pibvl_aparelho")||"";}catch(e){return "";}
+}
+function apagarAparelho(){
+  try{localStorage.removeItem("pibvl_aparelho");}catch(e){}
+}
+
+async function concluirEntrada(r,comSenha){
+  salvarSessao(r.sessao);
+  guardarAparelho(r.aparelho);
+  guardarNomeAparelho(r.nome);
+  pedirCodigo();
+  if(comSenha)marcarTemSenha();
+  [formEntrar,formCodigo,formCriar,formPasse].forEach(f=>f.reset());
+  document.querySelectorAll(".ver-senha").forEach(c=>c.dispatchEvent(new Event("change")));
+  passoCriar(1);
+  await carregarMeuCadastro();
+}
+
+async function enviarEntrada(botao,textoOcupado,textoNormal,acao,params,comSenha){
+  botao.disabled=true;
+  botao.textContent=textoOcupado;
+  try{
+    const r=await chamarServidor(acao,params);
+    if(!r||!r.ok){
+      mostrarEntrada((r&&r.mensagem)||"Não foi possível entrar. Tente novamente.");
+    }else{
+      await concluirEntrada(r,comSenha);
+    }
+  }catch(err){
+    mostrarEntrada(err.message);
+  }finally{
+    botao.disabled=false;
+    botao.textContent=textoNormal;
+  }
+}
+
+formEntrar.addEventListener("submit",e=>{
+  e.preventDefault();
+  enviarEntrada(document.getElementById("mcBotaoEntrar"),"Verificando...","Entrar","membroEntrar",{
+    email:document.getElementById("mcEmail").value.trim(),
+    senha:document.getElementById("mcSenha").value,
+    lembrar:document.getElementById("mcLembrar").checked?"1":"0"
+  },true);
+});
+
+formCodigo.addEventListener("submit",e=>{
+  e.preventDefault();
+  enviarEntrada(document.getElementById("mcBotaoCodigo"),"Verificando...","Entrar com o código","membroEntrarCodigo",{
+    codigo:document.getElementById("mcCodigo").value.trim()
+  });
+});
+
+function dadosPasso1(){
+  const email=document.getElementById("mcCriarEmail").value.trim();
+  const d=dataValida(mcCriarNasc.value);
+  const s1=document.getElementById("mcNovaSenha").value,s2=document.getElementById("mcNovaSenha2").value;
+  if(!email||!document.getElementById("mcCriarEmail").checkValidity()){mostrarEntrada("Informe o e-mail do cadastro.");return null;}
+  if(!d||d>new Date()){mostrarEntrada("Confira a data de nascimento no formato DD/MM/AAAA.");return null;}
+  if(!/^\d{4}$/.test(s1)){mostrarEntrada("A senha deve ter exatamente 4 números.");return null;}
+  if(s1!==s2){mostrarEntrada("As duas senhas não são iguais. Digite novamente.");return null;}
+  return {email:email,nascimento:paraISO(mcCriarNasc.value),senha:s1};
+}
+
+async function enviarCodigoEmail(botao){
+  const d=dadosPasso1();
+  if(!d)return;
+  const textoAntes=botao.textContent;
+  botao.disabled=true;botao.textContent="Enviando o código...";
+  try{
+    const r=await chamarServidor("membroPedirCodigo",{email:d.email,nascimento:d.nascimento});
+    if(!r||!r.ok){mostrarEntrada((r&&r.mensagem)||"Não foi possível enviar o código.");}
+    else{
+      passoCriar(2);
+      mostrarEntrada(r.mensagem,"ok");
+      document.getElementById("mcCriarCodigo").focus();
+    }
+  }catch(err){mostrarEntrada(err.message);}
+  finally{botao.disabled=false;botao.textContent=textoAntes;}
+}
+
+document.getElementById("mcReenviar").addEventListener("click",e=>enviarCodigoEmail(e.currentTarget));
+
+formCriar.addEventListener("submit",e=>{
+  e.preventDefault();
+  if(!document.getElementById("mcPasso1").hidden){
+    enviarCodigoEmail(document.getElementById("mcContinuar"));
+    return;
+  }
+  const d=dadosPasso1();
+  if(!d)return;
+  const codigo=document.getElementById("mcCriarCodigo").value.trim();
+  if(!codigo){mostrarEntrada("Digite o código que você recebeu.");return;}
+  enviarEntrada(document.getElementById("mcBotaoCriar"),"Salvando...","Confirmar e ver meu cadastro","membroCriarSenha",{
+    email:d.email,nascimento:d.nascimento,codigo:codigo,senha:d.senha,
+    lembrar:document.getElementById("mcCriarLembrar").checked?"1":"0"
+  },true);
+});
+
+formPasse.addEventListener("submit",e=>{
+  e.preventDefault();
+  const s1=document.getElementById("mcPasseSenha").value,s2=document.getElementById("mcPasseSenha2").value;
+  if(!/^\d{4}$/.test(s1)){mostrarEntrada("A senha deve ter exatamente 4 números.");return;}
+  if(s1!==s2){mostrarEntrada("As duas senhas não são iguais. Digite novamente.");return;}
+  if(!ultimoEnvio||!ultimoEnvio.passe){modoEntrada("criar");mostrarEntrada("Por segurança, confirme seu e-mail para criar a senha.");return;}
+  const passe=ultimoEnvio.passe;
+  enviarEntrada(document.getElementById("mcBotaoPasse"),"Salvando...","Criar senha e ver meu cadastro","membroCriarSenhaPasse",{
+    passe:passe,senha:s1,lembrar:document.getElementById("mcPasseLembrar").checked?"1":"0"
+  },true).then(()=>{if(sessaoMembro&&ultimoEnvio)ultimoEnvio.passe="";});
+});
+
+let reentrando=false;
+async function entrarPorAparelho(){
+  const ap=lerAparelho();
+  if(!ap||reentrando)return false;
+  reentrando=true;
+  mcEntrada.hidden=true;
+  mcCadastro.hidden=false;
+  mcCadastro.replaceChildren(el("p",{class:"ajuda",texto:"Abrindo seu cadastro..."}));
+  try{
+    const r=await chamarServidor("membroEntrarAparelho",{aparelho:ap});
+    if(r&&r.ok){
+      salvarSessao(r.sessao);
+      carregandoMeuCadastro=false;
+      await carregarMeuCadastro();
+      return true;
+    }
+    apagarAparelho();
+    mostrarEntrada("");
+  }catch(err){
+    mostrarEntrada(err.message);
+  }finally{
+    reentrando=false;
+  }
+  return false;
+}
+
+// Recupera a sessão pelo aparelho guardado, sem mexer na tela.
+async function sessaoSilenciosa(){
+  try{
+    const r=await chamarServidor("membroEntrarAparelho",{aparelho:lerAparelho()});
+    if(r&&r.ok)salvarSessao(r.sessao);
+  }catch(e){}
+}
+
+async function entrarPorLink(token){
+  mcEntrada.hidden=true;
+  mcCadastro.hidden=false;
+  mcCadastro.replaceChildren(el("p",{class:"ajuda",texto:"Abrindo seu cadastro..."}));
+  try{
+    const r=await chamarServidor("membroEntrarLink",{token:token});
+    if(!r||!r.ok){
+      mostrarEntrada((r&&r.mensagem)||"Link inválido ou expirado. Peça um novo link à equipe de Comunicação.");
+      return;
+    }
+    salvarSessao(r.sessao);
+    await carregarMeuCadastro();
+  }catch(err){
+    mostrarEntrada(err.message);
+  }
+}
+
+function sair(){
+  const ap=lerAparelho();
+  apagarAparelho();
+  if(ap)chamarServidor("membroSair",{aparelho:ap}).catch(()=>{});
+  limparSessao();
+  modoEntrada(lerTemSenha()?"senha":"criar");
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+
+async function carregarMeuCadastro(){
+  if(carregandoMeuCadastro)return;
+  carregandoMeuCadastro=true;
+  mcEntrada.hidden=true;
+  mcCadastro.hidden=false;
+  mcCadastro.replaceChildren(el("p",{class:"ajuda",texto:"Carregando seu cadastro..."}));
+  try{
+    alvoAtual="";
+    const r=await chamarServidor("membroCadastro",{sessao:sessaoMembro,alvo:""});
+    if(!r||!r.ok){
+      limparSessao();
+      carregandoMeuCadastro=false;
+      if(await entrarPorAparelho())return;
+      mostrarEntrada((r&&r.mensagem)||"Sua sessão expirou. Entre novamente.");
+      return;
+    }
+    const lista=r.lista||[];
+    const outros=await Promise.all(lista.filter(x=>!x.principal).map(async x=>{
+      const o=await chamarServidor("membroCadastro",{sessao:sessaoMembro,alvo:x.id});
+      return o&&o.ok?o.cadastro:null;
+    }));
+    renderizarCadastro(r.cadastro,lista,outros.filter(Boolean));
+  }catch(err){
+    mcCadastro.replaceChildren(
+      el("div",{class:"aviso aviso-erro",texto:err.message}),
+      el("button",{type:"button",class:"botao secundario",texto:"Tentar de novo",onclick:()=>carregarMeuCadastro()})
+    );
+  }finally{
+    carregandoMeuCadastro=false;
+  }
+}
+
+/* ---------- cadastro congelado (somente leitura) ---------- */
+function linhaDado(rotulo,valor){
+  return el("div",{class:"dado"},el("dt",{texto:rotulo}),el("dd",{texto:valor||"—"}));
+}
+
+const ICONES={
+  cal:'<rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/>',
+  mail:'<rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/>',
+  tel:'<path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2z"/>',
+  casa:'<path d="m3 11 9-8 9 8"/><path d="M5 10v10h14V10"/><path d="M10 20v-6h4v6"/>',
+  lapis:'<path d="M4 20h4L19 9l-4-4L4 16z"/><path d="m13.5 6.5 4 4"/>',
+  pessoa:'<circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/>',
+  cruz:'<path d="M12 3v18M6 9h12"/>',
+  maleta:'<rect x="3" y="7" width="18" height="13" rx="2"/><path d="M9 7V4h6v3"/>',
+  mais:'<path d="M12 5v14M5 12h14"/>'
+};
+// Ícones fixos do próprio site (nenhum dado de membro entra aqui).
+function icone(nome,tam){
+  const sp=document.createElement("span");
+  sp.className="ico";
+  sp.innerHTML='<svg viewBox="0 0 24 24" width="'+(tam||22)+'" height="'+(tam||22)+'" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'+ICONES[nome]+'</svg>';
+  return sp;
+}
+function itemCartao(ic,rotulo,valor){
+  return el("div",{class:"mc-item"},icone(ic,20),el("div",{},el("small",{texto:rotulo}),el("b",{texto:valor||"—"})));
+}
+function cabecalhoCompacto(){
+  return el("div",{class:"mc-cab"},
+    el("img",{src:"logo-pibvl-transparente.png",alt:"Logo da PIB de Vaz Lobo"}),
+    el("span",{class:"igreja",texto:"PIB de Vaz Lobo"}),
+    el("h2",{texto:"Meu Cadastro"}));
+}
+
+function blocoCadastro(c,ehProprio){
+  const foto=c.foto
+    ?el("img",{class:"mc-foto",src:c.foto,alt:"Foto de "+c.nome})
+    :el("div",{class:"mc-foto mc-sem-foto",texto:"Sem foto"});
+
+  const sol=c.solicitacao;
+  let faixa=null;
+  if(c.situacao==="Liberado"){
+    faixa=el("div",{class:"aviso aviso-ok"},
+      el("strong",{texto:"Edição liberada pela equipe"}),
+      el("p",{texto:"Toque em “Revisar Cadastro” para corrigir os dados"+(sol&&sol.motivo?" que foram pedidos":"")+" e enviar novamente."}),
+      sol&&sol.motivo?el("p",{class:"ajuda",texto:"Motivo do pedido: "+sol.motivo}):null
+    );
+  }else if(sol&&sol.situacao==="Pendente"){
+    faixa=el("div",{},
+      el("div",{class:"aviso aviso-espera"},
+        el("strong",{texto:"Aguardando confirmação do pedido"}),
+        el("p",{texto:"Seu pedido foi enviado em "+sol.data+". Assim que a equipe autorizar, você poderá editar o cadastro."}),
+        el("p",{class:"ajuda",texto:"Motivo informado: "+sol.motivo})
+      ),
+      caixaRevisao()
+    );
+  }else if(sol&&sol.situacao==="Recusada"){
+    faixa=el("div",{class:"aviso aviso-info"},
+      el("strong",{texto:"O último pedido de edição não foi autorizado"}),
+      el("p",{texto:"Fale com a equipe de Comunicação ou com a 1ª Secretaria para entender o motivo. Se necessário, faça um novo pedido."})
+    );
+  }
+
+  const aoEditar=()=>{
+    alvoAtual=ehProprio?"":c.id;
+    renderizarEdicao(c,c.situacao!=="Liberado");
+    window.scrollTo({top:0,behavior:"smooth"});
+  };
+
+  const perfil=el("section",{class:"cartao mc-perfil"},
+    foto,
+    el("div",{class:"info"},
+      el("h2",{class:"mc-nome",texto:c.nome}),
+      el("span",{class:"mc-selo",texto:"Membro da Igreja"})
+    ),
+    el("button",{type:"button",class:"botao-rev",onclick:aoEditar},icone("lapis",18),"Revisar Cadastro")
+  );
+
+  const idade=idadeDe(c.nascimento);
+  const enderecoTxt=[c.endereco,c.bairro].filter(Boolean).join(" – ");
+  const pessoais=el("section",{class:"cartao"},
+    el("h3",{},icone("pessoa",26),"Informações Pessoais"),
+    el("div",{class:"mc-itens"},
+      itemCartao("cal","Data de Nascimento",isoParaBR(c.nascimento)+(idade!==""?" ("+idade+" anos)":"")),
+      itemCartao("mail","E-mail",c.email),
+      itemCartao("tel","Telefone",c.celular),
+      itemCartao("casa","Endereço",enderecoTxt)
+    )
+  );
+  return el("div",{class:"mc-bloco"},...[perfil,faixa,pessoais].filter(Boolean));
+}
+
+function renderizarCadastro(c,lista,outros){
+  cadastroAtual=c;
+  mcEntrada.hidden=true;
+  mcCadastro.hidden=false;
+  const blocos=[blocoCadastro(c,true)].concat((outros||[]).map(o=>blocoCadastro(o,false)));
+  mcCadastro.replaceChildren(cabecalhoCompacto(),...blocos,
+    el("div",{class:"mc-links"},
+      el("button",{type:"button",texto:"Cadastrar outro membro",onclick:()=>{
+        definirModoOutraPessoa(true);
+        document.getElementById("adicionarMembro").click();
+        irParaAba("cadastro");
+      }}),
+      el("button",{type:"button",texto:"Sair",onclick:sair})
+    ));
+}
+
+/* ---------- pedido de revisão ---------- */
+function abrirPedidoRevisao(){
+  const caixaTexto=el("textarea",{id:"mcMotivo",rows:"4",maxlength:"500",placeholder:"Ex.: preciso anexar uma nova foto",class:"mc-motivo"});
+  const aviso=el("p",{class:"status-mc erro",style:"display:none"});
+  abrirModal("Solicitar edição do cadastro",[
+    el("p",{texto:"Por segurança, o cadastro fica protegido contra alterações acidentais. Para editar, a equipe precisa autorizar."}),
+    el("p",{texto:"Por qual motivo você quer editar o cadastro?"}),
+    caixaTexto,aviso
+  ],[
+    {texto:"Cancelar",acao:fecharModal},
+    {texto:"Enviar pedido",principal:true,acao:async ev=>{
+      const btn=ev.currentTarget;
+      const motivo=caixaTexto.value.trim();
+      if(motivo.length<5){
+        aviso.textContent="Escreva o motivo do pedido.";aviso.style.display="block";return;
+      }
+      btn.disabled=true;btn.textContent="Enviando...";
+      try{
+        const r=await chamarServidor("membroSolicitarRevisao",{sessao:sessaoMembro,alvo:alvoAtual,motivo:motivo});
+        if(!r||!r.ok){
+          aviso.textContent=(r&&r.mensagem)||"Não foi possível enviar o pedido.";
+          aviso.style.display="block";btn.disabled=false;btn.textContent="Enviar pedido";return;
+        }
+        abrirModal("Pedido enviado",[caixaRevisao()],[
+          {texto:"Fechar",principal:true,acao:()=>{fecharModal();cadastroAtual=null;carregarMeuCadastro();}}
+        ]);
+      }catch(err){
+        aviso.textContent=err.message;aviso.style.display="block";
+        btn.disabled=false;btn.textContent="Enviar pedido";
+      }
+    }}
+  ]);
+}
+
+/* ---------- edição (somente com autorização) ---------- */
+function campoMc(rotulo,controle,classe){
+  return el("div",{class:"campo "+(classe||"")},el("label",{texto:rotulo}),controle);
+}
+
+function selectMc(opcoes,valor,obrigatorio){
+  const s=el("select",{required:obrigatorio},
+    el("option",{value:"",texto:"Selecione"}),
+    opcoes.map(o=>el("option",{value:o,texto:o}))
+  );
+  s.value=valor||"";
+  return s;
+}
+
+function inputMc(valor,props){
+  const i=el("input",props||{});
+  i.value=valor||"";
+  return i;
+}
+
+function criarBlocoFilhoEdicao(container,f){
+  const nome=inputMc(f&&f.nome,{name:"n",required:true});
+  const sexo=selectMc(["Feminino","Masculino"],f&&f.sexo,false);sexo.name="s";
+  const nasc=inputMc(f&&f.nascimento?isoParaBR(f.nascimento):"",{name:"d",required:true,inputmode:"numeric",maxlength:"10",placeholder:"DD/MM/AAAA"});
+  nasc.addEventListener("input",()=>mascaraData(nasc));
+  nome.addEventListener("blur",()=>{nome.value=formalizarTexto(nome.value);});
+  const bloco=el("div",{class:"bloco mc-filho"},
+    el("div",{class:"grade"},
+      campoMc("Nome do filho",nome,"completo"),
+      campoMc("Sexo do filho",sexo),
+      campoMc("Data de nascimento do filho (DD/MM/AAAA)",nasc)
+    ),
+    el("button",{type:"button",class:"botao secundario",texto:"Remover este filho",onclick:()=>bloco.remove()})
+  );
+  bloco.dataset.fotoNome=(f&&f.fotoNome)||"";
+  container.appendChild(bloco);
+}
+
+function renderizarEdicao(c,congelado){
+  const f_nome=inputMc(c.nome,{required:true,autocomplete:"name"});
+  const f_sexo=selectMc(["Feminino","Masculino"],c.sexo,true);
+  const f_nasc=inputMc(isoParaBR(c.nascimento),{required:true,inputmode:"numeric",maxlength:"10",placeholder:"DD/MM/AAAA"});
+  const f_civil=selectMc(["Solteiro(a)","Casado(a)","Divorciado(a)","Viúvo(a)","União estável","Outro"],c.estadoCivil,true);
+  const f_end=inputMc(c.endereco,{required:true});
+  const f_bairro=inputMc(c.bairro,{required:true});
+  const f_cel=inputMc(c.celular,{required:true,type:"tel",placeholder:"(21) 99999-9999"});
+  const f_email=inputMc(c.email,{type:"email"});
+  const f_batismo=inputMc(isoParaBR(c.dataBatismo),{inputmode:"numeric",maxlength:"10",placeholder:"DD/MM/AAAA"});
+  const f_atua=selectMc(["Sim","Não"],c.atuaMinisterio,true);
+  const f_qual=inputMc(c.qualMinisterio,{placeholder:"Informe o ministério"});
+  const f_trab=selectMc(["Sim","Não","Aposentado(a)"],c.trabalha,true);
+  const f_tem=selectMc(["Sim","Não"],c.filhos.length?"Sim":"Não",true);
+  const f_foto=el("input",{type:"file",accept:"image/jpeg,image/png,image/webp"});
+  let fotoNova=null,fotoNovaOrig=null;
+  const miniatura=el("img",{class:"miniatura",alt:"Prévia da nova foto",style:"display:none"});
+  const botaoAjuste=el("button",{type:"button",class:"botao-peq",texto:"Ajustar enquadramento da foto",style:"display:none",onclick:async()=>{
+    if(!fotoNovaOrig)return;
+    const r=await ajustarFoto(fotoNovaOrig);
+    if(r){fotoNova=r;miniatura.src=URL.createObjectURL(r);}
+  }});
+  f_foto.addEventListener("change",async()=>{
+    fotoNova=null;fotoNovaOrig=null;miniatura.style.display="none";botaoAjuste.style.display="none";
+    const f=f_foto.files[0];
+    if(!f)return;
+    if(!["image/jpeg","image/png","image/webp"].includes(f.type)||f.size>4*1024*1024){
+      f_foto.value="";
+      status.textContent="Escolha uma imagem JPG, PNG ou WebP de até 4 MB.";status.style.display="block";return;
+    }
+    status.style.display="none";
+    fotoNovaOrig=f;
+    const r=await ajustarFoto(f);
+    if(!r){f_foto.value="";fotoNovaOrig=null;return;}
+    fotoNova=r;miniatura.src=URL.createObjectURL(r);miniatura.style.display="block";botaoAjuste.style.display="";
+  });
+  const idadeInfoMc=el("p",{class:"ajuda"});
+  const filhosBox=el("div",{});
+  const btnAdd=el("button",{type:"button",class:"botao secundario",texto:"+ Adicionar outro filho",onclick:()=>criarBlocoFilhoEdicao(filhosBox)});
+  const status=el("div",{class:"status-mc erro",style:"display:none"});
+
+  [f_nasc,f_batismo].forEach(i=>i.addEventListener("input",()=>mascaraData(i)));
+  [f_nome,f_end,f_bairro,f_qual].forEach(i=>i.addEventListener("blur",()=>{i.value=formalizarTexto(i.value);}));
+
+  const campoQual=campoMc("Qual ministério?",f_qual,"completo");
+  function ajustarMinisterio(){
+    const sim=f_atua.value==="Sim";
+    campoQual.hidden=!sim;f_qual.required=sim;f_qual.disabled=!sim;
+    if(!sim)f_qual.value="";
+  }
+  f_atua.addEventListener("change",ajustarMinisterio);
+
+  function ajustarFilhos(){
+    const sim=f_tem.value==="Sim";
+    filhosBox.hidden=!sim;btnAdd.hidden=!sim;
+    if(sim&&!filhosBox.children.length)criarBlocoFilhoEdicao(filhosBox);
+    if(!sim)filhosBox.replaceChildren();
+  }
+  c.filhos.forEach(f=>criarBlocoFilhoEdicao(filhosBox,f));
+  f_tem.addEventListener("change",ajustarFilhos);
+
+  function atualizarIdadeMc(){
+    const d=dataValida(f_nasc.value);
+    if(!d||d>new Date()){idadeInfoMc.textContent="Digite uma data válida no formato DD/MM/AAAA.";return;}
+    const i=idadeDe(paraISO(f_nasc.value));
+    idadeInfoMc.textContent="Atualmente você tem "+i+(i===1?" ano.":" anos.");
+  }
+  f_nasc.addEventListener("input",atualizarIdadeMc);
+  atualizarIdadeMc();
+
+  const pendente=!!(c.solicitacao&&c.solicitacao.situacao==="Pendente");
+  const avisoTopo=congelado
+    ?el("div",{class:"aviso aviso-info"},
+        el("strong",{texto:"Cadastro protegido"}),
+        el("p",{texto:pendente
+          ?"Estes são os dados que você enviou. Seu pedido de edição está aguardando a autorização da equipe."
+          :"Estes são os dados que você enviou. Para alterar alguma informação, vá até o final da página e toque em “Solicitar edição do cadastro”."})
+      )
+    :el("div",{class:"aviso aviso-ok"},
+        el("strong",{texto:"Edição liberada"}),
+        el("p",{texto:"Corrija o que for necessário. Ao enviar, o cadastro volta a ficar protegido."}),
+        c.solicitacao&&c.solicitacao.motivo?el("p",{class:"ajuda",texto:"Motivo do pedido: "+c.solicitacao.motivo}):null
+      );
+  const blocoFoto=congelado
+    ?el("div",{class:"campo"},
+        c.foto?el("img",{class:"miniatura",src:c.foto,alt:"Foto atual"}):el("p",{class:"ajuda",texto:"Sem foto."}))
+    :el("div",{class:"campo"},
+        el("label",{texto:"Enviar uma nova foto (opcional)"}),f_foto,
+        miniatura,botaoAjuste,
+        el("p",{class:"ajuda",texto:"Se não enviar uma nova foto, a foto atual será mantida. Envie uma foto em que o seu rosto apareça por completo e com boa iluminação. A equipe de Comunicação utilizará a foto que for anexada no dia do seu aniversário, na arte dos aniversariantes. JPG, PNG ou WebP, até 4 MB."})
+      );
+  const voltar=()=>{cadastroAtual=null;carregarMeuCadastro();};
+  const botoesFim=congelado
+    ?[
+        pendente?caixaRevisao():el("button",{class:"botao",type:"button",texto:"Solicitar edição do cadastro",onclick:()=>abrirPedidoRevisao()}),
+        el("button",{class:"botao secundario",type:"button",texto:"Voltar",onclick:voltar})
+      ]
+    :[
+        el("button",{class:"botao",type:"submit",id:"mcBotaoReenviar",texto:"Enviar cadastro revisado"}),
+        el("button",{class:"botao secundario",type:"button",texto:"Cancelar",onclick:voltar})
+      ];
+
+  const form=el("form",{class:"formmc"+(congelado?" congelado":""),novalidate:false},
+    avisoTopo,
+    el("h3",{class:"secao-titulo",texto:"Dados pessoais"}),
+    el("div",{class:"grade"},
+      campoMc("Nome completo",f_nome,"completo"),
+      campoMc("Sexo",f_sexo),
+      el("div",{class:"campo"},el("label",{texto:"Data de nascimento (DD/MM/AAAA)"}),f_nasc,idadeInfoMc),
+      campoMc("Estado civil",f_civil)
+    ),
+    el("h3",{class:"secao-titulo bloco",texto:"Contato e endereço"}),
+    el("div",{class:"grade"},
+      campoMc("Endereço",f_end,"completo"),
+      campoMc("Bairro",f_bairro),
+      campoMc("Celular / WhatsApp",f_cel),
+      campoMc("E-mail",f_email,"completo")
+    ),
+    el("h3",{class:"secao-titulo bloco",texto:"Informações da igreja"}),
+    el("div",{class:"grade"},
+      campoMc("Data de batismo (DD/MM/AAAA)",f_batismo),
+      campoMc("Atua em algum ministério?",f_atua),
+      campoQual,
+      campoMc("Você trabalha atualmente?",f_trab)
+    ),
+    el("h3",{class:"secao-titulo bloco",texto:"Filhos que frequentam a igreja"}),
+    campoMc("Possui filho que frequenta a igreja, mas ainda não é batizado?",f_tem),
+    filhosBox,btnAdd,
+    el("h3",{class:"secao-titulo bloco",texto:"Foto do membro"}),
+    blocoFoto,
+    ...botoesFim,
+    status
+  );
+  ajustarMinisterio();
+  ajustarFilhos();
+  if(congelado){
+    form.querySelectorAll(".mc-filho button").forEach(x=>x.remove());
+    btnAdd.remove();
+    form.querySelectorAll("input,select,textarea").forEach(x=>{x.disabled=true;});
+  }
+
+  function erro(msg){status.textContent=msg;status.style.display="block";status.scrollIntoView({behavior:"smooth",block:"center"});}
+
+  form.addEventListener("submit",e=>{
+    e.preventDefault();
+    status.style.display="none";
+    [f_nome,f_end,f_bairro,f_qual].forEach(i=>{i.value=formalizarTexto(i.value);});
+    if(!form.reportValidity())return;
+    const dn=dataValida(f_nasc.value);
+    if(!dn||dn>new Date()){erro("Confira a data de nascimento no formato DD/MM/AAAA.");return;}
+    if(f_batismo.value.trim()&&!dataValida(f_batismo.value)){erro("Confira a data de batismo ou deixe o campo em branco.");return;}
+    const arq=fotoNova||f_foto.files[0];
+    if(arq&&(!["image/jpeg","image/png","image/webp"].includes(arq.type)||arq.size>4*1024*1024)){
+      erro("Escolha uma imagem JPG, PNG ou WebP de até 4 MB.");return;
+    }
+    const filhos=[...filhosBox.querySelectorAll(".mc-filho")].map(b=>({
+      nome:formalizarTexto(b.querySelector('[name="n"]').value),
+      sexo:b.querySelector('[name="s"]').value,
+      nascimento:paraISO(b.querySelector('[name="d"]').value),
+      fotoNome:b.dataset.fotoNome||""
+    }));
+    if(f_tem.value==="Sim"&&!filhos.length){erro("Informe os dados do filho ou escolha Não.");return;}
+    if(filhos.some(f=>!f.nome||!f.nascimento)){erro("Confira o nome e a data de nascimento de cada filho.");return;}
+
+    const motivo=c.solicitacao&&c.solicitacao.motivo?c.solicitacao.motivo:"";
+    abrirModal("Enviar o cadastro novamente?",[
+      el("p",{texto:motivo
+        ?"Você pediu a revisão pelo seguinte motivo: “"+motivo+"”."
+        :"Você pediu autorização para revisar o seu cadastro."}),
+      el("p",{texto:"Você já fez essa alteração? Depois do envio, o cadastro volta a ficar protegido novamente."})
+    ],[
+      {texto:"Voltar e conferir",acao:fecharModal},
+      {texto:"Sim, enviar",principal:true,acao:async ev=>{
+        const btn=ev.currentTarget;
+        btn.disabled=true;btn.textContent="Enviando...";
+        const dados={
+          acao:"editar",sessao:sessaoMembro,alvo:alvoAtual,
+          nome:f_nome.value.trim(),sexo:f_sexo.value,nascimento:paraISO(f_nasc.value),
+          estadoCivil:f_civil.value,endereco:f_end.value.trim(),bairro:f_bairro.value.trim(),
+          celular:f_cel.value.trim(),email:f_email.value.trim(),
+          dataBatismo:paraISO(f_batismo.value),atuaMinisterio:f_atua.value,
+          qualMinisterio:f_qual.value.trim(),trabalha:f_trab.value,
+          temFilhos:f_tem.value,filhos:filhos,fotoData:"",fotoMime:"",fotoNome:""
+        };
+        try{
+          if(arq){dados.fotoData=await arquivoBase64(arq);dados.fotoMime=arq.type;dados.fotoNome=arq.name;}
+          const r=await enviarAoServidor(dados);
+          fecharModal();
+          if(r.resultado==="sucesso"){
+            cadastroAtual=null;
+            await carregarMeuCadastro();
+            mcCadastro.prepend(el("div",{class:"aviso aviso-ok"},
+              el("strong",{texto:"Cadastro atualizado com sucesso!"}),
+              el("p",{texto:"Agradecemos por manter seus dados atualizados. Que Deus abençoe sua vida!"})));
+            window.scrollTo({top:0,behavior:"smooth"});
+          }else{
+            erro(r.mensagem||"Não foi possível enviar o cadastro. Tente novamente.");
+          }
+        }catch(err){
+          fecharModal();
+          erro(err.message||"Não foi possível confirmar o envio. Tente novamente.");
+        }
+      }}
+    ]);
+  });
+
+  mcCadastro.replaceChildren(
+    cabecalhoCompacto(),
+    el("h2",{class:"mc-nome",texto:"Revisar cadastro"}),
+    form
+  );
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+
+/* ---------- início: link de acesso ou sessão guardada ---------- */
+modoEntrada(lerTemSenha()?"senha":"criar");
+// Nome do cadastro neste aparelho (guardado ao enviar o cadastro ou entrar).
+function lerNomeAparelho(){try{return localStorage.getItem("pibvl_nome")||"";}catch(e){return "";}}
+function guardarNomeAparelho(n){try{if(n)localStorage.setItem("pibvl_nome",String(n));}catch(e){}}
+
+// Pedido de código pelo WhatsApp: usa o nome do cadastro; se o aparelho não
+// o conhece (ou não é a pessoa), pede o nome completo.
+const pedirCodigo=(function(){
+  const campo=document.getElementById("mcNomeWhats"),botao=document.getElementById("mcBotaoWhats");
+  const aviso=document.getElementById("mcAvisoWhats");
+  let nomeConhecido="";
+  function nomeAtual(){return nomeConhecido||formalizarTexto(campo.value).trim();}
+  function montar(){
+    const nome=nomeAtual();
+    const msg="A paz! Meu nome é "+nome+". Solicito um código para acessar meu cadastro.";
+    botao.href="https://wa.me/5521966709417?text="+encodeURIComponent(msg);
+  }
+  function atualizar(){
+    nomeConhecido=formalizarTexto(lerNomeAparelho()).trim();
+    document.getElementById("mcQuemE").hidden=!nomeConhecido;
+    document.getElementById("mcCampoNome").hidden=!!nomeConhecido;
+    document.getElementById("mcNomeConhecido").textContent=nomeConhecido;
+    aviso.style.display="none";
+    montar();
+  }
+  document.getElementById("mcNaoSouEu").addEventListener("click",()=>{
+    nomeConhecido="";
+    document.getElementById("mcQuemE").hidden=true;
+    document.getElementById("mcCampoNome").hidden=false;
+    campo.focus();montar();
+  });
+  campo.addEventListener("input",()=>{montar();aviso.style.display="none";});
+  campo.addEventListener("blur",()=>{campo.value=formalizarTexto(campo.value);});
+  botao.addEventListener("click",e=>{
+    if(nomeAtual().split(" ").filter(Boolean).length<2){
+      e.preventDefault();
+      aviso.textContent="Digite seu nome completo para a Comunicação saber quem você é.";
+      aviso.style.display="block";campo.focus();
+    }
+  });
+  atualizar();
+  return atualizar;
+})();
+
+(function iniciarMeuCadastro(){
+  const p=new URLSearchParams(location.search);
+  if(p.get("aba")==="meu"&&!p.get("acesso")){
+    history.replaceState(null,"",location.pathname);
+    irParaAba("meu");
+    if(p.get("modo")==="codigo")modoEntrada("codigo");
+  }
+  const token=p.get("acesso");
+  if(token&&/^[a-f0-9]{64}$/.test(token)){
+    history.replaceState(null,"",location.pathname);
+    irParaAba("meu");
+    entrarPorLink(token);
+    return;
+  }
+  try{sessaoMembro=sessionStorage.getItem("pibvl_sessao")||"";}catch(e){}
+})();
+
+/* =====================================================================
+   ÁREA DA EQUIPE (login Google + autorização + membros)
+   ===================================================================== */
+const GOOGLE_CLIENT_ID="2825703529-k89sf13k5lt42mtq6g0bi8r3cmm4c3tn.apps.googleusercontent.com";
+const MESES_CURTOS=["Jan","Fev","Mar","Abr","Mai","Jun","Jul","Ago","Set","Out","Nov","Dez"];
+const COR_1="#2a78d6",COR_2="#eb6834",COR_3="#1baf7a";
+
+let tokenEquipe="",emailEquipe="";
+let subEquipe="autorizacao";
+let eqSolicitacoes=null,eqMembros=null,eqFilhos=null;
+let filtroSolicitacao="Pendente";
+let filtroMes="",filtroBusca="",filtroFilhos="",limiteLista=50;
+
+function semAcento(s){return String(s||"").normalize("NFD").replace(/[̀-ͯ]/g,"").toLowerCase();}
+function soDigitos(s){return String(s||"").replace(/\D/g,"");}
+
+function linkWhatsApp(celular,texto){
+  let d=soDigitos(celular);
+  if(!d)return "";
+  if(!((d.length===12||d.length===13)&&d.indexOf("55")===0))d="55"+d;
+  return "https://wa.me/"+d+(texto?"?text="+encodeURIComponent(texto):"");
+}
+
+/* ---------- dica (tooltip) ---------- */
+const dicaEl=el("div",{id:"dica",hidden:true,role:"tooltip"});
+document.body.appendChild(dicaEl);
+function mostrarDica(valor,nome,x,y){
+  dicaEl.replaceChildren(el("strong",{texto:valor}),el("span",{texto:" "+nome}));
+  dicaEl.hidden=false;
+  const w=dicaEl.offsetWidth,h=dicaEl.offsetHeight;
+  dicaEl.style.left=Math.max(6,Math.min(window.innerWidth-w-6,x-w/2))+"px";
+  dicaEl.style.top=Math.max(6,y-h-12)+"px";
+}
+function esconderDica(){dicaEl.hidden=true;}
+function anexarDica(alvo,valor,nome){
+  alvo.addEventListener("pointermove",e=>mostrarDica(valor,nome,e.clientX,e.clientY));
+  alvo.addEventListener("pointerleave",esconderDica);
+  alvo.addEventListener("focus",()=>{const r=alvo.getBoundingClientRect();mostrarDica(valor,nome,r.left+r.width/2,r.top);});
+  alvo.addEventListener("blur",esconderDica);
+}
+
+/* ---------- login ---------- */
+function carregarGoogle(){
+  return new Promise((ok,falha)=>{
+    if(window.google&&google.accounts&&google.accounts.id)return ok();
+    const s=document.createElement("script");
+    s.src="https://accounts.google.com/gsi/client";
+    s.async=true;
+    s.onload=()=>ok();
+    s.onerror=()=>falha(new Error("Não foi possível carregar o login do Google. Verifique sua conexão."));
+    document.head.appendChild(s);
+  });
+}
+
+function mensagemEquipe(texto,erro){
+  const e=document.getElementById("eqStatus");
+  e.textContent=texto||"";
+  e.className="status-mc"+(erro?" erro":"");
+  e.style.display=texto?"block":"none";
+}
+
+async function mostrarEntradaEquipe(msg){
+  document.getElementById("eqEntrada").hidden=false;
+  document.getElementById("eqPainel").hidden=true;
+  mensagemEquipe(msg,!!msg);
+  try{await carregarGoogle();}catch(err){mensagemEquipe(err.message,true);return;}
+  google.accounts.id.initialize({client_id:GOOGLE_CLIENT_ID,callback:credencialEquipe,auto_select:false,cancel_on_tap_outside:true});
+  const alvo=document.getElementById("eqBotaoGoogle");
+  alvo.replaceChildren();
+  google.accounts.id.renderButton(alvo,{theme:"outline",size:"large",shape:"rectangular",text:"signin_with",locale:"pt-BR"});
+}
+
+async function credencialEquipe(resp){
+  if(!resp||!resp.credential){mensagemEquipe("Não foi possível concluir o login. Tente novamente.",true);return;}
+  mensagemEquipe("Verificando seu acesso...",false);
+  try{
+    const r=await chamarServidor("equipeValidar",{idToken:resp.credential});
+    if(!r||!r.ok){mensagemEquipe((r&&r.mensagem)||"Esta conta não tem acesso à Área da Equipe.",true);return;}
+    tokenEquipe=resp.credential;emailEquipe=r.email;
+    try{sessionStorage.setItem("pibvl_equipe",tokenEquipe);}catch(e){}
+    mostrarPainelEquipe();
+  }catch(err){mensagemEquipe(err.message,true);}
+}
+
+function sairEquipe(msg){
+  tokenEquipe="";emailEquipe="";eqSolicitacoes=null;eqMembros=null;eqFilhos=null;
+  try{sessionStorage.removeItem("pibvl_equipe");}catch(e){}
+  try{if(window.google&&google.accounts&&google.accounts.id)google.accounts.id.disableAutoSelect();}catch(e){}
+  fecharModal();
+  mostrarEntradaEquipe(msg||"");
+}
+
+async function abrirEquipe(){
+  if(tokenEquipe){if(!eqSolicitacoes)carregarSolicitacoes();return;}
+  let guardado="";
+  try{guardado=sessionStorage.getItem("pibvl_equipe")||"";}catch(e){}
+  if(guardado){
+    try{
+      const r=await chamarServidor("equipeValidar",{idToken:guardado});
+      if(r&&r.ok){tokenEquipe=guardado;emailEquipe=r.email;mostrarPainelEquipe();return;}
+    }catch(e){}
+    try{sessionStorage.removeItem("pibvl_equipe");}catch(e){}
+  }
+  mostrarEntradaEquipe("");
+}
+
+async function chamarEquipe(acao,params){
+  const r=await chamarServidor(acao,Object.assign({idToken:tokenEquipe},params||{}));
+  if(r&&!r.ok&&/Sessão Google inválida|Faça login/.test(r.mensagem||"")){
+    sairEquipe("Sua sessão expirou. Entre novamente com sua conta Google.");
+    const e=new Error(r.mensagem);e.sessaoExpirada=true;throw e;
+  }
+  return r;
+}
+
+function mostrarPainelEquipe(){
+  document.getElementById("eqEntrada").hidden=true;
+  document.getElementById("eqPainel").hidden=false;
+  document.getElementById("eqEmail").textContent=emailEquipe;
+  trocarSubEquipe("autorizacao");
+  carregarSolicitacoes();
+}
+
+document.getElementById("eqSair").addEventListener("click",()=>sairEquipe(""));
+document.querySelectorAll("#eqPainel .segmentado button").forEach(b=>
+  b.addEventListener("click",()=>trocarSubEquipe(b.dataset.sub))
+);
+
+function trocarSubEquipe(nome){
+  subEquipe=nome;
+  document.querySelectorAll("#eqPainel .segmentado button").forEach(b=>b.classList.toggle("ativo",b.dataset.sub===nome));
+  document.getElementById("eqAutorizacao").hidden=nome!=="autorizacao";
+  document.getElementById("eqMembros").hidden=nome!=="membros";
+  if(nome==="autorizacao"&&!eqSolicitacoes)carregarSolicitacoes();
+  if(nome==="membros"&&!eqMembros)carregarMembros();
+}
+
+/* ---------- visualização de um cadastro (janela) ---------- */
+function corpoCadastro(c){
+  const dl=(...itens)=>el("dl",{class:"dados"},itens.filter(Boolean).map(([r,v])=>linhaDado(r,v)));
+  const foto=c.foto?el("img",{class:"mc-foto",src:c.foto,alt:"Foto do membro"}):el("div",{class:"mc-foto mc-sem-foto",texto:"Sem foto"});
+  const idade=idadeDe(c.nascimento);
+  return el("div",{},
+    el("div",{class:"mc-topo"},foto,el("div",{},
+      el("strong",{texto:c.nome}),
+      el("p",{class:"ajuda",texto:"Cadastro em "+(c.dataCadastro||"—")}),
+      el("p",{class:"ajuda",texto:"Edição: "+(c.situacao==="Liberado"?"liberada":"protegida")})
+    )),
+    dl(["Sexo",c.sexo],["Data de nascimento",isoParaBR(c.nascimento)+(idade!==""?" ("+idade+" anos)":"")],["Estado civil",c.estadoCivil],
+       ["Endereço",c.endereco],["Bairro",c.bairro],["Celular / WhatsApp",c.celular],["E-mail",c.email],
+       ["Data de batismo",isoParaBR(c.dataBatismo)],["Atua em ministério",c.atuaMinisterio==="Sim"?"Sim — "+c.qualMinisterio:c.atuaMinisterio],["Trabalha atualmente",c.trabalha]),
+    c.filhos.length?el("div",{},el("strong",{texto:"Filhos que frequentam a igreja"}),
+      c.filhos.map(f=>el("p",{class:"ajuda",texto:f.nome+" — "+(f.sexo||"sexo não informado")+" — "+isoParaBR(f.nascimento)}))):
+      el("p",{class:"ajuda",texto:"Nenhum filho cadastrado."})
+  );
+}
+
+async function verCadastroEquipe(id){
+  abrirModal("Cadastro",[el("p",{class:"ajuda",texto:"Carregando..."})],[{texto:"Fechar",principal:true,acao:fecharModal}]);
+  try{
+    const r=await chamarEquipe("equipeCadastro",{idCadastro:id});
+    if(!r.ok)throw new Error(r.mensagem);
+    abrirModal("Cadastro de "+r.cadastro.nome,[corpoCadastro(r.cadastro)],[{texto:"Fechar",principal:true,acao:fecharModal}]);
+  }catch(err){
+    if(err.sessaoExpirada)return;
+    abrirModal("Cadastro",[el("div",{class:"aviso aviso-erro",texto:err.message})],[{texto:"Fechar",principal:true,acao:fecharModal}]);
+  }
+}
+
+/* ---------- link de acesso ---------- */
+function gerarLinkEquipe(idCadastro,nome,celular){
+  abrirModal("Código de acesso",[
+    el("p",{texto:"Vamos gerar um código de acesso individual para "+nome+"."}),
+    el("p",{texto:"O código abre somente o cadastro dessa pessoa e vale por 7 dias. Se já existir um código, o anterior deixa de valer."})
+  ],[
+    {texto:"Cancelar",acao:fecharModal},
+    {texto:"Gerar",principal:true,acao:async ev=>{
+      const btn=ev.currentTarget;btn.disabled=true;btn.textContent="Gerando...";
+      try{
+        const r=await chamarEquipe("equipeGerarLink",{idCadastro:idCadastro});
+        if(!r.ok)throw new Error(r.mensagem);
+        mostrarLinkGerado(r,celular);
+      }catch(err){
+        if(err.sessaoExpirada)return;
+        abrirModal("Código de acesso",[el("div",{class:"aviso aviso-erro",texto:err.message})],[{texto:"Fechar",principal:true,acao:fecharModal}]);
+      }
+    }}
+  ]);
+}
+
+function mostrarLinkGerado(r,celular){
+  const aviso=el("p",{class:"ajuda"});
+  const primeiro=String(r.nome||"").split(" ")[0];
+  const linkMeu=URL_SITE_EQUIPE+"?aba=meu&modo=codigo";
+  const texto="A paz, "+primeiro+"! Seu código de acesso ao Meu Cadastro da Primeira Igreja Batista em Vaz Lobo é:\n\n"+
+    r.codigo+"\n\n"+
+    "Válido até "+r.validoAte+".\n\n"+
+    "Para usar, abra o link abaixo e digite o código:\n"+linkMeu;
+  const wa=linkWhatsApp(celular,texto);
+  abrirModal("Código gerado",[
+    el("p",{texto:"Código de "+r.nome+" (válido até "+r.validoAte+"):"}),
+    el("div",{class:"codigo-grande",texto:r.codigo}),
+    aviso,
+    wa?el("a",{class:"botao",href:wa,target:"_blank",rel:"noopener",texto:"Enviar pelo WhatsApp"}):el("p",{class:"ajuda",texto:"Este cadastro não tem celular para envio pelo WhatsApp."}),
+    el("p",{class:"ajuda",texto:"Envie somente para a própria pessoa. Este código não aparece de novo depois que você fechar esta janela."})
+  ],[
+    {texto:"Copiar código",acao:async()=>{
+      try{await navigator.clipboard.writeText(r.codigo);aviso.textContent="Código copiado.";}
+      catch(e){aviso.textContent="Anote o código mostrado acima.";}
+    }},
+    {texto:"Fechar",principal:true,acao:fecharModal}
+  ]);
+}
+
+/* ---------- Autorização de Cadastros ---------- */
+const SITUACOES_SOL=[["Pendente","Pendentes"],["Autorizada","Autorizadas"],["Concluída","Concluídas"],["Recusada","Recusadas"],["","Todas"]];
+
+async function carregarSolicitacoes(){
+  const box=document.getElementById("eqAutorizacao");
+  box.replaceChildren(el("p",{class:"ajuda",texto:"Carregando pedidos..."}));
+  try{
+    const r=await chamarEquipe("equipeSolicitacoes");
+    if(!r.ok)throw new Error(r.mensagem);
+    eqSolicitacoes=r.solicitacoes;
+    renderSolicitacoes();
+  }catch(err){
+    if(err.sessaoExpirada)return;
+    box.replaceChildren(el("div",{class:"aviso aviso-erro",texto:err.message}),
+      el("button",{type:"button",class:"botao secundario",texto:"Tentar de novo",onclick:carregarSolicitacoes}));
+  }
+}
+
+function badgeSituacao(s){
+  const mapa={"Pendente":"badge-pendente","Autorizada":"badge-autorizada","Concluída":"badge-concluida","Recusada":"badge-recusada"};
+  return el("span",{class:"badge "+(mapa[s]||""),texto:s});
+}
+
+function confirmarDecisao(s,decisao){
+  const autorizar=decisao==="autorizar";
+  abrirModal(autorizar?"Autorizar a edição do cadastro?":"Recusar o pedido?",[
+    el("p",{texto:s.nome+" pediu a revisão: “"+s.motivo+"”."}),
+    el("p",{texto:autorizar
+      ?"Ao autorizar, o membro poderá editar o cadastro uma vez. Depois que ele reenviar, o cadastro volta a ficar protegido."
+      :"O cadastro continuará protegido e o membro verá que o pedido não foi autorizado."})
+  ],[
+    {texto:"Voltar",acao:fecharModal},
+    {texto:autorizar?"Autorizar":"Recusar",principal:true,acao:async ev=>{
+      const btn=ev.currentTarget;btn.disabled=true;btn.textContent="Salvando...";
+      try{
+        const r=await chamarEquipe("equipeDecidir",{idSolicitacao:s.id,decisao:decisao});
+        if(!r.ok)throw new Error(r.mensagem);
+        fecharModal();eqMembros=null;
+        await carregarSolicitacoes();
+      }catch(err){
+        if(err.sessaoExpirada)return;
+        abrirModal("Não foi possível salvar",[el("div",{class:"aviso aviso-erro",texto:err.message})],[{texto:"Fechar",principal:true,acao:()=>{fecharModal();carregarSolicitacoes();}}]);
+      }
+    }}
+  ]);
+}
+
+function cartaoSolicitacao(s){
+  const acoes=[el("button",{type:"button",class:"botao-peq",texto:"Ver cadastro",onclick:()=>verCadastroEquipe(s.idCadastro)})];
+  if(s.situacao==="Pendente"){
+    acoes.push(el("button",{type:"button",class:"botao-peq principal",texto:"Autorizar",onclick:()=>confirmarDecisao(s,"autorizar")}));
+    acoes.push(el("button",{type:"button",class:"botao-peq",texto:"Recusar",onclick:()=>confirmarDecisao(s,"recusar")}));
+  }
+  if(s.situacao==="Autorizada"){
+    const aviso="Olá! Seu pedido de revisão do cadastro foi autorizado. Acesse "+URL_SITE_EQUIPE+" , entre em Meu Cadastro e toque em Revisar Cadastro.";
+    const wa=linkWhatsApp(s.celular,aviso);
+    if(wa)acoes.push(el("a",{class:"botao-peq",href:wa,target:"_blank",rel:"noopener",texto:"Avisar pelo WhatsApp"}));
+  }
+  acoes.push(el("button",{type:"button",class:"botao-peq",texto:"Gerar código de acesso",onclick:()=>gerarLinkEquipe(s.idCadastro,s.nome,s.celular)}));
+  return el("article",{class:"cartao-sol"},
+    el("div",{class:"cartao-sol-topo"},el("strong",{texto:s.nome}),badgeSituacao(s.situacao)),
+    el("p",{class:"ajuda",texto:"Pedido em "+s.data+(s.celular?" · "+s.celular:"")}),
+    el("p",{class:"motivo",texto:"“"+s.motivo+"”"}),
+    s.decididoPor?el("p",{class:"ajuda",texto:(s.situacao==="Recusada"?"Recusado":"Autorizado")+" por "+s.decididoPor+" em "+s.dataDecisao}):null,
+    s.dataConclusao?el("p",{class:"ajuda",texto:"Concluída em "+s.dataConclusao}):null,
+    s.situacao==="Autorizada"?el("p",{class:"ajuda",texto:"Aguardando o membro editar e reenviar o cadastro."}):null,
+    el("div",{class:"acoes"},acoes)
+  );
+}
+
+const URL_SITE_EQUIPE="https://pibdevazlobo1939.github.io/Cadastro-de-Membros-PIBVL/";
+
+function renderSolicitacoes(){
+  const box=document.getElementById("eqAutorizacao");
+  const lista=eqSolicitacoes||[];
+  const cont=sit=>sit?lista.filter(s=>s.situacao===sit).length:lista.length;
+  const chips=el("div",{class:"chips",role:"group","aria-label":"Filtrar pedidos"},
+    SITUACOES_SOL.map(([sit,nome])=>el("button",{type:"button",class:"chip"+(filtroSolicitacao===sit?" ativo":""),
+      texto:nome+" ("+cont(sit)+")",onclick:()=>{filtroSolicitacao=sit;renderSolicitacoes();}}))
+  );
+  const filtrada=filtroSolicitacao?lista.filter(s=>s.situacao===filtroSolicitacao):lista;
+  const pend=cont("Pendente");
+  document.getElementById("eqSubPend").textContent=pend?" ("+pend+")":"";
+  box.replaceChildren(
+    el("div",{class:"eq-barra"},
+      el("p",{class:"ajuda",texto:"Pedidos de revisão de cadastro enviados pelos membros."}),
+      el("button",{type:"button",class:"botao-peq",texto:"Atualizar",onclick:carregarSolicitacoes})),
+    chips,
+    filtrada.length?el("div",{},filtrada.map(cartaoSolicitacao))
+      :el("p",{class:"ajuda vazio",texto:"Nenhum pedido nesta situação."})
+  );
+}
+
+/* ---------- Membros: números e gráficos ---------- */
+async function carregarMembros(){
+  const box=document.getElementById("eqMembros");
+  box.replaceChildren(el("p",{class:"ajuda",texto:"Carregando membros..."}));
+  try{
+    const r=await chamarEquipe("equipeMembros");
+    if(!r.ok)throw new Error(r.mensagem);
+    eqMembros=r.membros;eqFilhos=r.filhos;
+    renderMembros();
+  }catch(err){
+    if(err.sessaoExpirada)return;
+    box.replaceChildren(el("div",{class:"aviso aviso-erro",texto:err.message}),
+      el("button",{type:"button",class:"botao secundario",texto:"Tentar de novo",onclick:carregarMembros}));
+  }
+}
+
+function contar(lista,fn){const m=new Map();lista.forEach(x=>{const k=fn(x);m.set(k,(m.get(k)||0)+1);});return m;}
+
+function barraSegmentada(titulo,partes){
+  const total=partes.reduce((a,p)=>a+p.valor,0);
+  const visiveis=partes.filter(p=>p.valor>0);
+  const resumo=partes.map(p=>p.nome+": "+p.valor).join(", ");
+  const barra=el("div",{class:"segbar",role:"img","aria-label":titulo+" — "+resumo});
+  visiveis.forEach(p=>{
+    const pct=total?Math.round(p.valor*100/total):0;
+    const bloco=el("div",{class:"segbloco",tabindex:"0",style:"flex:"+p.valor+" 1 0;background:"+p.cor,
+      "aria-label":p.nome+": "+p.valor+" ("+pct+"%)"},pct>=14?el("span",{texto:pct+"%"}):null);
+    anexarDica(bloco,String(p.valor),p.nome+" ("+pct+"%)");
+    barra.appendChild(bloco);
+  });
+  const legenda=el("div",{class:"legenda"},partes.map(p=>
+    el("span",{class:"leg-item"},el("i",{style:"background:"+p.cor}),p.nome)));
+  return el("section",{class:"cartao-graf"},el("h4",{texto:titulo}),
+    total?barra:el("p",{class:"ajuda",texto:"Sem dados."}),legenda);
+}
+
+function barrasOrdenadas(titulo,pares){
+  const max=Math.max(1,...pares.map(p=>p[1]));
+  return el("section",{class:"cartao-graf"},el("h4",{texto:titulo}),
+    pares.length?el("div",{class:"ranked"},pares.map(([nome,n])=>{
+      const linha=el("div",{class:"ranked-linha",tabindex:"0","aria-label":nome+": "+n},
+        el("span",{class:"ranked-nome",texto:nome}),
+        el("span",{class:"ranked-trilho"},el("i",{style:"width:"+(n*100/max)+"%"})),
+        el("span",{class:"ranked-valor",texto:String(n)}));
+      anexarDica(linha,String(n),nome);
+      return linha;
+    })):el("p",{class:"ajuda",texto:"Sem dados."}));
+}
+
+function colunasMeses(contagens){
+  const max=Math.max(1,...contagens);
+  const hoje=new Date().getMonth();
+  const area=el("div",{class:"colunas",role:"group","aria-label":"Aniversariantes por mês"});
+  contagens.forEach((n,i)=>{
+    const rotulo=meses[i]+": "+n+(n===1?" aniversariante":" aniversariantes");
+    const col=el("button",{type:"button",class:"coluna"+(filtroMes===String(i)?" ativa":""),"aria-label":rotulo,"data-mes":String(i),
+      onclick:()=>{
+        filtroMes=filtroMes===String(i)?"":String(i);
+        document.getElementById("fMes").value=filtroMes;
+        marcarMesAtivo();limiteLista=50;renderListaMembros();
+        document.getElementById("listaMembros").scrollIntoView({behavior:"smooth",block:"start"});
+      }},
+      el("span",{class:"coluna-valor",texto:(n===max&&n>0)||i===hoje?String(n):""}),
+      el("span",{class:"coluna-barra",style:"height:"+(n?Math.max(4,n*100/max):2)+"px"}),
+      el("span",{class:"coluna-mes"+(i===hoje?" atual":""),texto:MESES_CURTOS[i]})
+    );
+    anexarDica(col,String(n),(n===1?"aniversariante":"aniversariantes")+" em "+meses[i]);
+    area.appendChild(col);
+  });
+  return el("section",{class:"cartao-graf largo"},el("h4",{texto:"Aniversariantes por mês"}),
+    area,el("p",{class:"ajuda",texto:"Toque em um mês para ver os aniversariantes na lista abaixo."}));
+}
+
+function marcarMesAtivo(){
+  document.querySelectorAll(".coluna").forEach(c=>c.classList.toggle("ativa",c.dataset.mes===filtroMes));
+}
+
+function renderMembros(){
+  const box=document.getElementById("eqMembros");
+  const m=eqMembros||[];
+  const total=m.length;
+  const sexo=contar(m,x=>x.sexo||"Não informado");
+  const fem=sexo.get("Feminino")||0,mas=sexo.get("Masculino")||0,outro=total-fem-mas;
+  const atua=m.filter(x=>x.atuaMinisterio==="Sim").length;
+  const bat=m.filter(x=>x.dataBatismo).length;
+  const trab=contar(m,x=>x.trabalha||"Não informado");
+  const t1=trab.get("Sim")||0,t2=trab.get("Não")||0,t3=trab.get("Aposentado(a)")||0,t4=total-t1-t2-t3;
+  const civil=[...contar(m,x=>x.estadoCivil||"Não informado").entries()].sort((a,b)=>b[1]-a[1]);
+  const mesesN=new Array(12).fill(0);
+  m.forEach(x=>{const mm=Number(String(x.nascimento).slice(5,7));if(mm>=1&&mm<=12)mesesN[mm-1]++;});
+
+  const tile=(rotulo,valor,nota,heroi)=>el("div",{class:"tile"+(heroi?" heroi":"")},
+    el("span",{class:"tile-rotulo",texto:rotulo}),el("span",{class:"tile-valor",texto:String(valor)}),nota?el("span",{class:"tile-nota",texto:nota}):null);
+
+  const kpis=el("div",{class:"kpis"},
+    tile("Total de membros",total,"",true),
+    tile("Mulheres",fem),tile("Homens",mas),
+    tile("Filhos cadastrados",eqFilhos.length,"não contam como membros"));
+
+  const sexoPartes=[{nome:"Feminino",valor:fem,cor:COR_1},{nome:"Masculino",valor:mas,cor:COR_2}];
+  if(outro>0)sexoPartes.push({nome:"Não informado",valor:outro,cor:COR_3});
+  const trabPartes=[{nome:"Trabalham",valor:t1,cor:COR_1},{nome:"Não trabalham",valor:t2,cor:COR_2},{nome:"Aposentados",valor:t3,cor:COR_3}];
+
+  const tabela=el("details",{class:"tabela-num"},el("summary",{texto:"Ver os números em tabela"}),
+    el("table",{},el("thead",{},el("tr",{},el("th",{texto:"Indicador"}),el("th",{texto:"Pessoas"}))),
+      el("tbody",{},[
+        ["Total de membros",total],["Mulheres",fem],["Homens",mas],["Filhos cadastrados",eqFilhos.length],
+        ["Atuam em ministério",atua],["Não atuam em ministério",total-atua],
+        ["Trabalham",t1],["Não trabalham",t2],["Aposentados",t3],
+        ...civil.map(([n,v])=>["Estado civil: "+n,v]),
+        ...mesesN.map((v,i)=>["Aniversário em "+meses[i],v])
+      ].map(([a,b])=>el("tr",{},el("td",{texto:a}),el("td",{texto:String(b)}))))));
+
+  const opcoesMes=[el("option",{value:"",texto:"Todos os meses"}),...meses.map((n,i)=>el("option",{value:String(i),texto:n}))];
+  const campoBusca=el("input",{id:"fBusca",type:"search",placeholder:"Buscar por nome, celular ou e-mail","aria-label":"Buscar membro"});
+  const selMes=el("select",{id:"fMes","aria-label":"Aniversário em"},opcoesMes);
+  const selFilhos=el("select",{id:"fFilhos","aria-label":"Filhos"},
+    el("option",{value:"",texto:"Com ou sem filhos"}),el("option",{value:"com",texto:"Somente quem tem filhos cadastrados"}));
+  campoBusca.value=filtroBusca;selMes.value=filtroMes;selFilhos.value=filtroFilhos;
+  campoBusca.addEventListener("input",()=>{filtroBusca=campoBusca.value;limiteLista=50;renderListaMembros();});
+  selMes.addEventListener("change",()=>{filtroMes=selMes.value;marcarMesAtivo();limiteLista=50;renderListaMembros();});
+  selFilhos.addEventListener("change",()=>{filtroFilhos=selFilhos.value;limiteLista=50;renderListaMembros();});
+
+  box.replaceChildren(
+    el("div",{class:"eq-barra"},el("p",{class:"ajuda",texto:"Números calculados com os cadastros enviados. Filhos não entram na contagem de membros."}),
+      el("button",{type:"button",class:"botao-peq",texto:"Atualizar",onclick:()=>{eqMembros=null;carregarMembros();}})),
+    kpis,
+    el("div",{class:"graficos"},
+      barraSegmentada("Sexo",sexoPartes),
+      barraSegmentada("Atuação em ministério",[{nome:"Atuam em ministério",valor:atua,cor:COR_1},{nome:"Não atuam",valor:total-atua,cor:COR_2}]),
+      barraSegmentada("Situação de trabalho",t4>0?trabPartes.concat([{nome:"Não informado",valor:t4,cor:"#898781"}]):trabPartes),
+      barrasOrdenadas("Estado civil",civil),
+      colunasMeses(mesesN)),
+    tabela,
+    el("h3",{class:"secao-titulo bloco",texto:"Lista de membros"}),
+    el("div",{class:"filtros"},campoBusca,selMes,selFilhos),
+    el("div",{id:"listaMembros"})
+  );
+  renderListaMembros();
+}
+
+function renderListaMembros(){
+  const alvo=document.getElementById("listaMembros");
+  if(!alvo)return;
+  const filhosPor=new Map();
+  eqFilhos.forEach(f=>{if(!filhosPor.has(f.idResponsavel))filhosPor.set(f.idResponsavel,[]);filhosPor.get(f.idResponsavel).push(f);});
+  const q=semAcento(filtroBusca).trim(),qd=soDigitos(filtroBusca);
+  let lista=eqMembros.filter(x=>{
+    if(q){
+      const texto=semAcento(x.nome+" "+x.email);
+      const okTexto=texto.includes(q);
+      const okFone=qd.length>=3&&soDigitos(x.celular).includes(qd);
+      if(!okTexto&&!okFone)return false;
+    }
+    if(filtroMes!==""&&Number(String(x.nascimento).slice(5,7))-1!==Number(filtroMes))return false;
+    if(filtroFilhos==="com"&&!filhosPor.has(x.id))return false;
+    return true;
+  });
+  lista.sort((a,b)=>filtroMes!==""
+    ?Number(String(a.nascimento).slice(8,10))-Number(String(b.nascimento).slice(8,10))||a.nome.localeCompare(b.nome,"pt-BR")
+    :a.nome.localeCompare(b.nome,"pt-BR"));
+  const mostrar=lista.slice(0,limiteLista);
+  alvo.replaceChildren(...[
+    el("p",{class:"ajuda",texto:"Mostrando "+mostrar.length+" de "+lista.length+(lista.length===1?" membro":" membros")+"."}),
+    mostrar.map(x=>{
+      const fl=filhosPor.get(x.id)||[];
+      const wa=linkWhatsApp(x.celular,"Olá, "+String(x.nome).split(" ")[0]+"! Aqui é da Primeira Igreja Batista em Vaz Lobo.");
+      const dia=Number(String(x.nascimento).slice(8,10)),mes=Number(String(x.nascimento).slice(5,7));
+      return el("article",{class:"membro"},
+        el("div",{class:"membro-info"},
+          el("strong",{texto:x.nome}),
+          el("span",{class:"ajuda",texto:[x.celular,x.bairro].filter(Boolean).join(" · ")||"Sem celular informado"}),
+          filtroMes!==""&&dia?el("span",{class:"ajuda",texto:"Aniversário em "+String(dia).padStart(2,"0")+"/"+String(mes).padStart(2,"0")}):null,
+          fl.length?el("span",{class:"ajuda",texto:"Filhos: "+fl.map(f=>f.nome).join(", ")}):null
+        ),
+        el("div",{class:"acoes"},
+          wa?el("a",{class:"botao-peq principal",href:wa,target:"_blank",rel:"noopener",texto:"WhatsApp"}):null,
+          el("button",{type:"button",class:"botao-peq",texto:"Ver cadastro",onclick:()=>verCadastroEquipe(x.id)}),
+          el("button",{type:"button",class:"botao-peq",texto:"Gerar código",onclick:()=>gerarLinkEquipe(x.id,x.nome,x.celular)})
+        ));
+    }),
+    lista.length>mostrar.length?el("button",{type:"button",class:"botao secundario",texto:"Mostrar mais",onclick:()=>{limiteLista+=50;renderListaMembros();}}):null,
+    lista.length?null:el("p",{class:"ajuda vazio",texto:"Nenhum membro encontrado com esses filtros."})
+  ].flat().filter(Boolean));
+}
+
+</script>
+</body>
+</html>
