@@ -20,6 +20,7 @@ input:focus,select:focus{outline:2px solid #12a7d455;border-color:var(--claro)}i
 .ajuda{font-size:12px;color:#64748b;line-height:1.5;margin:6px 0 0}.bloco{margin-top:27px}.preview{display:none;width:110px;height:110px;object-fit:cover;border-radius:50%;margin-top:12px;border:3px solid #dce9f9}
 .botao{width:100%;margin-top:24px;padding:14px;border:0;border-radius:9px;background:var(--azul);color:white;font-size:16px;font-weight:bold;cursor:pointer}.botao:disabled{opacity:.6;cursor:wait}.secundario{background:#eaf1fb;color:var(--azul);margin-top:10px}
 #status{display:none;margin-top:17px;padding:13px;border-radius:8px;font-size:14px;line-height:1.5;text-align:center}#status.sucesso{display:block;background:#e9f8ef;color:#17633a}#status.erro{display:block;background:#fff0f0;color:#9d2020}
+.sobre{padding:25px}.sobre h3{color:var(--azul);font-size:17px;margin:20px 0 6px}.sobre p{line-height:1.65;font-size:15px;color:#2b3a55;margin:8px 0}
 .rodape{text-align:center;padding:17px;color:#64748b;font-size:12px;border-top:1px solid #e8eef6}
 @media(max-width:560px){body{padding:10px 7px}.topo{padding:23px 14px}form{padding:20px 15px}.grade{grid-template-columns:1fr;gap:15px}.completo{grid-column:auto}}
 
@@ -314,13 +315,37 @@ body:has(#abaMeuCadastro:not([hidden]) #mcCadastro:not([hidden])) .topo{display:
   </div>
 </div>
 
-<footer class="rodape">Primeira Igreja Batista em Vaz Lobo</footer>
+<div id="abaSobre" hidden>
+  <section class="sobre">
+    <h2 class="secao-titulo">Sobre o Cadastro de Membros</h2>
+    <p>Este é o sistema de Cadastro de Membros da Primeira Igreja Batista em Vaz Lobo. Ele mantém os dados dos irmãos organizados e sempre atualizados, de forma simples.</p>
+
+    <h3>Por que você pode ver o seu cadastro?</h3>
+    <p>Na aba <strong>Meu Cadastro</strong>, cada irmão pode consultar o que preencheu e conferir se está tudo certo. Se precisar corrigir alguma informação, basta pedir autorização para editar. Assim, os dados da igreja ficam corretos com a ajuda de todos.</p>
+
+    <h3>Seus dados estão seguros</h3>
+    <p>As informações e as fotos enviadas ficam guardadas em uma área segura. Somente a <strong>equipe de Comunicação</strong> e a <strong>1ª Secretaria</strong> da igreja têm acesso. Fique tranquilo: seus dados não ficam abertos ao público.</p>
+
+    <h3>Nosso objetivo</h3>
+    <p>A equipe de Comunicação busca automatizar ferramentas da igreja e trazer novas funcionalidades para facilitar o dia a dia dos irmãos. A ideia é tornar a comunicação entre a Comunicação e a igreja mais fluida e oferecer uma boa experiência com a tecnologia. Estamos sempre à disposição para ajudar no que for preciso.</p>
+    <p>Fazemos esse trabalho também como uma forma de adorar a Deus por meio dessas ferramentas.</p>
+
+    <div class="aviso aviso-info">
+      <strong>Sugestões e comentários</strong>
+      <p>Tem alguma sugestão, comentário ou ideia de melhoria? Envie para o número da equipe de Comunicação:</p>
+      <p><a class="botao" style="display:block;text-align:center;text-decoration:none;color:#fff" id="sobreWhats" target="_blank" rel="noopener" href="https://wa.me/5521966709417?text=Ol%C3%A1%2C%20tenho%20uma%20sugest%C3%A3o%20sobre%20o%20Cadastro%20de%20Membros.">Falar com a Comunicação — (21) 96670-9417</a></p>
+    </div>
+  </section>
+</div>
+
+<footer class="rodape">Desenvolvido pela equipe de Comunicação</footer>
 </main>
 
 <nav class="menu-inferior" aria-label="Navegação principal">
   <button type="button" data-aba="cadastro" class="ativo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M19 8v6M16 11h6"/></svg><span>Cadastro de Membros</span></button>
   <button type="button" data-aba="meu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="9" cy="11" r="2.5"/><path d="M5.5 17a3.5 3.5 0 0 1 7 0M15 9h3M15 13h3"/></svg><span>Meu Cadastro</span></button>
   <button type="button" data-aba="equipe"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l8 3v6c0 4.5-3.2 8-8 9-4.8-1-8-4.5-8-9V6l8-3z"/><path d="M9 12l2 2 4-4"/></svg><span>Área da Equipe</span></button>
+  <button type="button" data-aba="sobre"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h.01"/></svg><span>Sobre</span></button>
 </nav>
 
 <div id="modalFundo" hidden><div id="modalCaixa" role="dialog" aria-modal="true"></div></div>
@@ -801,14 +826,14 @@ function consultarStatusEnvio(identificador){
 }
 
 async function verificarStatusEnvio(identificador){
-  await new Promise(r=>setTimeout(r,3000));
+  await new Promise(r=>setTimeout(r,1200));
   while(envioPendente&&envioPendente.identificador===identificador){
     const resposta=await consultarStatusEnvio(identificador);
     if(resposta&&resposta.encontrado&&resposta.dados){
       concluirEnvio(identificador,resposta.dados);
       return;
     }
-    await new Promise(r=>setTimeout(r,2500));
+    await new Promise(r=>setTimeout(r,1000));
   }
 }
 
@@ -1054,6 +1079,7 @@ const TEL_COMUNICACAO="+55 21 96670-9417";
 const abaCadastro=document.getElementById("abaCadastro");
 const abaMeuCadastro=document.getElementById("abaMeuCadastro");
 const abaEquipe=document.getElementById("abaEquipe");
+const abaSobre=document.getElementById("abaSobre");
 const mcEntrada=document.getElementById("mcEntrada");
 const mcCadastro=document.getElementById("mcCadastro");
 const mcStatusEntrada=document.getElementById("mcStatusEntrada");
@@ -1157,13 +1183,15 @@ function irParaAba(nome){
   abaCadastro.hidden=nome!=="cadastro";
   abaMeuCadastro.hidden=nome!=="meu";
   abaEquipe.hidden=nome!=="equipe";
+  abaSobre.hidden=nome!=="sobre";
   document.querySelectorAll(".menu-inferior button").forEach(b=>
     b.classList.toggle("ativo",b.dataset.aba===nome)
   );
   const textos={
     cadastro:["Cadastro de Membros","Preencha os dados abaixo com atenção."],
     meu:["Meu Cadastro","Consulte os dados que você preencheu."],
-    equipe:["Área da Equipe","Acesso restrito à equipe autorizada."]
+    equipe:["Área da Equipe","Acesso restrito à equipe autorizada."],
+    sobre:["Sobre","Como o sistema funciona e como cuidamos dos seus dados."]
   };
   document.getElementById("tituloTopo").textContent=textos[nome][0];
   document.getElementById("subtituloTopo").textContent=textos[nome][1];
@@ -1266,7 +1294,8 @@ function modoEntrada(m){
   formCriar.hidden=m!=="criar";
   formPasse.hidden=m!=="passe";
   document.getElementById("mcModoBotoes").hidden=m==="criar"||m==="passe";
-  document.getElementById("mcModoCriar").hidden=m!=="criar";
+  document.getElementById("mcModoCriar").hidden=m!=="criar"&&m!=="passe";
+  document.querySelectorAll("#mcModoCriar button").forEach(b=>b.classList.toggle("ativo",b.dataset.modo==="criar"));
   document.querySelectorAll("#mcModoBotoes button").forEach(b=>b.classList.toggle("ativo",b.dataset.modo===m));
   document.getElementById("mcTituloEntrada").textContent=m==="criar"?"Primeiro acesso: crie sua senha":m==="passe"?"Quase pronto: crie sua senha":"Consultar meu cadastro";
   if(m==="criar")passoCriar(1);
@@ -1276,7 +1305,7 @@ function passoCriar(n){
   document.getElementById("mcPasso1").hidden=n!==1;
   document.getElementById("mcPasso2").hidden=n!==2;
 }
-document.querySelectorAll("#mcModoBotoes button,#mcModoCriar button").forEach(b=>b.addEventListener("click",()=>modoEntrada(b.dataset.modo)));
+document.querySelectorAll("#mcModoBotoes button,#mcModoCriar button").forEach(b=>b.addEventListener("click",()=>{if(b.dataset.modo==="criar"&&!formPasse.hidden)return;modoEntrada(b.dataset.modo);}));
 document.getElementById("mcPrimeiro").addEventListener("click",()=>{
   document.getElementById("mcCriarEmail").value=document.getElementById("mcEmail").value;
   modoEntrada("criar");
@@ -1561,7 +1590,9 @@ function blocoCadastro(c,ehProprio){
   }else if(sol&&sol.situacao==="Recusada"){
     faixa=el("div",{class:"aviso aviso-info"},
       el("strong",{texto:"O último pedido de edição não foi autorizado"}),
-      el("p",{texto:"Fale com a equipe de Comunicação ou com a 1ª Secretaria para entender o motivo. Se necessário, faça um novo pedido."})
+      sol.motivoRecusa?el("p",{texto:"Motivo informado pela equipe: “"+sol.motivoRecusa+"”"}):null,
+      el("p",{texto:"Para entender melhor o motivo, fale com a equipe de Comunicação ou com a 1ª Secretaria."}),
+      el("p",{texto:"Se quiser, toque em “Revisar Cadastro” e faça uma nova solicitação de edição. Não é preciso fazer um novo cadastro, pois o seu já está salvo."})
     );
   }
 
@@ -2198,17 +2229,25 @@ function badgeSituacao(s){
 
 function confirmarDecisao(s,decisao){
   const autorizar=decisao==="autorizar";
+  const campoMotivoRecusa=el("textarea",{rows:"3",maxlength:"400",placeholder:"Explique o motivo da recusa (obrigatório)",style:"width:100%;box-sizing:border-box;padding:10px;border:1px solid #c9d6ea;border-radius:10px;font:inherit;margin-top:8px"});
   abrirModal(autorizar?"Autorizar a edição do cadastro?":"Recusar o pedido?",[
     el("p",{texto:s.nome+" pediu a revisão: “"+s.motivo+"”."}),
     el("p",{texto:autorizar
       ?"Ao autorizar, o membro poderá editar o cadastro uma vez. Depois que ele reenviar, o cadastro volta a ficar protegido."
-      :"O cadastro continuará protegido e o membro verá que o pedido não foi autorizado."})
+      :"O cadastro continuará protegido e o membro verá o motivo que você escrever abaixo."}),
+    autorizar?null:campoMotivoRecusa
   ],[
     {texto:"Voltar",acao:fecharModal},
     {texto:autorizar?"Autorizar":"Recusar",principal:true,acao:async ev=>{
-      const btn=ev.currentTarget;btn.disabled=true;btn.textContent="Salvando...";
+      const btn=ev.currentTarget;
+      if(!autorizar&&campoMotivoRecusa.value.trim().length<5){
+        campoMotivoRecusa.focus();
+        campoMotivoRecusa.style.borderColor="#b42318";
+        return;
+      }
+      btn.disabled=true;btn.textContent="Salvando...";
       try{
-        const r=await chamarEquipe("equipeDecidir",{idSolicitacao:s.id,decisao:decisao});
+        const r=await chamarEquipe("equipeDecidir",{idSolicitacao:s.id,decisao:decisao,motivoRecusa:autorizar?"":campoMotivoRecusa.value.trim()});
         if(!r.ok)throw new Error(r.mensagem);
         fecharModal();eqMembros=null;
         await carregarSolicitacoes();
@@ -2237,6 +2276,7 @@ function cartaoSolicitacao(s){
     el("p",{class:"ajuda",texto:"Pedido em "+s.data+(s.celular?" · "+s.celular:"")}),
     el("p",{class:"motivo",texto:"“"+s.motivo+"”"}),
     s.decididoPor?el("p",{class:"ajuda",texto:(s.situacao==="Recusada"?"Recusado":"Autorizado")+" por "+s.decididoPor+" em "+s.dataDecisao}):null,
+    s.situacao==="Recusada"&&s.motivoRecusa?el("p",{class:"ajuda",texto:"Motivo da recusa: “"+s.motivoRecusa+"”"}):null,
     s.dataConclusao?el("p",{class:"ajuda",texto:"Concluída em "+s.dataConclusao}):null,
     s.situacao==="Autorizada"?el("p",{class:"ajuda",texto:"Aguardando o membro editar e reenviar o cadastro."}):null,
     el("div",{class:"acoes"},acoes)
